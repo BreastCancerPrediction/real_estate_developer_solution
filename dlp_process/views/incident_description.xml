@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="incident_description_list_view" model="ir.ui.view">
+        <field name="name">incident.description.list.view</field>
+        <field name="model">incident.description</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="helpdesk_tag_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="new_action_incident_description" model="ir.actions.act_window">
+        <field name="name">Incident Description</field>
+        <field name="res_model">incident.description</field>
+        <field name="view_mode">list</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new Incident Description record.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="new_incident_description_id"
+            name="Incident Description"
+            parent="helpdesk.helpdesk_menu_config"
+            action="new_action_incident_description"
+            sequence="25"/>
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="email_template_under_scope" model="mail.template">
+        <field name="name">Customer Not Under Scope Notification</field>
+        <field name="model_id" ref="appointment.model_appointment_type"/>
+        <field name="subject">Process Completed: Not Under DLP Scope</field>
+        <field name="email_from">{{user.email or 'noreply@example.com'}}</field>
+        <field name="email_to">{{object.customer.email}}</field>
+        <field name="body_html" type="html">
+            <p>Dear <t t-out="object.customer.name"/>,</p>
+            <p>Thank you for your submission regarding the DLP assessment.</p>
+
+            <p>After reviewing your case, it has been determined that it is <strong>Not Under DLP Scope</strong>.</p>
+
+            <p>As a result, no further action is required and the process has been marked as <strong>Completed</strong>.</p>
+            <p>Regards,</p>
+            <p><t t-out="user.name"/><br/>
+            <t t-out="user.company_id.name"/><br/>
+            </p>
+
+        </field>
+    </record>
+</odoo>

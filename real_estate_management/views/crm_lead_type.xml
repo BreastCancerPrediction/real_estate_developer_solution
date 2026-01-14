@@ -1,0 +1,47 @@
+<odoo>
+    <record id="view_crm_lead_type_form" model="ir.ui.view">
+        <field name="name">view.crm.lead.type.form</field>
+        <field name="model">crm.lead.type</field>
+        <field name="arch" type="xml">
+            <form string="Lead Type">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_crm_lead_type_list" model="ir.ui.view">
+        <field name="name">view.crm.lead.type.list</field>
+        <field name="model">crm.lead.type</field>
+        <field name="arch" type="xml">
+            <list string="Lead Type">
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_crm_lead_type" model="ir.actions.act_window">
+        <field name="name">Crm Lead type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">crm.lead.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first housekeeping info!
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem name="Lead Type"
+              id="crm_submenu_lead_type"
+              action="real_estate_management.action_crm_lead_type"
+              parent="real_estate_management.crm_menu_lead_source"/>
+
+
+</odoo>

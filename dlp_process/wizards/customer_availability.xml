@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View for the Appointment Action Wizard -->
+    <record id="view_customer_availability_form" model="ir.ui.view">
+        <field name="name">customer.availability.form</field>
+        <field name="model">customer.availability</field>
+        <field name="arch" type="xml">
+            <form string="Appointment Action">
+                <sheet>
+                    <group>
+                        <field name="appointment_type_id" invisible="1"/>
+                        <field name="customer_availability"/>
+                        <field name="customer_not_availability_image" widget="image" invisible="customer_availability != 'not_available'"/>
+                        <field name ="checkin_time"/>
+                    </group>
+                    <footer>
+                        <button string="Update" type="object" name="action_apply_availability" class="btn-primary"/>
+                        <button string="Cancel" special="cancel" class="btn-secondary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action Window for Appointment Action Wizard -->
+    <record id="action_customer_availability_window" model="ir.actions.act_window">
+        <field name="name">Customer Availability</field>
+        <field name="res_model">customer.availability</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

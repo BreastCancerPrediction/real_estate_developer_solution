@@ -1,0 +1,65 @@
+<odoo>
+    <template id="contactus_form_inherit" inherit_id="website.contactus">
+
+        <xpath expr="//h1" position="replace">
+            <h1>Real Estate Inquiry</h1>
+        </xpath>
+
+        <xpath expr="//p[contains(@class, 'lead')]" position="replace">
+            <p class="lead">
+                Have questions about buying, selling, or renting a property?
+                <br/>
+                Get in touch with us for expert real estate assistance!
+            </p>
+        </xpath>
+
+<!--        <xpath expr="//div[contains(@class, 's_website_form_rows')]/div[6]" position="after">-->
+<!--            <div class="mb-3 col-lg-6 s_website_form_field s_website_form_new_custom" data-type="char"-->
+<!--                 data-name="Field">-->
+<!--                <label class="s_website_form_label" style="width: 200px" for="street">-->
+<!--                    <span class="s_website_form_label_content">City</span>-->
+<!--                </label>-->
+<!--                <input id="city" type="text" class="form-control s_website_form_input" name="City"/>-->
+<!--            </div>-->
+<!--            <div class="mb-3 col-lg-6 s_website_form_field s_website_new_form_custom" data-type="char"-->
+<!--                 data-name="Field">-->
+<!--                <label class="s_website_form_label" style="width: 200px" for="street">-->
+<!--                    <span class="s_website_form_label_content">State</span>-->
+<!--                </label>-->
+<!--                <input id="state" type="text" class="form-control s_website_form_input" name="State"/>-->
+<!--            </div>-->
+<!--        </xpath>-->
+
+        <xpath expr="//div[@data-name='Submit Button']" position="attributes">
+            <attribute name="id">sub_btn</attribute>
+        </xpath>
+
+        <xpath expr="//textarea[contains(@name, 'description')]" position="attributes">
+            <attribute name="rows">1</attribute>
+        </xpath>
+        <!-- Replace Company Details Section with an Image -->
+        <xpath expr="//div[contains(@class, 'col-lg-4') and contains(@class, 'offset-lg-1')]" position="replace">
+            <div class="col-lg-4 offset-lg-1 mt-4 mt-lg-0 text-center">
+                <img src="/real_estate_management/static/src/img/Enquiry_Form.jpg" alt="Contact Image"
+                     class="img-fluid rounded"/>
+            </div>
+        </xpath>
+        <!-- Center the Submit Button -->
+        <xpath expr="//div[contains(@class, 's_website_form_submit')]" position="attributes">
+            <attribute name="class">mb-0 py-2 col-12 s_website_form_submit s_website_form_no_submit_label text-center
+            </attribute>
+        </xpath>
+        <!-- Add Grey Background to Form -->
+        <xpath expr="//section[contains(@class, 's_website_form')]" position="attributes">
+            <attribute name="t-attf-style">background-color: #f0f0f0; padding: 20px; border-radius: 8px;</attribute>
+        </xpath>
+
+    </template>
+
+   <!--        <xpath expr="//input[@name='phone']" position="attributes">-->
+        <!--            <attribute name="pattern">^\d{10}$</attribute>-->
+        <!--            <attribute name="title">Please enter a valid 10-digit phone number</attribute>-->
+        <!--        </xpath>-->
+
+</odoo>
+

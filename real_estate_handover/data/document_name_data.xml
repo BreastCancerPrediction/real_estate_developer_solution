@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+              <!--Handover Document Names-->
+    <record id="document_emirates_id" model="handover.documents">
+        <field name="name">Emirates ID</field>
+    </record>
+
+    <record id="document_passport" model="handover.documents">
+        <field name="name">Passport</field>
+    </record>
+
+    <record id="document_addc" model="handover.documents">
+        <field name="name">ADDC</field>
+    </record>
+
+    <record id="document_spa" model="handover.documents">
+        <field name="name">SPA</field>
+    </record>
+
+     <record id="document_qa_snagging" model="handover.documents">
+        <field name="name">QA Snagging Report</field>
+    </record>
+
+    <record id="document_qa_desnagging" model="handover.documents">
+        <field name="name">QA Desnagging Report</field>
+    </record>
+
+    <record id="document_cho_snagging" model="handover.documents">
+        <field name="name">CHO Snagging Report</field>
+    </record>
+
+     <record id="document_cho_desnagging" model="handover.documents">
+        <field name="name">CHO DeSnagging Report</field>
+    </record>
+
+      <record id="document_soa" model="handover.documents">
+        <field name="name">SOA</field>
+    </record>
+
+    <record id="document_bank_noc" model="handover.documents">
+        <field name="name">Bank NOC</field>
+    </record>
+
+    <record id="document_tittle_deed" model="handover.documents">
+        <field name="name">Title deed Report</field>
+    </record>
+
+</odoo>

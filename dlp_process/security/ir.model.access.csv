@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_incident_description,incident_description,model_incident_description,base.group_user,1,1,1,1
+access_problem_code,problem_code,model_problem_code,base.group_user,1,1,1,1
+access_category_info,category_info,model_category_info,base.group_user,1,1,1,1
+access_dlp_case,dlp_case,model_dlp_case,base.group_user,1,1,1,1
+access_customer_availability,customer_availability,model_customer_availability,base.group_user,1,1,1,1
+access_buttons_action,access_buttons_action,model_buttons_action,,1,1,1,1
+access_under_scope,access_under_scope,model_under_scope,,1,1,1,1
+access_schedule_appointment,access_schedule_appointment,model_schedule_appointment,,1,1,1,1
+access_after_rectification,access_after_rectification,model_after_rectification,,1,1,1,1
+access_customer_feedback_user,access_customer_feedback_user,model_customer_feedback,base.group_user,1,1,1,1
+

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="projects_view" name="Projects View">
+    <t t-call="website.layout">
+      <t t-set="title">Projects</t>
+      <section class="s_three_columns o_cc o_colored_level pt56 pb0">
+        <div class="container">
+          <div class="row d-flex align-items-stretch">
+            <div class="col-lg-12 text-center mb-4">
+              <h2 class="display-5">Buying Residence for Family and Future Investment</h2>
+              <p class="lead">Carefully handpicked by our experts</p>
+            </div>
+
+            <!-- Project Cards -->
+            <t t-foreach="projects" t-as="project">
+              <div class="col-lg-4 mb-4" >
+                <div class="card h-100 shadow"
+                     style="border-radius: 12px !important; box-shadow: 0 8px 12px rgba(214, 209, 209, 0.8) inset !important;">
+                    <figure class="o_card_img_wrapper ratio ratio-16x9 mb-0">
+                        <img t-att-src="'/web/image/project.project/%s/property_image' % project.id"
+                            class="card-img-top"
+                            alt="Project Image"
+                            loading="lazy"/>
+                        <t t-if="project.property_image">
+                            <img t-att-src="image_data_uri(project.property_image)"
+                                 class="card-img-top"
+                                 alt="..." style="height:200px;"/>
+                        </t>
+                    </figure>
+                  <div class="card-body" style="border:1px solid lightgray;">
+                    <!-- <p class="h5 mb-2">
+                      <i class="fa fa-home me-1"></i><t t-esc="project.type"/>
+                      <i class="fa fa-home mx-2"></i><t t-esc="project.bhk"/> BHK
+                      <i class="fa fa-home mx-2"></i>Apartment
+                    </p> -->
+                    <h5 class="card-title mt-3 fw-bold"><t t-esc="project.name"/></h5>
+                    <p class="card-text"><t t-esc="project.description"/></p>
+                    <div class='w-100 d-flex justify-content-center align-items-center'><a t-att-href="'/properties/%s' % project.id" class="btn btn-primary">View details</a></div>
+                  </div>
+                </div>
+              </div>
+            </t>
+            <!-- End Project Cards -->
+
+          </div>
+        </div>
+      </section>
+    </t>
+  </template>
+</odoo>

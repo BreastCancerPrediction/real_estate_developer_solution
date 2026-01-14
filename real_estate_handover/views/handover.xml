@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_handover_process_form" model="ir.ui.view">
+        <field name="name">handover.process.form.view</field>
+        <field name="model">handover.process</field>
+        <field name="arch" type="xml">
+            <form string="Handover Process">
+                <button string="Send NOC To Customer" name="send_noc_to_customer" type="object" class="btn-primary"
+                        data-hotkey="q" invisible="notice_of_completion_sent == True"
+                        groups="real_estate_handover.group_crm_user"/>
+                <button string="Completed KHO Process" name="completed_kho_process" type="object" class="btn-primary"
+                        data-hotkey="q" invisible="state != 'kho_appointment'"
+                        groups="real_estate_handover.group_crm_user"/>
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable': True}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="handover_name" required="1"/>
+                            <field name="customer_name" required="1"/>
+                            <field name="sale_order_id" required="1"/>
+                            <field name="unit" required="1"/>
+                            <field name="property_name" required="1"/>
+                            <field name="ho_owner_name"/>
+                            <field name="purchase_price"/>
+                            <field name="is_manual_created"/>
+                        </group>
+                        <group>
+                            <field name="handover_type" required="1"/>
+                            <field name="customer_email" required="1"/>
+                            <field name="comments"/>
+                            <field name="unit_ready"/>
+                            <field name="date_of_customer_contacted" required="1"/>
+                            <field name="owner_profile"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Operation Team">
+                            <group>
+                                <field name="adm_registration_fee"/>
+                                <field name="mortgage_fee_rate"/>
+                                <field name="plot_number"/>
+                            </group>
+                        </page>
+                        <page string="GR Team">
+                            <group>
+                                <field name="mortgage_release_amount"/>
+                                <field name="adm_plot_number"/>
+                            </group>
+                        </page>
+                        <page string="Finance Team">
+                            <group>
+                                <group>
+                                    <field name="early_settlement"/>
+                                    <field name="collection_till_handover"/>
+                                    <field name="collection_of_pdcs"/>
+                                    <field name="collection_of_pdcs_amount"/>
+                                    <field name="hassantuk_fees"/>
+                                    <field name="mortgage_fee"/>
+                                    <field name="service_change_collection_amount"/>
+                                    <field name="bounced_cheque_fees"/>
+                                    <field name="late_payment_fees"/>
+                                    <field name="admin_fees"/>
+                                    <field name="mortgage_bank_name"/>
+                                    <field name="mortgage_fee_rate_by"/>
+                                </group>
+                                <group>
+                                    <field name="collection_till_handover_amount"/>
+                                    <field name="collection_on_ho"/>
+                                    <field name="collection_on_ho_amount"/>
+                                    <field name="title_deed_fee"/>
+                                    <field name="service_change_collection"/>
+                                    <field name="total_collection_before_ho"/>
+                                    <field name="ho_installment_collection"/>
+                                    <field name="post_ho_pcds_collection"/>
+                                    <field name="adm_registration_fee_paid_by"/>
+                                    <field name="service_charge_clearance"/>
+                                    <field name="service_charges_confirmed"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="CRM Team">
+                            <group>
+                                <group>
+                                    <field name="orientation_appointment_status"/>
+                                    <field name="promise_to_pay_date"/>
+                                    <field name="expected_receive_date_mortgage"/>
+                                    <field name="owner_rep_name"/>
+                                    <field name="owner_rep_number"/>
+                                    <field name="owner_rep_email"/>
+                                    <field name="notice_of_completion_date"/>
+                                    <field name="settlement_follow_up_date"/>
+                                </group>
+                                <group>
+                                    <field name="customer_availability_for_cho"/>
+                                    <field name="payment_type"/>
+                                    <field name="home_orientation_invitation_date"/>
+                                    <field name="bank_name"/>
+                                    <field name="bank_rep_name"/>
+                                    <field name="bank_rep_phone"/>
+                                    <field name="bank_rep_email"/>
+                                    <field name="mortgage_status"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Process Checklist">
+                            <group>
+                                <group>
+                                    <field name="bcc_announcement_sent"/>
+                                    <field name="is_pre_checklist_completed"/>
+                                    <field name="notice_of_completion_sent"/>
+                                    <field name="is_title_deed_registration"/>
+                                </group>
+                                <group>
+                                    <field name="orientation_letter_sent"/>
+                                    <field name="is_appointment_booked"/>
+                                    <field name="payment_settled"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Leasing Details">
+                            <group>
+                                <group>
+                                    <field name="lease_start_date"/>
+                                    <field name="leasing_agent"/>
+                                    <field name="lease_amount"/>
+                                </group>
+                                <group>
+                                    <field name="lease_end_date"/>
+                                    <field name="lease_type"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Key Handover Checklist">
+                            <group>
+                                <group>
+                                    <field name="is_statement_of_amount_given"/>
+                                    <field name="is_property_keys_given"/>
+                                    <field name="is_access_card_given"/>
+                                </group>
+                                <group>
+                                    <field name="is_title_deed_issued"/>
+                                    <field name="handover_guidelines_brief"/>
+                                    <field name="addc"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Assignments">
+                            <group>
+                                <group>
+                                    <field name="owner"/>
+                                    <field name="operation_team_assigned_user"/>
+                                </group>
+                                <group>
+                                    <field name="ho_agent"/>
+                                    <field name="crm_team_assigned_user"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="System Information">
+                            <group>
+                                <field name="create_uid"/>
+                                <field name="create_date" string="Created On"/>
+                                <field name="write_uid" string="Last Modified by"/>
+                                <field name="write_date" string="Last Modified On"/>
+                            </group>
+                        </page>
+                        <page string="Documents">
+                            <field name="document_id">
+                                <list editable="bottom">
+                                    <field name="handover_document_id" readonly="1" force_save="1"/>
+                                    <field name="filename" column_invisible="True"/>
+                                    <field name="file" filename="filename" widget="download"/>
+                                    <field name="image_name" column_invisible="True"/>
+                                    <field name="image" filename="image_name" widget="download"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_handover_process_list" model="ir.ui.view">
+        <field name="name">handover.process.list.view</field>
+        <field name="model">handover.process</field>
+        <field name="arch" type="xml">
+            <list string="Real Estate Handover">
+                <field name="handover_name"/>
+                <field name="owner"/>
+                <field name="handover_type"/>
+                <field name="customer_name"/>
+                <field name="unit"/>
+                <field name="property_name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_handover_process_list2" model="ir.ui.view">
+        <field name="name">handover.process2.list.view</field>
+        <field name="model">handover.process</field>
+        <field name="arch" type="xml">
+            <list string="Real Estate Handover" create="0">
+                <field name="handover_name"/>
+                <field name="owner"/>
+                <field name="handover_type"/>
+                <field name="customer_name"/>
+                <field name="unit"/>
+                <field name="property_name"/>
+                <header>
+                    <button string="Submit" name="action_submit" type="object" class="btn-primary" data-hotkey="q"
+                            invisible="context.get('menu_id') in ('handover_process_submenu', 'send_bcc')"/>
+                </header>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_send_bcc" model="ir.ui.view">
+        <field name="name">send.bcc.list.view</field>
+        <field name="model">handover.process</field>
+        <field name="arch" type="xml">
+            <list string="Send BCC" create="0">
+                <field name="handover_name"/>
+                <field name="owner"/>
+                <field name="handover_type"/>
+                <field name="customer_name"/>
+                <field name="unit"/>
+                <field name="property_name"/>
+                <header>
+                    <button string="Send BCC" name="action_send_bcc" type="object" class="btn-primary" data-hotkey="q"
+                            invisible="context.get('menu_id') in ('handover_process_submenu', 'unit_ready')"/>
+                </header>
+            </list>
+        </field>
+    </record>
+
+
+    <record id="view_handover_process_search" model="ir.ui.view">
+        <field name="name">handover.process.search</field>
+        <field name="model">handover.process</field>
+        <field name="arch" type="xml">
+            <search string="Handover Process">
+                <field name="handover_name"/>
+                <field name="sale_order_id"/>
+                <field name="state"/>
+                <field name="customer_name"/>
+                <field name="unit"/>
+                <field name="property_name"/>
+                <field name="date_of_customer_contacted"/>
+                <field name="owner"/>
+                <filter string="Created" name="state" domain="[('state','=','created')]"/>
+                <filter string="Handover Completed" name="state" domain="[('state','=','handover_completed')]"/>
+                <filter string="My Handover" name="my_handover" domain="[('owner','=', uid)]"/>
+                <filter string="Contacted Today" name="date_of_customer_contacted" domain="[('date_of_customer_contacted','=', context_today)]"/>
+                <filter string="Unit Ready" name="unit_ready" domain="[('unit_ready','=', 1)]"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Customer" name="customer_name" context="{'group_by':'customer_name'}"/>
+                    <filter string="Sale Order" name="sale_order_id" context="{'group_by':'sale_order_id'}"/>
+                    <filter string="Property" name="property_name" context="{'group_by':'property_name'}"/>
+                    <filter string="Unit" name="unit" context="{'group_by':'unit'}"/>
+                    <filter string="State" name="state" context="{'group_by':'state'}"/>
+                    <filter string="Responsible" name="owner" context="{'group_by':'owner'}"/>
+                    <filter string="Contacted Date" name="date_of_customer_contacted"
+                            context="{'group_by':'date_of_customer_contacted'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_handover_process" model="ir.actions.act_window">
+        <field name="name">Real Estate Handover</field>
+        <field name="res_model">handover.process</field>
+        <field name="view_mode">list,form,search</field>
+        <field name="context">{'search_default_my_handover': 1, 'group_by': []}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new handover record.
+            </p>
+        </field>
+        <field name="view_id" ref="view_handover_process_list"/>
+    </record>
+
+    <record id="action_handover_process2" model="ir.actions.act_window">
+        <field name="name">Unit Ready</field>
+        <field name="res_model">handover.process</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('unit_ready', '=', False)]</field>
+        <field name="view_ids"
+               eval="[(5,0,0), (0,0,{'view_mode': 'list', 'view_id': ref('view_handover_process_list2')}), (0,0,{'view_mode': 'form', 'view_id': ref('view_handover_process_form')})]"/>
+    </record>
+
+    <record id="action_send_bcc" model="ir.actions.act_window">
+        <field name="name">Send BCC</field>
+        <field name="res_model">handover.process</field>
+        <field name="view_mode">list</field>
+        <field name="domain">[('bcc_announcement_sent', '=', False)]</field>
+        <field name="view_ids"
+               eval="[(5,0,0), (0,0,{'view_mode': 'list', 'view_id': ref('view_send_bcc')}), (0,0,{'view_mode': 'form', 'view_id': ref('view_handover_process_form')})]"/>
+    </record>
+
+
+    <menuitem id="unit_ready"
+              name="Unit Ready"
+              parent="real_estate_handover.send_bcc_to_customer"
+              action="action_handover_process2"
+              groups="real_estate_handover.group_handover_operation_team_queue"
+              sequence="4"/>
+
+    <menuitem id="handover_process_submenu"
+              name="Handovers"
+              parent="handover_root"
+              action="action_handover_process"
+              sequence="1"
+    />
+
+    <menuitem id="send_bcc"
+              name="Send BCC To Customer"
+              parent="real_estate_handover.send_bcc_to_customer"
+              action="action_send_bcc"
+              groups="real_estate_handover.group_handover_operation_team_queue"
+              sequence="4"/>
+
+</odoo>

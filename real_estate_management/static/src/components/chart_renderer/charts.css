@@ -1,0 +1,4 @@
+#partner-list-container {
+    max-height: 360px; 
+    overflow-y: auto;  
+}

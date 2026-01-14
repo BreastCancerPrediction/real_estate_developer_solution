@@ -1,0 +1,27 @@
+<odoo>
+    <record id="view_customer_feedback_form" model="ir.ui.view">
+        <field name="name">customer.feedback.form</field>
+        <field name="model">customer.feedback</field>
+        <field name="arch" type="xml">
+            <form string="Check-Out">
+                <sheet>
+                    <group>
+                        <field name="rating" widget="radio"/>
+                        <field name="feedback"/>
+                        <field name="signature" widget="signature"/>
+                    </group>
+                    <footer>
+                        <button string="Save" type="object" name="action_save" class="btn-primary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_customer_feedback" model="ir.actions.act_window">
+        <field name="name">Customer Feedback</field>
+        <field name="res_model">customer.feedback</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

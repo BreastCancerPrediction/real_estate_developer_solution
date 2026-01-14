@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="category_list_view" model="ir.ui.view">
+        <field name="name">category.info.list.view</field>
+        <field name="model">category.info</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="new_action_category_info" model="ir.actions.act_window">
+        <field name="name">category.info.action</field>
+        <field name="res_model">category.info</field>
+        <field name="view_mode">list</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new Category Info record.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="category_configuration_menu"
+            name="Category"
+            parent="helpdesk.helpdesk_menu_config"
+            action="new_action_category_info"
+            sequence="5"/>
+</odoo>

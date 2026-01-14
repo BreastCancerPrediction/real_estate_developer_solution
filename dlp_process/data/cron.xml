@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- change appointment state to close if  -->
+  <record id="ir_cron_auto_mark_not_checked_in" model="ir.cron">
+    <field name="name">Auto Mark Not Checked In</field>
+    <field name="model_id" ref="dlp_process.model_appointment_type"/>
+    <field name="state">code</field>
+    <field name="code">model._auto_mark_not_checked_in()</field>
+    <field name="interval_number">1</field>
+    <field name="interval_type">minutes</field>
+    <field name="active">True</field>
+  </record>
+
+<!-- close work order if customer not respond within two days -->
+  <record id="ir_cron_auto_close_work_orders" model="ir.cron">
+    <field name="name">Auto Close Work Orders</field>
+    <field name="model_id" ref="dlp_process.model_helpdesk_ticket"/>
+    <field name="state">code</field>
+    <field name="code">model._auto_close_work_orders()</field>
+    <field name="interval_number">1</field>
+    <field name="interval_type">days</field>
+    <field name="active">True</field>
+</record>
+</odoo>

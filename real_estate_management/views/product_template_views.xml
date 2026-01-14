@@ -1,0 +1,307 @@
+<odoo>
+    <data>
+
+        <record id="view_product_template_is_unit" model="ir.ui.view">
+            <field name="name">product.template.form.custom.is.unit.field</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='options']" position="after">
+                    <group>
+                        <field name="is_unit"/>
+                        <field name="is_product"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_product_template_form_custom_aminities" model="ir.ui.view">
+            <field name="name">product.template.form.custom.aminities</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="sale.product_template_form_view_sale_order_button"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button" name="action_view_aminities" type="object" icon="fa-shower">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <span>Aminities</span>
+                                <field name="aminities_count" widget="statinfo" nolabel="1" class="mr4"/>
+                            </span>
+                        </div>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_product_template_form_custom" model="ir.ui.view">
+            <field name="name">product.template.form.custom</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header/button[@name='action_open_label_layout']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form/header" position="inside">
+                    <field name="status" widget="statusbar" class="o_field_statusbar"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page name="custom_fields_page" string="Unit Information" invisible="is_product == True">
+                        <group invisible="is_product == True">
+                            <group>
+                                <field name="property_name" required="is_unit == True"
+                                       readonly="check_readonly == True"/>
+                                <field name="floor" 
+                                       domain="[('property_id', '=', property_name)]"
+                                       />
+                                <field name="property_type" required="is_unit == True"
+                                       readonly="check_readonly == True"/>
+                                <field name="unit_type_id" required="is_unit == True"/>
+                                <field name="square_feet" required="1"/>
+                                <field name="unit_category"/>
+                                <field name="possession"/>
+                                <field name="active_status"/>
+                                <field name="project_manager"/>
+                                <field name="late_fee"/>
+                                <field name="sap_unit_number"/>
+                                <field name="current_vacancy"/>
+                                <field name="use_unit_utilities"/>
+                                <field name="parkings"/>
+                            </group>
+                            <group>
+                                <field name="property_status"/>
+                                <field name="completion_date"/>
+                                <field name="street" required="is_unit == True"/>
+                                <field name="street2"/>
+                                <field name="zip"/>
+                                <field name="city"/>
+                                <field name="country_id" required="is_unit == True"/>
+                                <field name="state_id"/>
+                                <!--                                <field name="is_product"/>-->
+                                <field name="unit_price"/>
+                                <field name="payment_plan"/>
+                                <field name="tax_id"/>
+                                <field name="vat_tax"/>
+                                <field name="total_unit_price"/>
+                                <field name="check_readonly" invisible="1"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Property Information" invisible="is_product == True">
+                        <group>
+                            <group>
+                                <field name="number_of_bedroom"/>
+                                <field name="number_of_study_room"/>
+                                <field name="number_of_balcony"/>
+                            </group>
+                            <group>
+                                <field name="number_of_servent_room"/>
+                                <field name="number_of_bathroom"/>
+                                <field name="number_of_store_room"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Utilities" invisible="use_unit_utilities == False">
+                        <field name="utility_ids" widget="one2many_list">
+                            <list editable="bottom">
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="price"/>
+                            </list>
+                        </field>
+                        <label for="utility_ids" string="Total Price of Utilities"/>
+                        <div>
+                            <field name="total_price" readonly="1"/>
+                        </div>
+                    </page>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Parkings" invisible="parkings == False">
+                        <field name="parking_ids" widget="one2many_list">
+                            <list editable="bottom">
+                                <field name="name"/>
+                                <field name="parking_number"/>
+                                <field name="type"/>
+                                <field name="Location"/>
+                                <field name="property_name"/>
+                                <field name="allocation_status"/>
+                            </list>
+                        </field>
+                        <group>
+                            <group>
+                                <field name="create_uid"/>
+                                <field name="create_date"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                 <xpath expr="//button[@name='action_update_quantity_on_hand']" position="after">
+                    <button string="New Work Order" type="object" name="action_work_order" groups="helpdesk.group_helpdesk_user"/>
+                </xpath>
+                <xpath expr="//button[@name='action_update_quantity_on_hand']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+<!--                <xpath expr="//button[@name='339']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
+                <xpath expr="//button[@name='action_product_tmpl_forecast_report']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_update_quantity_on_hand']//span[@class='o_stat_text']"
+                       position="replace">
+                    <span class="o_stat_text">Inventory</span>
+                </xpath>
+                <xpath expr="//button[@name='action_view_orderpoints'][2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_view_stock_move_lines']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_view_related_putaway_rules']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_view_storage_category_capacity']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//label[@for='name']" position="attributes">
+                    <attribute name="string">Unit Name</attribute>
+                </xpath>
+                <xpath expr="//div[@name='options']" position="attributes">
+                    <attribute name="invisible">is_unit == True</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[@name='general_information']" position="attributes">
+                    <attribute name="invisible">is_unit == True</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[@name='sales']" position="attributes">
+                    <attribute name="invisible">is_unit == True</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[@name='inventory']" position="attributes">
+                    <attribute name="invisible">is_unit == True</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[@name='variants']" position="attributes">
+                    <attribute name="invisible">is_unit == True</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[@name='purchase']" position="attributes">
+                    <attribute name="invisible">is_unit == True</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[@name='invoicing']" position="attributes">
+                    <attribute name="invisible">is_unit == True</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[@name='custom_fields_page']" position="attributes">
+                    <attribute name="invisible">{}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!--to release unit(activate status)-->
+        <record id="action_activate_selected" model="ir.actions.server">
+            <field name="name">Activate Selected</field>
+            <field name="model_id" ref="model_product_template"/>
+            <field name="state">code</field>
+            <field name="code">env['product.template'].browse(env.context.get('active_ids', [])).write({'active_status':
+                True})
+            </field>
+        </record>
+
+        <record id="action_update_payment_plan" model="ir.actions.act_window">
+            <field name="name">Update Payment Plan</field>
+            <field name="res_model">update.payment.plan</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="button_activate_selected" model="ir.ui.view">
+            <field name="name">product.template.tree.view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//list/header" position="inside">
+                    <button name="%(action_activate_selected)d" type="action" string="Activate Selected"
+                            class="oe_highlight"/>
+                    <button name="%(action_update_payment_plan)d" type="action" string="Update Payment Plan"
+                            class="oe_highlight"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_product_template_tree_custom_real_state" model="ir.ui.view">
+            <field name="name">product.template.form.custom.real</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='default_code']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <!--                <xpath expr="//field[@name='responsible_id']" position="attributes">-->
+                <!--                    <attribute name="invisible">1</attribute>-->
+                <!--                </xpath>-->
+                <xpath expr="//field[@name='product_tag_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='list_price']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <!--                <xpath expr="//field[@name='qty_available']" position="attributes">-->
+                <!--                    <attribute name="invisible">1</attribute>-->
+                <!--                </xpath>-->
+                <!--                <xpath expr="//field[@name='virtual_available']" position="attributes">-->
+                <!--                    <attribute name="invisible">1</attribute>-->
+                <!--                </xpath>-->
+                <xpath expr="//field[@name='sale_ok']" position="after">
+                    <field name="name" string="Unit Name"/>
+                    <field name="property_name"/>
+                    <field name="floor"/>
+                    <field name="property_type"/>
+                    <field name="state_id"/>
+                    <field name="country_id"/>
+                    <!-- <field name="qty_available" string="Inventory"/> -->
+                    <field name="list_price"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- unit type form and tree views -->
+        <record id="view_unit_type_tree" model="ir.ui.view">
+            <field name="name">unit.type.tree</field>
+            <field name="model">unit.type</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Unit Type Form View -->
+        <record id="view_unit_type_form" model="ir.ui.view">
+            <field name="name">unit.type.form</field>
+            <field name="model">unit.type</field>
+            <field name="arch" type="xml">
+                <form string="Unit Type">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action to Open Unit Types -->
+        <record id="action_unit_type" model="ir.actions.act_window">
+            <field name="name">Unit Types</field>
+            <field name="res_model">unit.type</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="view_unit_type_tree"/>
+        </record>
+
+        <!-- Menu Item to Manage Unit Types -->
+        <menuitem id="menu_unit_type" name="Unit Types" parent="property_configuration_menu" action="action_unit_type"/>
+    </data>
+</odoo>

@@ -1,0 +1,68 @@
+.dlp-dashboard {
+    padding: 20px;
+    background: #f5f7fa;
+
+    .dashboard-header {
+        background: #e3f2fd;
+        padding: 16px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+
+        h2 {
+            margin: 0;
+        }
+
+        p {
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        .dashboard-controls button {
+            margin-left: 10px;
+        }
+    }
+
+    .dashboard-cards {
+        display: flex;
+        gap: 20px;
+
+        .card {
+            background: #0f1b2a;
+            color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            flex: 1;
+
+            h3 {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+            canvas {
+                margin-top: 10px;
+            }
+
+            &.centered {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                .large-number {
+                    font-size: 48px;
+                    color: #FF5722;
+                }
+            }
+        }
+    }
+}
+
+/* ✔ Put this OUTSIDE so it applies globally */
+.chart-card {
+    min-width: 370px !important;
+    padding: 20px !important;
+}

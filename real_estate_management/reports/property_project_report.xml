@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Report action for brochure -->
+    <record id="action_property_project_report" model="ir.actions.report">
+        <field name="name">Property Project Report</field>
+        <field name="model">project.project</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">real_estate_management.property_project_report</field>
+        <field name="report_file">real_estate_management.property_project_report</field>
+        <field name="print_report_name">'Project Brochure - %s' %(object.name)</field>
+        <field name="binding_model_id" ref="model_project_project"/>
+        <field name="binding_type">report</field>
+    </record>
+    <!-- Template for brochure -->
+    <template id="property_project_report">
+    <t t-call="web.html_container">
+        <t t-call="web.external_layout">
+            <div class="page" style="page-break-inside: avoid; font-family: 'Arial', sans-serif; color: #333; padding: 20px; border: 1px solid #ddd; border-radius: 8px; max-width: 800px; margin: auto;">
+                <t t-foreach="docs" t-as="data">
+                    <div style="margin-bottom: 40px;">
+
+                        <!-- Rounded rectangle image top left -->
+                        <t t-if="data.property_image">
+                            <div style="float: left; width: 140px; height: 90px; margin-right: 25px; border-radius: 12px; overflow: hidden; border: 2px solid #2980B9;">
+                                <img t-att-src="'data:image/png;base64,%s' % data.property_image.decode('utf-8')"
+                                     style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 12px;"/>
+                            </div>
+                        </t>
+
+                        <!-- Title next to image -->
+                        <h2 style="color: #2C3E50; border-bottom: 2px solid #2980B9; display: inline-block; padding-bottom: 5px; margin-top: 0;">
+                            Project Report: <t t-esc="data.name"/>
+                        </h2>
+
+                        <!-- Clear float -->
+                        <div style="clear: both;"></div>
+
+                        <!-- Info Table -->
+                        <table style="width: 100%; margin-top: 15px; border-collapse: collapse; font-size: 14px;">
+                            <tbody>
+                                <tr style="background-color: #f9fafb;">
+                                    <td style="padding: 10px; border: 1px solid #ddd;"><strong>Project Number:</strong></td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;"><t t-esc="data.project_number"/></td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;"><strong>Email Address:</strong></td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;"><t t-esc="data.email_address"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd;"><strong>Number of Buildings:</strong></td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;"><t t-esc="data.number_of_building"/></td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;"><strong>RERA Number:</strong></td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;"><t t-esc="data.rera_number"/></td>
+                                </tr>
+                                <tr style="background-color: #f9fafb;">
+                                    <td style="padding: 10px; border: 1px solid #ddd;"><strong>Contractor:</strong></td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;"><t t-esc="data.contractor"/></td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;"><strong>Developer Name:</strong></td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;"><t t-esc="data.project_developer_name"/></td>
+                                </tr>
+                                <tr style="background-color: #f9fafb;">
+                                    <td style="padding: 10px; border: 1px solid #ddd;">
+                                        <strong>Office Location:</strong>
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">
+                                        <t t-esc="data.office_location"/>
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">
+                                        <strong>Project Address:</strong>
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">
+                                        <t t-esc="data.project_address"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd;"><strong>Amenities:</strong></td>
+                                    <td colspan="3" style="padding: 10px; border: 1px solid #ddd;"><t t-esc="data.amenties"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Description -->
+                        <div style="margin-top: 25px;">
+                            <h3 style="color: #2980B9; border-bottom: 1px solid #ccc; padding-bottom: 5px;">Description</h3>
+                            <div t-raw="data.description" style="border: 1px solid #ddd; padding: 15px; background-color: #fafafa; font-size: 14px;"/>
+                        </div>
+
+                        <!-- Video -->
+                        <t t-if="data.Video">
+                            <div style="margin-top: 25px;">
+                                <h3 style="color: #2980B9; border-bottom: 1px solid #ccc; padding-bottom: 5px;">Video</h3>
+                                <div t-raw="data.Video"/>
+                            </div>
+                        </t>
+
+                        <!-- Related Properties -->
+                        <t t-if="data.property_ids">
+                            <div style="margin-top: 25px;">
+                                <h3 style="color: #2980B9; border-bottom: 1px solid #ccc; padding-bottom: 5px;">Properties</h3>
+                                <ul style="margin-top: 10px; padding-left: 20px; font-size: 14px;">
+                                    <t t-foreach="data.property_ids" t-as="prop">
+                                        <li><t t-esc="prop.name"/></li>
+                                    </t>
+                                </ul>
+                            </div>
+                        </t>
+
+                    </div>
+                    <div style="page-break-after: always;"></div>
+                </t>
+            </div>
+        </t>
+    </t>
+</template>
+
+
+
+
+</odoo>

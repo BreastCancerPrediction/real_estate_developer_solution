@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Report action for brochure -->
+    <record id="action_product_template_report" model="ir.actions.report">
+        <field name="name">Product Template Report</field>
+        <field name="model">product.template</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">real_estate_management.product_template_report</field>
+        <field name="report_file">real_estate_management.product_template_report</field>
+        <field name="print_report_name">'Unit Brochure - %s' %(object.name)</field>
+        <field name="binding_model_id" ref="model_product_template"/>
+        <field name="binding_type">report</field>
+    </record>
+    <!-- Template for brochure -->
+   <template id="product_template_report">
+    <t t-call="web.html_container">
+        <t t-call="web.external_layout">
+            <div class="page" style="page-break-inside: avoid; font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; padding: 60px; line-height: 1.8; background-color: #f0f2f5;">
+                <t t-foreach="docs" t-as="data">
+
+                    <div style="text-align: center; margin-bottom: 60px; padding-bottom: 25px; border-bottom: 4px solid #dcdcdc; background: linear-gradient(to right, #fdfdfd, #f5f5f5); border-radius: 15px; padding-top: 25px; box-shadow: 0 8px 15px rgba(0,0,0,0.05);">
+                        <h1 style="font-size: 42px; color: #1a2c3d; margin: 0; letter-spacing: 2px; text-transform: uppercase; font-weight: 700;">
+                            Unit Brochure
+                        </h1>
+                        <h2 style="font-size: 30px; color: #007bff; margin-top: 15px; font-weight: 400; text-shadow: 0 1px 2px rgba(0,0,0,0.08);">
+                            <t t-esc="data.name"/>
+                        </h2>
+                    </div>
+
+                    <div style="background-color: #ffffff; border-radius: 15px; padding: 35px; margin-bottom: 45px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                        <h3 style="color: #0069d9; margin-top: 0; border-bottom: 1px dashed #e0e0e0; padding-bottom: 18px; margin-bottom: 30px; font-size: 24px; font-weight: 600;">
+                            <i class="fa fa-info-circle" style="margin-right: 12px; color: #007bff;"></i>Unit Overview
+                        </h3>
+
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; font-size: 17px;">
+                            <div>
+                                <strong>Property:</strong> <t t-esc="data.property_name.name"/>
+                            </div>
+                            <div>
+                                <strong>Unit Type:</strong> <t t-esc="data.unit_type_id.name"/>
+                            </div>
+                            <div>
+                                <strong>Unit Category:</strong>
+                                <t t-set="unit_cat_selection" t-value="data.fields_get(['unit_category'])['unit_category']['selection']"/>
+                                <t t-foreach="unit_cat_selection" t-as="uc">
+                                    <t t-if="uc[0] == data.unit_category">
+                                        <t t-esc="uc[1]"/>
+                                    </t>
+                                </t>
+                            </div>
+                            <div>
+                                <strong>Square Feet:</strong> <t t-esc="data.square_feet"/> sq ft
+                            </div>
+                            <div>
+                                <strong>Status:</strong>
+                                <t t-set="status_selection" t-value="data.fields_get(['status'])['status']['selection']"/>
+                                <t t-foreach="status_selection" t-as="st">
+                                    <t t-if="st[0] == data.status">
+                                        <t t-esc="st[1]"/>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 35px; font-size: 17px; border-top: 1px dashed #c0c0c0; padding-top: 30px;">
+                            <strong><i class="fa fa-map-marker" style="margin-right: 10px; color: #6c757d;"></i>Location:</strong>
+                            <t t-esc="data.street"/>, <t t-esc="data.street2"/> -
+                            <t t-esc="data.zip"/>, <t t-esc="data.city"/> -
+                            <t t-esc="data.state_id.name"/>, <t t-esc="data.country_id.name"/>
+                        </div>
+                    </div>
+
+                    <div style="background-color: #ffffff; border-radius: 15px; padding: 35px; margin-bottom: 45px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                        <h3 style="color: #0069d9; margin-top: 0; border-bottom: 1px dashed #e0e0e0; padding-bottom: 18px; margin-bottom: 30px; font-size: 24px; font-weight: 600;">
+                            <i class="fa fa-calculator" style="margin-right: 12px; color: #007bff;"></i>Pricing &amp; Room Details
+                        </h3>
+
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; font-size: 17px;">
+                            <div>
+                                <strong>Base Price:</strong> ₹<t t-esc="data.unit_price"/>
+                            </div>
+                            <div>
+                                <strong>Utility Price:</strong> ₹<t t-esc="data.total_price"/>
+                            </div>
+                            <div>
+                                <strong>TAX:</strong> ₹<t t-esc="data.vat_tax"/>
+                            </div>
+                            <div style="font-weight: bold; color: #209935; font-size: 20px;">
+                                <strong>Total:</strong> ₹<t t-esc="data.total_unit_price"/>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 35px; font-size: 17px; border-top: 1px dashed #c0c0c0; padding-top: 30px;">
+                            <strong><i class="fa fa-home" style="margin-right: 10px; color: #6c757d;"></i>Room Configuration:</strong>
+                            <span style="display: inline-block; margin-left: 15px;">
+                                <t t-if="data.number_of_bedroom"><strong>Bedrooms:</strong> <t t-esc="data.number_of_bedroom"/> | </t>
+                                <t t-if="data.number_of_bathroom"><strong>Bathrooms:</strong> <t t-esc="data.number_of_bathroom"/> | </t>
+                                <t t-if="data.number_of_balcony"><strong>Balconies:</strong> <t t-esc="data.number_of_balcony"/> | </t>
+                                <t t-if="data.number_of_study_room"><strong>Study:</strong> <t t-esc="data.number_of_study_room"/> | </t>
+                                <t t-if="data.number_of_store_room"><strong>Store:</strong> <t t-esc="data.number_of_store_room"/> | </t>
+                                <t t-if="data.number_of_servent_room"><strong>Servant:</strong> <t t-esc="data.number_of_servent_room"/></t>
+                            </span>
+                        </div>
+                    </div>
+
+                    <t t-if="data.utility_ids">
+                        <div style="background-color: #ffffff; border-radius: 15px; padding: 35px; margin-bottom: 45px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                            <h3 style="color: #0069d9; margin-top: 0; border-bottom: 1px dashed #e0e0e0; padding-bottom: 18px; margin-bottom: 30px; font-size: 24px; font-weight: 600;">
+                                <i class="fa fa-bolt" style="margin-right: 12px; color: #007bff;"></i>Additional Utilities
+                            </h3>
+                            <table style="width:100%; border-collapse: collapse; font-size: 16px; background-color: #ffffff; border-radius: 10px; overflow: hidden; border: 1px solid #ddd;">
+                                <thead>
+                                    <tr style="background-color: #eef4f9; color: #34495e; font-weight: 700;">
+                                        <th style="border: 1px solid #e0e0e0; padding: 18px; text-align: left;">Name</th>
+                                        <th style="border: 1px solid #e0e0e0; padding: 18px; text-align: left;">Description</th>
+                                        <th style="border: 1px solid #e0e0e0; padding: 18px; text-align: right;">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="data.utility_ids" t-as="utility">
+                                        <tr t-attf-style="background-color: #{(utility_index % 2 == 0) and '#f7f9fb' or '#ffffff'}; transition: background-color 0.3s ease;">
+                                            <td style="border: 1px solid #e0e0e0; padding: 15px;"><t t-esc="utility.name"/></td>
+                                            <td style="border: 1px solid #e0e0e0; padding: 15px;"><t t-esc="utility.description"/></td>
+                                            <td style="border: 1px solid #e0e0e0; padding: 15px; text-align: right;">₹<t t-esc="utility.price"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+
+                    <t t-if="data.parking_ids">
+                        <div style="background-color: #ffffff; border-radius: 15px; padding: 35px; margin-bottom: 45px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                            <h3 style="color: #0069d9; margin-top: 0; border-bottom: 1px dashed #e0e0e0; padding-bottom: 18px; margin-bottom: 30px; font-size: 24px; font-weight: 600;">
+                                <i class="fa fa-car" style="margin-right: 12px; color: #007bff;"></i>Parking Details
+                            </h3>
+                            <table style="width:100%; border-collapse: collapse; font-size: 16px; background-color: #ffffff; border-radius: 10px; overflow: hidden; border: 1px solid #ddd;">
+                                <thead>
+                                    <tr style="background-color: #eef4f9; color: #34495e; font-weight: 700;">
+                                        <th style="border: 1px solid #e0e0e0; padding: 18px; text-align: left;">Name</th>
+                                        <th style="border: 1px solid #e0e0e0; padding: 18px; text-align: left;">Number</th>
+                                        <th style="border: 1px solid #e0e0e0; padding: 18px; text-align: left;">Type</th>
+                                        <th style="border: 1px solid #e0e0e0; padding: 18px; text-align: left;">Location</th>
+                                        <th style="border: 1px solid #e0e0e0; padding: 18px; text-align: left;">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="data.parking_ids" t-as="park">
+                                        <tr t-attf-style="background-color: #{(park_index % 2 == 0) and '#f7f9fb' or '#ffffff'}; transition: background-color 0.3s ease;">
+                                            <td style="border: 1px solid #e0e0e0; padding: 15px;"><t t-esc="park.name"/></td>
+                                            <td style="border: 1px solid #e0e0e0; padding: 15px;"><t t-esc="park.parking_number"/></td>
+                                            <td style="border: 1px solid #e0e0e0; padding: 15px;">
+                                                <t t-set="type_selection" t-value="park.fields_get(['type'])['type']['selection']"/>
+                                                <t t-foreach="type_selection" t-as="tp">
+                                                    <t t-if="tp[0] == park.type">
+                                                        <t t-esc="tp[1]"/>
+                                                    </t>
+                                                </t>
+                                            </td>
+                                            <td style="border: 1px solid #e0e0e0; padding: 15px;"><t t-esc="park.Location"/></td>
+                                            <td style="border: 1px solid #e0e0e0; padding: 15px;"><t t-esc="park.allocation_status"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </div>
+        </t>
+    </t>
+</template>
+
+
+
+</odoo>

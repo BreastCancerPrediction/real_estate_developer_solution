@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_partner_customize_view" model="ir.ui.view">
+        <field name="name">res.partner.customize.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group//field[@name='vat']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//group/group[2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='contact_addresses']" position="attributes">
+                <attribute name="autofocus"/>
+            </xpath>
+
+            <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                <button name="action_view_sold_units"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-building">
+                    <field string="My Units" name="unit_ids" widget="statinfo"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//button[@name='schedule_meeting']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_view_tasks']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!--            <xpath expr="//button[@name='action_view_stock_lots']" position="attributes">-->
+            <!--                <attribute name="invisible">1</attribute>-->
+            <!--            </xpath>-->
+
+            <xpath expr="//group" position="inside">
+                <group name="Account Detail">
+                    <field name="account_record_type"/>
+                    <field name="account_type"/>
+                    <field name="account_owner"/>
+                    <field name="account_number"/>
+                    <field name="current_home_status"/>
+                </group>
+            </xpath>
+
+            <xpath expr="//notebook/page[@name='contact_addresses']" position="before">
+                <page string="Person Information" autofocus="autofocus">
+                    <group>
+                        <group>
+                             <field name="title"/>
+                            <field name="email"/>
+                            <field name="alternate_email"/>
+                            <field name="birth_date"/>
+                            <field name="marital_status"/>
+                            <field name="gender"/>
+                        </group>
+                        <group>
+                            <field name="function"/>
+                            <field name="country_id" invisible="1"/>
+                            <field name="mobile_country_code" readonly="0"/>
+                            <field name="mobile" widget="phone"/>
+                            <field name="phone" widget="phone"/>
+                            <field name="language_preference"/>
+                            <field name="tenant_type"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+            <xpath expr="//notebook/page[@name='contact_addresses']" position="after">
+                <page string="Relation">
+                    <group>
+                        <field name="unit_ids" readonly="0">
+                            <list editable="bottom" create="0">
+                                <field name="name" string="Unit Name"/>
+                                <button name="new_work_order" string="New Work Order" type="object"
+                                        class="btn-secondary" icon="fa-plus"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <menuitem name="Account"
+              id="dlp_Property_customer"
+              parent="helpdesk.menu_helpdesk_root"
+              action="base.action_partner_form"
+              sequence="4"/>
+
+</odoo>

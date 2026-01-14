@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View for the Appointment Action Wizard -->
+    <record id="view_schedule_appointment_form" model="ir.ui.view">
+        <field name="name">schedule.appointment.form</field>
+        <field name="model">schedule.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Schedule Appointment">
+                <sheet>
+                    <group>
+                        <field name="appointment_start_date"/>
+                        <field name="appointment_end_date"/>
+                        <field name="resource"/>
+                    </group>
+                     <footer>
+                        <button string="Update" type="object" name="action_update_appointment" class="btn-primary"/>
+                        <button string="Cancel" special="cancel" class="btn-secondary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action Window for Schedule Appointment Action Wizard -->
+    <record id="action_schedule_appointment_window" model="ir.actions.act_window">
+        <field name="name">Schedule Appointment</field>
+        <field name="res_model">schedule.appointment</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="helpdesk_ticket_customize_view" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.customize.view</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='priority']" position="after">
+                <field name="category"/>
+                <field name="tag_id" domain="[('category_id', '=', category)]"/>
+                <field name="resolution_typology"/>
+                <field name="is_emergency"/>
+                <field name="due_date" readonly="1"/>
+                <field name="resolution_description"/>
+            </xpath>
+
+            <xpath expr="//field[@name='tag_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_phone']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='team_id']" position="attributes">
+                <attribute name="string">DLP Team</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//label[@for='partner_phone']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='email_cc']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='priority']" position="replace"/>
+
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="Work_order_no"/>
+            </xpath>
+
+            <xpath expr="//div[@class='oe_button_box']" position="inside">
+               <button name="action_view_appointments" type="object" string="Appointments" class="oe_stat_button"
+                        icon="fa-calendar">
+                    <field name="appointment_count" widget="statinfo"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//field[@name='email_cc']" position="after">
+                <field name="type_of_incident"/>
+                <field name="incident_description_id" readonly="0" domain="[('helpdesk_tag_id', '=', tag_id)]"/>
+                <field name="incident_location"/>
+                <field name="problem_code"/>
+                <field name="priority" widget="priority" string="Resolution Priority"/>
+<!--                <field name="user_id"/>-->
+            </xpath>
+
+            <xpath expr="//page[@name='description']" position="before">
+                <page string="Requester Information" name="requester_information">
+                    <group>
+                        <group>
+                            <field name="requester"/>
+                            <field name="requester_email" widget="email"/>
+                            <field name="requester_comment"/>
+                        </group>
+                        <group>
+                            <field name="requester_name"/>
+                            <field name="requester_phone" widget="phone"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+            <xpath expr="//page[@name='requester_information']" position="after">
+                <page string="Related" name="related">
+                    <group>
+                        <group>
+                            <field name="contractor"/>
+                            <field name="account"/>
+                        </group>
+                        <group>
+                            <field name="unit_id"/>
+                            <field name="case"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+            <xpath expr="//page[@name='related']" position="after">
+                <page string="Customer Feedback" name="customer_feedback">
+                    <group>
+                        <group>
+                            <field name="customer_comment"/>
+                            <field name="rating" widget="priority"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="helpdesk_tags_customize_view" model="ir.ui.view">
+        <field name="name">helpdesk.tags.customize.view</field>
+        <field name="model">helpdesk.tag</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tag_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="category_id"/>
+            </xpath>
+        </field>
+    </record>
+
+            <!--modify list view-->
+     <record id="helpdesk_ticket_customize_list_view" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.customize.list.view</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="replace">
+                <field name="requester_name"/>
+            </xpath>
+
+            <xpath expr="//field[@name='requester_name']" position="after">
+                <field name="due_date"/>
+            </xpath>
+
+             <xpath expr="//field[@name='user_id']" position="replace"/>
+
+            <xpath expr="//field[@name='sla_deadline']" position="replace"/>
+        </field>
+     </record>
+
+             <!--add filter in search view for  My Requester Tickets-->
+    <record id="your_custom_helpdesk_ticket_search" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.search.modify.my.ticket</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_search_base"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_ticket']" position="replace">
+                <filter
+                        name="requester_name"
+                        string="My Requester Tickets"
+                        domain="[('is_my_request', '=', True)]"
+                />
+            </xpath>
+
+            <xpath expr="//search/filter" position="inside">
+               <separator/>
+                <filter name="category" string="Category" domain="[('category', '!=', False)]"/>
+                <filter name="due_date" string="Due Date(Urgent)" domain="[('due_date', '=', 'Within 2 hours')]"/>
+                <filter name="due_date" string="Due Date(High)" domain="[('due_date', '=', 'Within 1 day')]"/>
+                <filter name="due_date" string="Due Date(Medium)" domain="[('due_date', '=', 'Within 3 days')]"/>
+            </xpath>
+
+            <xpath expr="//search/field[@name='tag_ids']" position="attributes">
+               <attribute name="invisible">1</attribute>
+            </xpath>
+
+              <xpath expr="//search/field[@name='user_id']" position="attributes">
+               <attribute name="invisible">1</attribute>
+            </xpath>
+
+              <xpath expr="//search/field[@name='partner_id']" position="attributes">
+               <attribute name="invisible">1</attribute>
+            </xpath>
+
+              <xpath expr="//search/field[@name='sla_ids']" position="attributes">
+               <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//search/field[@name='name']" position="attributes">
+               <attribute name="string">name</attribute>
+            </xpath>
+
+             <xpath expr="//search/filter[@name='sla_success']" position="attributes">
+               <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//search/filter[@name='sla_inprogress']" position="attributes">
+               <attribute name="invisible">1</attribute>
+            </xpath>
+
+             <xpath expr="//search/filter[@name='sla_failed']" position="attributes">
+               <attribute name="invisible">1</attribute>
+            </xpath>
+
+<!--             <xpath expr="//search" position="inside">-->
+<!--               <field name="category"/>-->
+<!--               <field name="unit_id"/>-->
+<!--               <field name="case"/>-->
+<!--            </xpath>-->
+
+            <xpath expr="//search/group/filter[@name='sla_deadline']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+             <xpath expr="//search/group/filter[@name='sla_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+             <xpath expr="//search/group/filter[@name='assignee']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+                <xpath expr="//search/group/filter[@name='tag']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+             <xpath expr="//search/group/filter[@name='partner']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//search/group/filter[@name='assignee']" position="after">
+                <filter string="Category" name="category" context="{'group_by': 'category'}"/>
+                <filter string="Sub-Category" name="tag_id" context="{'group_by': 'tag_id'}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+     <record id="hide_create_button_work_order" model="ir.ui.view">
+            <field name="name">hide.create.button.work.order</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//list" position="attributes">
+                    <attribute name="create">false</attribute>
+                </xpath>
+            </field>
+     </record>
+
+    <record id="hide_create_button_work_order_form" model="ir.ui.view">
+            <field name="name">hide.create.button.work.order.form.view</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">false</attribute>
+                </xpath>
+            </field>
+     </record>
+
+            <!--add context in action of helpdesk-->
+    <record id="helpdesk.helpdesk_ticket_action_main_my" model="ir.actions.act_window">
+        <field name="name">Work Order</field>
+        <field name="context">{'search_default_requester_name': True}</field>
+    </record>
+
+</odoo>

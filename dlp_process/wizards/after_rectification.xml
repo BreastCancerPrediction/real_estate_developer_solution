@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View for the Appointment Action Wizard -->
+    <record id="view_after_rectification_form" model="ir.ui.view">
+        <field name="name">after.rectification.form</field>
+        <field name="model">after.rectification</field>
+        <field name="arch" type="xml">
+        <form string="After Rectification">
+            <sheet>
+                <group>
+                    <field name="upload_image" widget="image"/>
+                </group>
+            </sheet>
+            <footer>
+                <button name="action_save_image"
+                        string="Save Info"
+                        type="object"
+                        class="btn-primary"
+                        context="{}"
+                        />
+                <button string="Cancel" class="btn-secondary" special="cancel"/>
+            </footer>
+        </form>
+        </field>
+    </record>
+
+    <record id="action_after_rectification_window" model="ir.actions.act_window">
+        <field name="name">After Rectification</field>
+        <field name="res_model">after.rectification</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

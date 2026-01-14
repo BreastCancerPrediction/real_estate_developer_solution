@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_button_box']" position="inside">
+                <button name="action_view_handovers" type="object" class="oe_stat_button" icon="fa-edit">
+                    <div>
+                        <field name="handover_count" widget="statinfo" string="Handovers"/>
+                    </div>
+                </button>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/list//field[@name='product_uom_qty']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/list//field[@name='qty_delivered']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/list//field[@name='qty_invoiced']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/list//field[@name='discount']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/list/field[@name='price_subtotal']" position="replace">
+                <field name="selling_price"/>
+            </xpath>
+
+            <xpath expr="//button[@name='action_open_discount_wizard']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='recurr_until']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_quotation_send']" position="attributes">
+                <attribute name="invisible">state not in ['draft', 'sent', 'reserved']</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='next_invoice_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='subscription_status']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- <xpath expr="//button[@name='action_sale_order_log']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath> -->
+
+            <xpath expr="//group[@name='sale_total']" position="replace">
+                <group class="oe_subtotal_footer">
+                    <field name="custom_untaxed_total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="custom_tax_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <div class="oe_subtotal_footer_separator"></div>
+                    <field name="custom_grand_total" class="oe_total" widget="monetary"
+                           options="{'currency_field': 'currency_id'}"/>
+                </group>
+            </xpath>
+
+
+            <xpath expr="//field[@name='state']" position="attributes">
+                <attribute name="statusbar_visible">
+                    draft,reserved,sale,validation_in_progress,approve_pending,sold,done,cancel,pi_paid
+                </attribute>
+                <attribute name="options">{'clickable': True}</attribute>
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[@name='order_lines']" position="attributes">
+                <attribute name="string">Unit Lines</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/list/field[@name='tax_id']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='product_template_id']" position="attributes">
+                <attribute name="string">Unit Name</attribute>
+            </xpath>
+
+<!--            <xpath expr="//button[@name='428']" position="attributes">-->
+<!--                <attribute name="invisible">1</attribute>-->
+<!--            </xpath>-->
+
+            <xpath expr="//button[@name='action_create_recurring_invoices']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+             <xpath expr="//button[@name='end_subscription']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/list/field[@name='price_unit']" position="attributes">
+                <attribute name="string">Unit Amount</attribute>
+                <attribute name="readonly">1</attribute>
+            </xpath>
+
+            <xpath expr="//notebook/page[@name='order_lines']" position="after">
+                <page string="Details">
+                    <group>
+                        <group>
+                            <field name="account"/>
+                            <field name="unit" readonly="1" force_save="1"/>
+                            <field name="booking_date" readonly="1" force_save="1"/>
+<!--                            <field name="sales_approved_date"/>-->
+<!--                            <field name="contact_issued_date"/>-->
+                            <!--                            <field name="sales_manager"/>-->
+                            <!--                            <field name="selling_price"/>-->
+                            <!--                            <field name="amount_payable"/>-->
+                            <!--                            <field name="net_amount_in_words"/>-->
+
+                            <!--                            <field name="state" readonly="False"/>-->
+                            <field name="sales_pending_rejection_reason"/>
+                            <!--                            <field name="sm_manager"/>-->
+<!--                            <field name="company_code"/>-->
+                            <!--                            <field name="send_to_sap"/>-->
+<!--                            <field name="adm_dld_pre_registered"/>-->
+                            <!--                            <field name="addc"/>-->
+                            <!--                            <field name="addc_comments"/>-->
+                        </group>
+                        <group>
+                            <field name="create_uid" string="Owner"/>
+<!--                            <field name="owner_share_percentage"/>-->
+                            <!--                            <field name="opportunity"/>-->
+                            <field name="sold_date" readonly="1" force_save="1"/>
+                            <field name="approve_pending_date" readonly="1" force_save="1"/>
+<!--                            <field name="contact_final_delivery_date"/>-->
+<!--                            <field name="sales_admin_user"/>-->
+                            <!--                            <field name="sap_update_flag"/>-->
+                            <!--                            <field name="reservation_amount"/>-->
+<!--                            <field name="customer_signed_sap_date"/>-->
+<!--                            <field name="sub_status"/>-->
+<!--                            <field name="sub_status_remark"/>-->
+                            <!--                            <field name="passport_attached"/>-->
+                            <!--                            <field name="emirates_id_attached"/>-->
+<!--                            <field name="sap_contact_unique_number"/>-->
+<!--                            <field name="show_validation"/>-->
+<!--                            <field name="pname_broker_under"/>-->
+                        </group>
+                    </group>
+                </page>
+                <page string="Handover" invisible="state != 'sold'">
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <div>
+                            <button string="Create Handover" class="oe_highlight" type="object" name="new_handover"
+                                    data-hotkey="q"/>
+                        </div>
+                        <div>
+                            <field name="handovers">
+                                <list create="0">
+                                    <field name="handover_name"/>
+                                    <field name="handover_type"/>
+                                    <field name="customer_name"/>
+                                    <field name="unit"/>
+                                    <field name="property_name"/>
+                                </list>
+                            </field>
+                        </div>
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_list_inherit" model="ir.ui.view">
+        <field name="name">sale.order.list.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list/field[@name='amount_total']" position="replace">
+                <field name="custom_grand_total"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

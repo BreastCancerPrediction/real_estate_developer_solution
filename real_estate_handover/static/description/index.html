@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Real Estate | Handover</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+          rel="stylesheet">
+    <!-- Bootstrap 5 CSS cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card-header .card-title img {
+            transform: rotate(180deg);
+        }
+
+        .card-header.collapsed .card-title img {
+            transform: rotate(0deg);
+        }
+    </style>
+</head>
+
+<body>
+
+<!--<section>-->
+<div class="container shadow-lg px-0"
+     style="background-color: #FFF; border-radius: 16px; font-family: 'Rubik', sans-serif; overflow: hidden;">
+
+    <!-- HEADER SECTION -->
+    <div style="background: linear-gradient(135deg, #714B67 0%, #8D5A94 100%); min-height: 600px; padding: 30px;">
+
+        <!-- TITLE BAR -->
+        <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4"
+             style="border-color: rgba(255,255,255,0.2);">
+            <img src="./images/csl_logo.jpg" alt="Logo" style="width: 60px; height: 50px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);" />
+
+            <div class="d-flex gap-2">
+                <span style="color: #7C7BAD; font-size: 14px; font-family: 'Montserrat', sans-serif; font-weight: bold; background-color: white; padding: 6px 14px; border-radius: 50px;">
+                    <i class="fa fa-check mr-1"></i>Community
+                </span>
+                <span style="color: #7C7BAD; font-size: 14px; font-family: 'Montserrat', sans-serif; font-weight: bold; background-color: white; padding: 6px 14px; border-radius: 50px;">
+                    <i class="fa fa-check mr-1"></i>Enterprise
+                </span>
+            </div>
+        </div>
+        <!-- END TITLE BAR -->
+
+        <!-- HERO SECTION -->
+        <div class="text-center">
+            <h1 style="color: #FFF; font-weight: 900; font-size: 48px; margin-bottom: 40px;">
+                Real Estate | Handover
+            </h1>
+            <img src="./images/banner_image1.png" alt="Real Estate Visual"
+                 style="width: 80%; max-width: 800px; height: auto; border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.2);"
+                 class="img-fluid mx-auto d-block" />
+        </div>
+        <!-- END HERO SECTION -->
+
+    </div>
+    <!-- END HEADER SECTION -->
+
+</div>
+
+<!-- OVERVIEW SECTION -->
+<div class="d-flex align-items-center"
+     style="border-bottom: 2px solid #714B67; padding: 15px 0px;" id="overview">
+    <div class="d-flex justify-content-center align-items-center mr-2"
+         style="background-color: #F5F5F5; border-radius: 0px; width: 40px; height: 40px;">
+        <img src="images/misc/pie-chart.png"/>
+    </div>
+    <h2 class="mt-2"
+        style="font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: bold;">
+        Overview
+    </h2>
+</div>
+<div class="row"
+     style="font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: 14px; line-height: 200%;">
+    <div class="col-sm-12 py-4">
+        The Real Estate | Handover module in Odoo facilitates the smooth transition of property ownership by managing
+        the final unit handover process. It allows scheduling of handover dates, uploading of essential documents,
+        tracking handover status, and managing checklists to ensure all necessary steps (like unit readiness,
+        documentation, and key delivery) are completed. The module also supports capturing customer acknowledgment,
+        making the handover process organized, transparent, and efficient for both the real estate company and the
+        buyer.
+    </div>
+</div>
+<!-- END OF OVERVIEW SECTION -->
+
+<!-- FEATURES SECTION -->
+<div class="d-flex align-items-center"
+     style="border-bottom: 2px solid #714B67; padding: 15px 0px;" id="features">
+    <div class="d-flex justify-content-center align-items-center mr-2"
+         style="background-color: #F5F5F5; border-radius: 0px; width: 40px; height: 40px;">
+        <img src="images/misc/features.png"/>
+    </div>
+    <h2 class="mt-2"
+        style="font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: bold;">
+        Features
+    </h2>
+</div>
+<div class="row"
+     style="font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: 14px; line-height: 200%; width: 100%;">
+    <div class="col-sm-12 col-md-6">
+        <div class="d-flex align-items-center"
+             style="margin-top: 40px; margin-bottom: 40px">
+            <img src="images/misc/check-box.png" class="mr-2"/>
+            <span style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: bold;">Schedule and manage unit handover dates. </span>
+        </div>
+        <div class="d-flex align-items-center"
+             style="margin-top: 40px; margin-bottom: 40px">
+            <img src="images/misc/check-box.png" class="mr-2"/>
+            <span style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: bold;">Upload and track required handover documents.</span>
+        </div>
+        <div class="d-flex align-items-center"
+             style="margin-top: 40px; margin-bottom: 40px">
+            <img src="images/misc/check-box.png" class="mr-2"/>
+            <span style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: bold;">Handover checklist management.</span>
+        </div>
+        <div class="d-flex align-items-center"
+             style="margin-top: 30px; margin-bottom: 30px">
+            <img src="images/misc/check-box.png" class="mr-2"/>
+            <span style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: bold;">Status tracking for each handover stage.</span>
+        </div>
+        <div class="d-flex align-items-center"
+             style="margin-top: 30px; margin-bottom: 30px">
+            <img src="images/misc/check-box.png" class="mr-2"/>
+            <span style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: bold;">Capture customer acknowledgment and feedback.</span>
+        </div>
+        <div class="d-flex align-items-center"
+             style="margin-top: 30px; margin-bottom: 30px">
+            <img src="images/misc/check-box.png" class="mr-2"/>
+            <span style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: bold;">Automated notifications for pending tasks.</span>
+        </div>
+        <div class="d-flex align-items-center"
+             style="margin-top: 30px; margin-bottom: 30px">
+            <img src="images/misc/check-box.png" class="mr-2"/>
+            <span style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: bold;">Seamless integration with Sales and CRM modules.</span>
+        </div>
+    </div>
+</div>
+<!-- END OF FEATURES SECTION -->
+
+<!--  SCREENSHOTS SECTION -->
+<div class="d-flex align-items-center"
+     style="border-bottom: 2px solid #714B67; padding: 15px 0px;" id="overview">
+    <div class="d-flex justify-content-center align-items-center mr-2"
+         style="background-color: #F5F5F5; border-radius: 0px; width: 40px; height: 40px;">
+        <img src="images/misc/pictures.png"/>
+    </div>
+    <h2 class="mt-2"
+        style="font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: bold;">
+        Screenshots
+    </h2>
+</div>
+
+
+<div class="row justify-content-center mx-auto">
+    <!-- 1 -->
+    <div class="col-12 mb-xl-0 mb-0" style="padding: 55px;">
+        <div class="row d-flex justify-content-between align-items-start ">
+            <div class="col-xl-6 text-center" style="width: 50%;">
+                <img src="images/website_contact_form.png" class="img-fluid" loading="lazy"
+                     alt="image-one" height="343" width="540"
+                     style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+            </div>
+            <div class="col-xl-6 d-flex flex-column" style="
+">
+                <h4 style="font-weight: 500; font-size: 28px; color: #304041;">
+                    Real Estate Inquiry? Contact Us!
+                </h4>
+                <p class="mb-0"
+                   style="font-size: 18px;color: #474650;font-weight: 400; margin-bottom: 0;">
+                    The image to the left highlights our contact form. Use it to send us your real estate inquiries and
+                    we'll be in touch.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- 2 -->
+    <div class="col-12 mb-xl-0 mb-0">
+        <div class="row d-flex justify-content-between align-items-start"
+             style="background-color: #FAF8FF;padding: 55px;">
+            <div class="col-xl-6 d-flex flex-column">
+                <h4 style="font-weight: 500; font-size: 28px; color: #304041;">
+                    New CRM Lead
+                </h4>
+                <p class="mb-0"
+                   style="font-size: 18px;color: #474650;font-weight: 400; margin-bottom: 0;">
+                    When you submit your real estate inquiry through our contact form, a new lead is automatically
+                    created in our system.
+                    As you can see in the image, these inquiries are promptly assigned to our dedicated telesales agents
+                    who will get in touch with you to understand your needs and provide expert assistance.
+                </p>
+            </div>
+            <div class="col-xl-6 text-center">
+                <img src="./images/crm_lead_1.png" class="img-fluid" loading="lazy"
+                     alt="image-two" height="343" width="540"
+                     style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+            </div>
+        </div>
+    </div>
+    <!-- 3 -->
+    <div class="col-12 mb-xl-5 mb-0" style="padding: 55px;">
+        <div class="row d-flex justify-content-between align-items-start ">
+            <div class="col-xl-6 text-center" style="
+    width: 50%;
+">
+                <img src="./images/crm_lead_3.png" class="img-fluid" loading="lazy"
+                     alt="image-three" height="343" width="540"
+                     style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+            </div>
+            <div class="col-xl-6 d-flex flex-column" style="">
+                <h4 style="font-weight: 500; font-size: 28px; color: #304041;">
+                    Agent contacts directly with customer
+                </h4>
+                <p class="mb-0"
+                   style="font-size: 18px;color: #474650;font-weight: 400; margin-bottom: 0;">
+                    Our dedicated telesales agent will promptly contact you to understand your specific preferences and
+                    guide you through the best available options.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- 4 -->
+    <div class="col-12 mb-xl-0 mb-0">
+        <div class=" row" style="background-color: #FAF8FF;padding: 55px;">
+            <div class="col-xl-6 d-flex flex-column">
+                <h4 style="font-weight: 500; font-size: 28px; color: #304041;">
+                    Lead Conversion to Opportunity
+                </h4>
+                <p class="mb-0"
+                   style="font-size: 18px;color: #474650;font-weight: 400; margin-bottom: 0;">
+                    As you can see in the image, once a real estate inquiry progresses and its status in our system
+                    reaches "Converted," a "Convert to Opportunity" Button becomes visible. </p>
+            </div>
+            <div class="col-xl-6 text-center">
+                <img src="./images/crm_lead_7.png" class="img-fluid" loading="lazy"
+                     alt="image-four" height="343" width="540"
+                     style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+            </div>
+        </div>
+    </div>
+    <!-- 5 -->
+    <div class="col-12 mb-xl-0 mb-0" style="padding: 55px;">
+        <div class="row d-flex justify-content-between align-items-start ">
+            <div class="col-xl-6 text-center" style="
+    width: 50%;
+">
+                <img src="./images/crm_lead_6.png" class="img-fluid" loading="lazy"
+                     alt="image-five" height="343" width="540"
+                     style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+            </div>
+            <div class="col-xl-6 d-flex flex-column" style="
+">
+                <h4 style="font-weight: 500; font-size: 28px; color: #304041;">
+                    Automatic Opportunity Assignment
+                </h4>
+                <p class="mb-0"
+                   style="font-size: 18px;color: #474650;font-weight: 400; margin-bottom: 0;">
+                    As you can see in the image, after clicking the "Convert to Opportunity" button, a wizard will open.
+                    Within this wizard, the newly created opportunity will be automatically assigned to a property
+                    consultant based on our efficient round-robin rule, ensuring fair distribution of leads.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 6 -->
+<div class="col-12 mb-xl-0 mb-0">
+    <div class=" row" style="background-color: #FAF8FF;padding: 55px;">
+        <div class="col-xl-6 d-flex flex-column">
+            <h4 style="font-weight: 500; font-size: 28px; color: #304041;">
+                Opportunity Details Entry
+            </h4>
+            <p class="mb-0"
+               style="font-size: 18px;color: #474650;font-weight: 400; margin-bottom: 0;">
+                As shown in the image, once a property consultant logs in, they can view the opportunities assigned to
+                them.
+                Based on the customer's preferences gathered during the initial contact, the consultant will then fill
+                in crucial details such as unit specifications, financial information, and payment terms within the
+                opportunity.
+            </p>
+        </div>
+        <div class="col-xl-6 text-center">
+            <img src="./images/crm_opportunity2.png" class="img-fluid" loading="lazy"
+                 alt="image-six" height="343" width="540"
+                 style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+        </div>
+    </div>
+</div>
+<!-- 7 -->
+<div class="col-12 mb-xl-0 mb-0" style="padding: 55px;">
+    <div class="row d-flex justify-content-between align-items-start ">
+        <div class="col-xl-6 text-center" style="
+    width: 50%;
+">
+            <img src="./images/crm_opportunity1.png" class="img-fluid" loading="lazy"
+                 alt="image-five" height="343" width="540"
+                 style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+        </div>
+        <div class="col-xl-6 d-flex flex-column" style="
+">
+            <h4 style="font-weight: 500; font-size: 28px; color: #304041;">
+                Send Approval Request
+            </h4>
+            <p class="mb-0"
+               style="font-size: 18px;color: #474650;font-weight: 400; margin-bottom: 0;">
+                Once the property consultant has filled in the necessary details for the opportunity, they can send an
+                approval request to their manager.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- 8-->
+<div class="col-12 mb-xl-0 mb-0">
+    <div class=" row" style="background-color: #FAF8FF;padding: 55px;">
+        <div class="col-xl-6 d-flex flex-column">
+            <h4 style="font-weight: 500; font-size: 28px; color: #304041;">
+                Manager Approval and Escalation
+            </h4>
+            <p class="mb-0"
+               style="font-size: 18px;color: #474650;font-weight: 400; margin-bottom: 0;">
+                As depicted in the image, the manager can log in and review the opportunity approval request sent by the
+                property consultant.
+                Upon approval, the manager can then send a further approval request to the senior manager for the final
+                stage of authorization.
+            </p>
+        </div>
+        <div class="col-xl-6 text-center">
+            <img src="./images/crm_opportunity3.png" class="img-fluid" loading="lazy"
+                 alt="image-six" height="343" width="540"
+                 style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+        </div>
+    </div>
+</div>
+<!-- 9 -->
+<div class="col-12 mb-xl-0 mb-0" style="padding: 55px;">
+    <div class="row d-flex justify-content-between align-items-start ">
+        <div class="col-xl-6 text-center" style="
+    width: 50%;
+">
+            <img src="./images/crm_opprtunity4.png" class="img-fluid" loading="lazy"
+                 alt="image-five" height="343" width="540"
+                 style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+        </div>
+        <div class="col-xl-6 d-flex flex-column" style="
+">
+            <h4 style="font-weight: 500; font-size: 28px; color: #304041;">
+                Final Approval and Quotation Creation
+            </h4>
+            <p class="mb-0"
+               style="font-size: 18px;color: #474650;font-weight: 400; margin-bottom: 0;">
+                As shown in the image, once the senior manager approves the opportunity request, the system
+                automatically updates the state to "Reserved" and makes a new quotation visible within the opportunity.
+                The property consultant can then log back in and directly create a quotation for the customer based on
+                the details and reserved property linked to this CRM opportunity.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- 10-->
+<div class="col-12 mb-xl-0 mb-0">
+    <div class=" row" style="background-color: #FAF8FF;padding: 55px;">
+        <div class="col-xl-6 d-flex flex-column">
+            <h4 style="font-weight: 500; font-size: 28px; color: #304041;">
+                Sales Order and Handover Initiation
+            </h4>
+            <p class="mb-0"
+               style="font-size: 18px;color: #474650;font-weight: 400; margin-bottom: 0;">
+                As illustrated in the image, a sales order is created with the confirmed unit details for the customer.
+                Once the sales order is generated, manually changing its state to "Sold" will make the "Handover" tab
+                visible, allowing the next stage of the process to begin.
+            </p>
+        </div>
+        <div class="col-xl-6 text-center">
+            <img src="./images/sale2.png" class="img-fluid" loading="lazy"
+                 alt="image-six" height="343" width="540"
+                 style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+        </div>
+    </div>
+</div>
+<!-- 11-->
+<div class="col-12 mb-xl-0 mb-0" style="padding: 55px;">
+    <div class="row d-flex justify-content-between align-items-start ">
+        <div class="col-xl-6 text-center" style="
+    width: 50%;
+">
+            <img src="./images/sale3.png" class="img-fluid" loading="lazy"
+                 alt="image-five" height="343" width="540"
+                 style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+        </div>
+        <div class="col-xl-6 d-flex flex-column" style="
+">
+            <h4 style="font-weight: 500; font-size: 28px; color: #304041;">
+                Initiating the Handover Process
+            </h4>
+            <p class="mb-0"
+               style="font-size: 18px;color: #474650;font-weight: 400; margin-bottom: 0;">
+                As you can see within the "Handover" tab in the image, there is a "Create Handover" button.
+                Clicking this button will open a wizard. By proceeding through the wizard and clicking "Next," a
+                handover record will be automatically created, pre-filled with the relevant unit details.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- 12-->
+<div class="col-12 mb-xl-0 mb-0">
+    <div class=" row" style="background-color: #FAF8FF;padding: 55px;">
+        <div class="col-xl-6 d-flex flex-column">
+            <h4 style="font-weight: 500; font-size: 28px; color: #304041;">
+                HO Agent Document and QA Process
+            </h4>
+            <p class="mb-0"
+               style="font-size: 18px;color: #474650;font-weight: 400; margin-bottom: 0;">
+                The property consultant will manually change the owner of the handover record to the HO (Handover)
+                Agent.
+                Upon logging in, the HO Agent will then fill in relevant documents such as the QA Snagging and QA
+                Desnagging reports. The HO Agent will also manually change the state.
+                Crucially, when the state is manually changed to "QA Desnagging," the ownership of the handover record
+                will automatically change to the "Queue Team" for the next stage.
+            </p>
+        </div>
+        <div class="col-xl-6 text-center">
+            <img src="./images/handover1.png" class="img-fluid" loading="lazy"
+                 alt="image-six" height="343" width="540"
+                 style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+        </div>
+    </div>
+</div>
+<!-- 13-->
+<div class="col-12 mb-xl-0 mb-0" style="padding: 55px;">
+    <div class="row d-flex justify-content-between align-items-start ">
+        <div class="col-xl-6 text-center" style="
+    width: 50%;
+">
+            <img src="./images/handover2.png" class="img-fluid" loading="lazy"
+                 alt="image-five" height="343" width="540"
+                 style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+        </div>
+        <div class="col-xl-6 d-flex flex-column" style="
+">
+            <h4 style="font-weight: 500; font-size: 28px; color: #304041;">
+                Queue Team Unit Preparation and Handover
+            </h4>
+            <p class="mb-0"
+               style="font-size: 18px;color: #474650;font-weight: 400; margin-bottom: 0;">
+                The Queue Team will now log in, and their task is to make the unit ready
+                for handover, as shown in the image. When the Queue Team selects a
+                specific unit and clicks the "Submit" button, that unit is marked as ready,
+                and a Home Orientation letter is automatically sent to the customer. Following this, the ownership of
+                the handover record will automatically change back to the original CRM User for finalization.
+                Following this, the ownership of the handover record will automatically
+                change back to the original CRM User for further process.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- 14-->
+<div class="col-12 mb-xl-0 mb-0">
+    <div class=" row" style="background-color: #FAF8FF;padding: 55px;">
+        <div class="col-xl-6 d-flex flex-column">
+            <h4 style="font-weight: 500; font-size: 28px; color: #304041;">
+                Home Orientation Scheduling and HO Agent Tasks
+            </h4>
+            <p class="mb-0"
+               style="font-size: 18px;color: #474650;font-weight: 400; margin-bottom: 0;">
+                The CRM User will now log in and create a meeting with the type "Home orientation appointment."
+                Upon saving this meeting, the ownership of the handover record will automatically change
+                to the HO Agent. The HO Agent will then log in and proceed with the handover process.
+                This involves manually changing the state through stages: first to "Pre-CHO," then to
+                "CHO-Snagging" and finally to "CHO-Desnagging," while also filling in the required
+                documents at each stage. Once the state is manually set to "CHO-Desnagging," the
+                ownership of the handover record will automatically change back to the CRM User for
+                the further steps.
+            </p>
+        </div>
+        <div class="col-xl-6 text-center">
+            <img src="./images/handover3.png" class="img-fluid" loading="lazy"
+                 alt="image-six" height="343" width="540"
+                 style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+        </div>
+    </div>
+</div>
+<!-- 15-->
+<div class="col-12 mb-xl-0 mb-0" style="padding: 55px;">
+    <div class="row d-flex justify-content-between align-items-start ">
+        <div class="col-xl-6 text-center" style="
+    width: 50%;
+">
+            <img src="./images/handover5.png" class="img-fluid" loading="lazy"
+                 alt="image-five" height="343" width="540"
+                 style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+            <br>
+             <img src="./images/handover4.png" class="img-fluid" loading="lazy"
+                 alt="image-five" height="343" width="540"
+                 style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+        </div>
+        <div class="col-xl-6 d-flex flex-column" style="
+">
+            <h4 style="font-weight: 500; font-size: 28px; color: #304041;">
+                Settlement Follow-up and Finance Verification
+            </h4>
+            <p class="mb-0"
+               style="font-size: 18px;color: #474650;font-weight: 400; margin-bottom: 0;">
+                The CRM User will now log in and manually change the state to
+                "Settlement Follow-up." This action triggers a pop-up prompting the
+                user to first send the NOC. After sending the NOC via the button in the
+                first pop-up, a second pop-up will appear to send the BCC announcement first. The CRM
+                User will send the BCC announcement, then send the NOC, upload the
+                settlement documents, and will then be able to change the state to
+                "Settlement Follow-up." At this point, the ownership will automatically
+                change to the Finance User. The Finance User will then log in, upload the
+                necessary finance documents, and manually change the state to
+                "Finance Verified." This action will automatically change the owner to
+                the Team Queue.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- 16-->
+<div class="col-12 mb-xl-0 mb-0">
+    <div class=" row" style="background-color: #FAF8FF;padding: 55px;">
+        <div class="col-xl-6 d-flex flex-column">
+            <h4 style="font-weight: 500; font-size: 28px; color: #304041;">
+                Treasury and Government Processes
+            </h4>
+            <p class="mb-0"
+               style="font-size: 18px;color: #474650;font-weight: 400; margin-bottom: 0;">
+                  The Team Queue will log in and schedule a meeting with the type "Meeting."
+                  Upon saving this meeting, the ownership will automatically change to the
+                  Treasury Team. The Treasury Team will then log in and manually change the
+                  state to "Mortgage Release" by uploading the Bank NOC document.
+                  This action will automatically change the owner to the Government Team.
+                  The Government Team will log in, upload the Title Deed document, and
+                  manually change the state to "Title Deed." Following this, the ownership
+                  will automatically change back to the CRM User for further processing.
+            </p>
+        </div>
+        <div class="col-xl-6 text-center">
+            <img src="./images/handover6.png" class="img-fluid" loading="lazy"
+                 alt="image-six" height="343" width="540"
+                 style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+        </div>
+    </div>
+</div>
+<!-- 17-->
+<div class="col-12 mb-xl-0 mb-0" style="padding: 55px;">
+    <div class="row d-flex justify-content-between align-items-start ">
+        <div class="col-xl-6 text-center" style="
+    width: 50%;
+">
+            <img src="./images/handover7.png" class="img-fluid" loading="lazy"
+                 alt="image-five" height="343" width="540"
+                 style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+        </div>
+        <div class="col-xl-6 d-flex flex-column" style="
+">
+            <h4 style="font-weight: 500; font-size: 28px; color: #304041;">
+                Finalizing Handover and KHO Appointment
+            </h4>
+            <p class="mb-0"
+               style="font-size: 18px;color: #474650;font-weight: 400; margin-bottom: 0;">
+                The CRM User will now log in and manually change the state to
+                "Utility Transfer Completed" by uploading the ADDC document. Following this,
+                the CRM User will schedule a meeting with the type "KHO Appointment".
+                Upon saving this meeting, the state will automatically change to
+                "KHO Appointment". With the state now as "KHO Appointment," a "Complete
+                KHO Process" button will become visible, signifying the final step in
+                the handover process.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- 18-->
+<div class="col-12 mb-xl-0 mb-0">
+    <div class=" row" style="background-color: #FAF8FF;padding: 55px;">
+        <div class="col-xl-6 d-flex flex-column">
+            <h4 style="font-weight: 500; font-size: 28px; color: #304041;">
+                Handover Completion
+            </h4>
+            <p class="mb-0"
+               style="font-size: 18px;color: #474650;font-weight: 400; margin-bottom: 0;">
+                  Finally, the user will click the "Complete KHO Process" button.
+                Upon clicking this button, the state will automatically change to
+                "Handover Complete," signifying the successful conclusion of the entire
+                real estate handover process.
+            </p>
+        </div>
+        <div class="col-xl-6 text-center">
+            <img src="./images/handover8.png" class="img-fluid" loading="lazy"
+                 alt="image-six" height="343" width="540"
+                 style="box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 12px;">
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--</section>-->
+<!-- OUR SERVICES -->
+<div class="d-flex align-items-center"
+     style="border-bottom: 2px solid #714B67; padding: 15px 0px;">
+    <div class="d-flex justify-content-center align-items-center mr-2"
+         style="background-color: #F5F5F5; border-radius: 0px; width: 40px; height: 40px;">
+        <img src="./images/star.png"/>
+    </div>
+    <h2 class="mt-2"
+        style="font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: bold;">
+        Our Services
+    </h2>
+</div>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-4 d-flex flex-column justify-content-center align-items-center my-4">
+            <div class="d-flex justify-content-center align-items-center mx-3 my-3"
+                 style="background-color: #1dd1a1 !important; border-radius: 15px !important; height: 80px; width: 80px;">
+                <img src="./images/cogs.png" class="img-responsive"
+                     height="48px" width="48px">
+            </div>
+            <h6 class="text-center"
+                style="font-family: Montserrat, 'sans-serif' !important; font-weight: bold;">
+                Odoo
+                Customization</h6>
+        </div>
+        <div class="col-lg-4 d-flex flex-column justify-content-center align-items-center my-4">
+            <div class="d-flex justify-content-center align-items-center mx-3 my-3"
+                 style="background-color: #ff6b6b !important; border-radius: 15px !important; height: 80px; width: 80px;">
+                <img src="images/icons/wrench.png" class="img-responsive"
+                     height="48px" width="48px">
+            </div>
+            <h6 class="text-center"
+                style="font-family: Montserrat, 'sans-serif' !important; font-weight: bold;">
+                Odoo
+                Implementation</h6>
+        </div>
+        <div class="col-lg-4 d-flex flex-column justify-content-center align-items-center my-4">
+            <div class="d-flex justify-content-center align-items-center mx-3 my-3"
+                 style="background-color: #6462CD !important; border-radius: 15px !important; height: 80px; width: 80px;">
+                <img src="images/icons/lifebuoy.png" class="img-responsive"
+                     height="48px" width="48px">
+            </div>
+            <h6 class="text-center"
+                style="font-family: Montserrat, 'sans-serif' !important; font-weight: bold;">
+                Odoo
+                Support</h6>
+        </div>
+        <div class="col-lg-4 d-flex flex-column justify-content-center align-items-center my-4">
+            <div class="d-flex justify-content-center align-items-center mx-3 my-3"
+                 style="background-color: #ffa801 !important; border-radius: 15px !important; height: 80px; width: 80px;">
+                <img src="images/icons/user.png" class="img-responsive"
+                     height="48px" width="48px">
+            </div>
+            <h6 class="text-center"
+                style="font-family: Montserrat, 'sans-serif' !important; font-weight: bold;">
+                Hire
+                Odoo
+                Developer</h6>
+        </div>
+        <div class="col-lg-4 d-flex flex-column justify-content-center align-items-center my-4">
+            <div class="d-flex justify-content-center align-items-center mx-3 my-3"
+                 style="background-color: #54a0ff  !important; border-radius: 15px !important; height: 80px; width: 80px;">
+                <img src="images/icons/puzzle.png" class="img-responsive"
+                     height="48px" width="48px">
+            </div>
+            <h6 class="text-center"
+                style="font-family: Montserrat, 'sans-serif' !important; font-weight: bold;">
+                Odoo
+                Integration</h6>
+        </div>
+        <div class="col-lg-4 d-flex flex-column justify-content-center align-items-center my-4">
+            <div class="d-flex justify-content-center align-items-center mx-3 my-3"
+                 style="background-color: #6d7680 !important; border-radius: 15px !important; height: 80px; width: 80px;">
+                <img src="images/icons/update.png" class="img-responsive"
+                     height="48px" width="48px">
+            </div>
+            <h6 class="text-center"
+                style="font-family: Montserrat, 'sans-serif' !important; font-weight: bold;">
+                Odoo
+                Migration</h6>
+        </div>
+        <div class="col-lg-4 d-flex flex-column justify-content-center align-items-center my-4">
+            <div class="d-flex justify-content-center align-items-center mx-3 my-3"
+                 style="background-color: #786fa6 !important; border-radius: 15px !important; height: 80px; width: 80px;">
+                <img src="images/icons/consultation.png"
+                     class="img-responsive"
+                     height="48px" width="48px">
+            </div>
+            <h6 class="text-center"
+                style="font-family: Montserrat, 'sans-serif' !important; font-weight: bold;">
+                Odoo
+                Consultancy</h6>
+        </div>
+        <div class="col-lg-4 d-flex flex-column justify-content-center align-items-center my-4">
+            <div class="d-flex justify-content-center align-items-center mx-3 my-3"
+                 style="background-color: #f8a5c2 !important; border-radius: 15px !important; height: 80px; width: 80px;">
+                <img src="images/icons/training.png" class="img-responsive"
+                     height="48px" width="48px">
+            </div>
+            <h6 class="text-center"
+                style="font-family: Montserrat, 'sans-serif' !important; font-weight: bold;">
+                Odoo
+                Implementation</h6>
+        </div>
+        <div class="col-lg-4 d-flex flex-column justify-content-center align-items-center my-4">
+            <div class="d-flex justify-content-center align-items-center mx-3 my-3"
+                 style="background-color: #e6be26 !important; border-radius: 15px !important; height: 80px; width: 80px;">
+                <img src="images/icons/license.png" class="img-responsive"
+                     height="48px" width="48px">
+            </div>
+            <h6 class="text-center"
+                style="font-family: Montserrat, 'sans-serif' !important; font-weight: bold;">
+                Odoo
+                Licensing Consultancy</h6>
+        </div>
+    </div>
+</div>
+<!-- SUPPORT -->
+
+<div class="px-md-5 py-md-4 p-2 mb-4 bg-white shadow text-center" style="background-color: #F6F8F9;">
+
+    <div>
+        <img src="./images/csl_logo.jpg" alt="CSL Logo" width="200px">
+    </div>
+
+    <h2 class="mb-3"
+        style="font-family: 'Inter', sans-serif; font-style: normal; font-weight:600; font-size: 36px; line-height: 103%; /* or 43px */ text-transform: capitalize; color: #333333; font-size: calc(1.1rem + 1vw);">
+        Free Support
+    </h2>
+
+    <p class="text-dark fs-2">You will get 90 Days free support in case of any bugs or issues (Except data
+        recovery).</p>
+
+    <p class="fs-3"> At Cloud Science Labs we offer end to end solution for Odoo services. Which includes
+        analysis & consultation
+        on the workflows and integration part. Please note that You're not allowed to distribute this module
+        after purchase! In case of any questions regarding this module, feel free to email us at
+        <b>digital@cloudsciencelabs.com</b>, <b>admin@cloudsciencelabs.com</b> or raise a ticket on support.
+    </p>
+</div>
+</div>
+<!-- END OF SUPPORT -->
+
+<!-- Bootstrap 5 JS cdn -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="report_dlp_case_document">
+  <t t-call="web.html_container">
+    <t t-foreach="docs" t-as="doc">
+      <t t-call="web.external_layout">
+        <div class="page" style="font-size:13px;">
+          <!-- Centered Main Title -->
+          <h2 style="text-align: center; margin-bottom: 25px; color: #1f4e78;">DLP Case Report</h2>
+
+          <!-- CASE DETAILS -->
+          <div style="margin-bottom: 30px;">
+            <h3 style="text-align: left; background-color: #e2e3e5; padding: 6px; border-radius: 5px;">Case Details</h3>
+            <table class="table table-sm table-bordered" style="width: 100%; border-collapse: collapse;">
+              <tbody>
+                <tr>
+                  <td><strong>Case Number</strong></td><td><t t-esc="doc.seq_num"/></td>
+                  <td><strong>Status</strong></td><td><t t-esc="doc.status"/></td>
+                </tr>
+                <tr>
+                  <td><strong>Type of Incident</strong></td><td colspan="3"><t t-esc="doc.wo_type_of_incident"/></td>
+                </tr>
+                <tr>
+                  <td><strong>Location</strong></td><td><t t-esc="doc.wo_location"/></td>
+                  <td><strong>Resolution Priority</strong></td><td><t t-esc="doc.wo_resolution_priority"/></td>
+                </tr>
+                <tr>
+                  <td><strong>Date Opened</strong></td><td><t t-esc="doc.date_time_open"/></td>
+                  <td><strong>Date Closed</strong></td><td><t t-esc="doc.date_time_close"/></td>
+                </tr>
+                <tr>
+                  <td><strong>Incident Description</strong></td>
+                  <td colspan="3"><t t-esc="doc.work_order_incident_description"/></td>
+                </tr>
+                <tr>
+                  <td><strong>Closure Reason</strong></td>
+                  <td colspan="3"><t t-esc="doc.work_order_closure_reason"/></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- REQUESTOR -->
+          <div style="margin-bottom: 30px;">
+            <h3 style="text-align: left; background-color: #e2e3e5; padding: 6px; border-radius: 5px;">Requestor Information</h3>
+            <table class="table table-sm table-bordered" style="width: 100%; border-collapse: collapse;">
+              <tbody>
+                <tr>
+                  <td><strong>Name</strong></td><td><t t-esc="doc.requestor_name.name"/></td>
+                  <td><strong>Email</strong></td><td><t t-esc="doc.requestor_email"/></td>
+                </tr>
+                <tr>
+                  <td><strong>Phone</strong></td><td><t t-esc="doc.requestor_phone"/></td>
+                  <td><strong>Unit</strong></td><td><t t-esc="doc.requestor_unit.name"/></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- SYSTEM INFO -->
+          <div>
+            <h3 style="text-align: left; background-color: #e2e3e5; padding: 6px; border-radius: 5px;">System Metadata</h3>
+            <table class="table table-sm table-bordered" style="width: 100%; border-collapse: collapse;">
+              <tbody>
+                <tr>
+                  <td><strong>Created By</strong></td><td><t t-esc="doc.create_uid.name"/></td>
+                  <td><strong>Created On</strong></td><td><t t-esc="doc.create_date"/></td>
+                </tr>
+                <tr>
+                  <td><strong>Last Updated By</strong></td><td><t t-esc="doc.write_uid.name"/></td>
+                  <td><strong>Last Updated On</strong></td><td><t t-esc="doc.write_date"/></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </t>
+    </t>
+  </t>
+</template>
+
+
+  <record id="action_report_dlp_case" model="ir.actions.report">
+    <field name="name">DLP Case Report</field>
+    <field name="model">dlp.case</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">dlp_process.report_dlp_case_document</field>
+    <field name="report_file">dlp_process.report_dlp_case_document</field>
+    <field name="print_report_name">'DLP Case - %s' % (object.seq_num)</field>
+  </record>
+</odoo>

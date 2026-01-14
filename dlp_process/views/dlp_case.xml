@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form View -->
+    <record id="view_dlp_case_form" model="ir.ui.view">
+        <field name="name">dlp.case.form</field>
+        <field name="model">dlp.case</field>
+        <field name="arch" type="xml">
+            <form string="Case Information">
+                <header>
+                    <button name="%(action_report_dlp_case)d" string="DLP Case Report" type="action"
+                            class="btn-outline-primary"/>
+                    <field name="status" widget="statusbar" readonly="True"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="seq_num"/>
+                        <h1>
+                            <field name="seq_num"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="case_record_type"/>
+                            <field name="case_origin"/>
+                            <field name="work_order_status"/>
+                            <field name="work_order_incident_description"/>
+                            <field name="work_order_closure_reason"/>
+                            <field name="work_order_account"/>
+                            <field name="date_time_open"/>
+                            <field name="date_time_close"/>
+                        </group>
+                        <group>
+                            <field name="work_order_subject"/>
+                            <field name="wo_type_of_incident"/>
+                            <field name="wo_resolution_priority" widget="priority"/>
+                            <field name="wo_resolution_typology"/>
+                            <field name="wo_category"/>
+                            <field name="wo_sub_category"/>
+                            <field name="wo_location"/>
+                            <field name="wo_currency_code"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Requestor Information">
+                            <group>
+                                <group>
+                                    <field name="requestor_name"/>
+                                    <field name="requestor_phone"/>
+                                </group>
+                                <group>
+                                    <field name="requestor_email"/>
+                                    <field name="requestor_unit"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="System Information">
+                            <group>
+                                <group>
+                                    <field name="create_uid"/>
+                                    <field name="create_date"/>
+                                    <field name="write_uid"/>
+                                    <field name="write_date"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--list view-->
+    <record id="view_dlp_case_list_view" model="ir.ui.view">
+        <field name="name">dlp.case.list</field>
+        <field name="model">dlp.case</field>
+        <field name="arch" type="xml">
+            <list string="Case Information">
+                <field name="seq_num"/>
+                <field name="requestor_name"/>
+                 <field name="requestor_unit"/>
+                <field name="wo_resolution_priority" widget="priority"/>
+                <field name="case_record_type"/>
+                <field name="status"/>
+            </list>
+        </field>
+    </record>
+
+    <!--Search view-->
+    <record id="view_dlp_case_view_search_custom" model="ir.ui.view">
+        <field name="name">view.dlp.case.search_view</field>
+        <field name="model">dlp.case</field>
+        <field name="arch" type="xml">
+            <search string="DLP Case Search">
+                <field name="seq_num"/>
+                <field name="status"/>
+                <field name="requestor_name"/>
+                <field name="requestor_unit"/>
+                <field name="wo_location"/>
+                <field name="wo_category"/>
+                <field name="wo_sub_category"/>
+
+                <filter string="Status(New)" domain="[('status','=','new')]" name="status"/>
+                <filter string="Status(Closed)" domain="[('status','=','closed')]" name="status"/>
+                <separator/>
+                <filter string="Urgent" domain="[('wo_resolution_priority', '=', 'urgent')]" name="urgent_priority"/>
+                <filter string="High Priority" domain="[('wo_resolution_priority', '=', 'high')]" name="high_priority"/>
+                <filter string="Medium Priority" domain="[('wo_resolution_priority', '=', 'medium')]"
+                        name="medium_priority"/>
+                <filter string="Low Priority" domain="[('wo_resolution_priority', '=', 'low')]" name="low_priority"/>
+                <group expand="0" string="Group By">
+                    <filter string="Requestor Name" name="requestor_name" context="{'group_by':'requestor_name'}"/>
+                    <filter string="Status" name="status" context="{'group_by':'status'}"/>
+                    <filter string="WO Category" name="wo_category" context="{'group_by':'wo_category'}"/>
+                    <filter string="WO Sub-Category" name="wo_sub_category" context="{'group_by':'wo_sub_category'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action Window -->
+    <record id="action_dlp_case_window" model="ir.actions.act_window">
+        <field name="name">DLP Case</field>
+        <field name="res_model">dlp.case</field>
+        <field name="view_mode">list,form</field>
+         <field name="context">{'create': False}</field>
+    </record>
+
+    <menuitem
+            id="dlp_case_sub_menu"
+            action="action_dlp_case_window"
+            parent="helpdesk.helpdesk_ticket_menu_main"
+            sequence="50"/>
+
+</odoo>

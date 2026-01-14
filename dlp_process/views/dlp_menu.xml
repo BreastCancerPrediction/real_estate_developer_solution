@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<!--        <record id="helpdesk.menu_helpdesk_root" model="ir.ui.menu">-->
+<!--            <field name="name">DLP Process</field>-->
+<!--        </record>-->
+
+        <menuitem
+                name="DLP Process"
+                id="helpdesk.menu_helpdesk_root"
+                web_icon="dlp_process,static/img/menu_img.png"
+        />
+
+        <record id="helpdesk.helpdesk_tag_menu" model="ir.ui.menu">
+            <field name="name">Sub-Category</field>
+        </record>
+
+        <record id="helpdesk.helpdesk_team_menu" model="ir.ui.menu">
+            <field name="name">DLP Team</field>
+        </record>
+
+        <record id="helpdesk.helpdesk_ticket_menu_main" model="ir.ui.menu">
+            <field name="name">Work Orders</field>
+        </record>
+
+        <record id="helpdesk.helpdesk_ticket_menu_my" model="ir.ui.menu">
+            <field name="name">My Work Orders</field>
+        </record>
+
+        <record id="helpdesk.helpdesk_ticket_menu_all" model="ir.ui.menu">
+            <field name="name">All Work Orders</field>
+        </record>
+
+        <record id="dlp_dashboard_action" model="ir.actions.client">
+            <field name="name">Dashboard</field>
+            <field name="tag">dlp_dashboard_tag</field>
+        </record>
+        <menuitem name="Dashboard" id="dlp_dashboard"
+                  sequence="0" action="dlp_dashboard_action"
+                  parent="helpdesk.menu_helpdesk_root"/>
+
+        <menuitem
+            id="dlp_process.service_appointment_menu"
+            name="Service Appointment"
+            parent="helpdesk.helpdesk_ticket_menu_main"
+            action="appointment.appointment_type_action"
+            sequence="25"/>
+
+    </data>
+</odoo>

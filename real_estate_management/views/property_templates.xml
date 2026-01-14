@@ -1,0 +1,1008 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="property_view" name="property_view">
+        <t t-call="website.layout">
+            <t t-set="title">Properties</t>
+            <div class="oe_structure">
+                <br/>
+                <div class="container">
+                    <div class="row" id="property_container">
+                        <div class="col-md-3" style="background-color: #fdf8f1;padding-top:10px;">
+                            <ul class="list-group" id="property_options">
+                                <li class="list-group-item active property_action_buttons"
+                                    data-action="0" aria-current="true">
+                                    Properties
+                                </li>
+                            </ul>
+                            <div class="mb-2">
+                                <h6 class="mb-3 mt-5 fs-3"><b>Filters</b></h6>
+                                <!-- Price Filter -->
+                                <!-- <div class="mb-3">
+                                    <label for="price_filter" class="form-label"><b>Price</b></label>
+                                    <select id="price_filter" class="form-select">
+                                        <option value="all">All</option>
+                                        <option value="0-50000">0 - 50,000</option>
+                                        <option value="50001-100000">50,001 - 100,000</option>
+                                        <option value="100001-200000">100,001 - 200,000</option>
+                                        <option value="200001">200,001+</option>
+                                    </select>
+                                    
+                                </div> -->
+                                <!-- Property Filter -->
+                                <form method="get" action="/property">
+                                    <div class="mb-3">
+                                        <label for="project_filter" class="form-label"><b>Project</b></label>
+                                        <select name="project_id" id="project_filter" class="form-select" onchange="this.form.submit()">
+                                            <option value="">All</option>
+                                            <t t-foreach="projects" t-as="project">
+                                                <option t-att-value="project.id"
+                                                        t-att-selected="project.id == selected_project_id">
+                                                    <t t-esc="project.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <!-- Construct Year Filter -->
+                                    <div class="mb-3">
+                                        <label for="floor_filter" class="form-label"><b>Construct Year</b></label>
+                                        <select name="construct_year" id="floor_filter" class="form-select" onchange="this.form.submit()">
+                                            <option value="">All</option>
+                                            <t t-foreach="construct_years" t-as="year">
+                                                <option t-att-value="year"
+                                                        t-att-selected="year == selected_construct_year">
+                                                    <t t-esc="year"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <!-- Country Filter -->
+                                    <div class="mb-3">
+                                        <label for="country_filter" class="form-label"><b>Country</b></label>
+                                        <select name="country_id" id="country_filter" class="form-select" onchange="this.form.submit()">
+                                            <option value="">All</option>
+                                            <t t-foreach="countries" t-as="country">
+                                                <option t-att-value="country.id"
+                                                        t-att-selected="country.id == selected_country_id">
+                                                    <t t-esc="country.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>   
+                                    <!-- State Filter -->
+                                    <div class="mb-3">
+                                        <label for="state_filter" class="form-label"><b>State</b></label>
+                                        <select name="state_id" id="state_filter" class="form-select" onchange="this.form.submit()">
+                                            <option value="">All</option>
+                                            <t t-foreach="states" t-as="state">
+                                                <option t-att-value="state.id" t-att-selected="state.id == selected_state_id">
+                                                    <t t-esc="state.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>   
+                                    <!--City Filter  -->
+                                    <div class="mb-3">
+                                        <label for="city_filter" class="form-label"><b>City</b></label>
+                                        <select name="city" id="city_filter" class="form-select" onchange="this.form.submit()">
+                                            <option value="">All</option>
+                                            <t t-foreach="city_names" t-as="city_name">
+                                                <option t-att-value="city_name" t-att-selected="city_name == selected_city">
+                                                    <t t-esc="city_name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>                                    
+                                                                        
+                                </form>
+                                <!-- Latitude Filter -->
+                                <!-- <div class="mb-3">
+                                    <label for="type_filter" class="form-label"><b>Latitude</b></label>
+                                    <select id="type_filter" class="form-select">
+                                        <option value="residential"></option>
+                                    </select>
+                                </div> -->
+                                <!-- Longitude Filter -->
+                                <!-- <div class="mb-3">
+                                    <label for="unit_type_filter" class="form-label"><b>Longitude</b></label>
+                                    <select id="unit_type_filter" class="form-select">
+                                        <option value="all">All</option>
+                                    </select>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-9" id="property_option_view">
+                            <!--    View all properties     -->
+                            <div class="property_item_view"
+                                 id="property_item_view" style="margin-bottom:100px;">
+                                <div class="row row-cols-1 row-cols-md-3 g-4 o_properties">
+                                    <t t-foreach="property_ids" t-as="property">
+                                        <t t-if="property.state == 'available'">
+                                            <div class="col o_property_item"
+                                                 t-att-data-property_id="property.id">
+                                            <a t-attf-href="/units/{{ property.id }}" class="card">
+                                                    <!-- card content -->
+                                                                                               
+                                                <div class="card" >
+                                                    <t t-if="property.image">
+                                                        <img t-att-src="image_data_uri(property.image)"
+                                                             class="card-img-top"
+                                                             alt="..." style="height:200px;"/>
+                                                    </t>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">
+                                                            <t t-esc="property.name"/>
+                                                            -
+                                                            <t t-esc="property.code"/>
+                                                        </h5>
+                                                        <p class="card-body"
+                                                           style="text-transform: capitalize;">
+                                                            <t t-if="property.property_type =='industry'">
+                                                                <span class="m-6">Residential &amp; Commercial</span>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <t t-esc="property.property_type"/>
+                                                            </t>
+                                                            <h6 class="card-title">
+                                                                <b>Project:</b><t t-esc="property.project_id.name"/><br/>
+                                                                <b>Construct Year:</b><t t-esc="property.construct_year"/><br/>
+                                                                <b>Total Floor :</b><t t-esc="property.total_floor"/><br/>
+                                                                <b>Latitude :</b><t t-esc="property.latitude"/><br/>
+                                                                <b>Longitude :</b><t t-esc="property.longitude"/><br/>
+                                                            </h6>
+                                                        </p>
+                                                        <br/>
+                                                        <t t-if="property.state == 'sold'">
+                                                            <span id="p_type"
+                                                                  style="text-transform: capitalize;"
+                                                                  class="badge badge-pill bg-danger">
+                                                                <t t-esc="property.state"/>
+                                                            </span>
+                                                        </t>
+                                                        <t t-if="property.state == 'for sale'">
+                                                            <span id="p_type"
+                                                                  style="text-transform: capitalize;"
+                                                                  class="badge badge-pill bg-success">
+                                                                <t t-esc="property.state"/>
+                                                            </span>
+                                                        </t>
+                                                        <t t-if="property.state == 'for_rent'">
+                                                            <span id="p_type"
+                                                                  style="text-transform: capitalize;"
+                                                                  class="badge badge-pill bg-primary">
+                                                                <t t-esc="property.state.replace('_', ' ')"/>
+                                                            </span>
+                                                        </t>
+                                                        <t t-if="property.state == 'booked'">
+                                                            <span id="p_type"
+                                                                  style="text-transform: capitalize;"
+                                                                  class="badge badge-pill bg-warning">
+                                                                <t t-esc="property.state"/>
+                                                            </span>
+                                                        </t>
+                                                        <t t-if="property.state == 'available'">
+                                                            <span id="p_type"
+                                                                  style="text-transform: capitalize;"
+                                                                  class="badge badge-pill bg-info">
+                                                                <t t-esc="property.state"/>
+                                                            </span>
+                                                        </t>
+                                                    </div>
+                                                </div>
+                                            </a>  
+                                            </div>
+                                        </t>
+                                    </t>
+                                </div>
+                            </div>
+                            <!--    property sales list     -->
+                            <div class="property_sales_view"
+                                 id="property_sales_view"
+                                 style="display: none;">
+                                <div class="row row-cols-1 row-cols-md-3 g-4">
+                                    <t t-if="property_ids">
+                                        <t t-foreach="property_ids"
+                                           t-as="property">
+                                            <t t-if="property.state == 'available'">
+                                                <t t-if="property.sale_rent == 'for_sale'">
+                                                    <div class="col o_property_item"
+                                                         t-att-data-property_id="property.id">
+                                                        <div class="card">
+                                                            <span t-field="property.image"
+                                                                  t-options="{'widget': 'image', 'alt-field': 'name', 'zoom': 'image'}"/>
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">
+                                                                    <t t-esc="property.name"/>
+                                                                    -
+                                                                    <t t-esc="property.code"/>
+                                                                </h5>
+                                                                <p class="card-text"
+                                                                   style="text-transform: capitalize;">
+                                                                    <t t-esc="property.property_type"/>
+                                                                    <br/>
+                                                                    <t t-if="property.state == 'sold'">
+                                                                        <span id="p_type"
+                                                                              style="text-transform: capitalize;"
+                                                                              class="badge badge-pill bg-danger">
+                                                                            <t t-esc="property.state"/>
+                                                                        </span>
+                                                                    </t>
+                                                                    <t t-if="property.sale_rent == 'for_sale'">
+                                                                        <span id="p_type"
+                                                                              style="text-transform: capitalize;"
+                                                                              class="badge badge-pill bg-success">
+                                                                            <t t-esc="property.sale_rent"/>
+                                                                        </span>
+                                                                    </t>
+                                                                    <t t-if="property.sale_rent == 'for_tenancy'">
+                                                                        <span id="p_type"
+                                                                              style="text-transform: capitalize;"
+                                                                              class="badge badge-pill bg-primary">
+                                                                            <t t-esc="property.sale_rent"/>
+                                                                        </span>
+                                                                    </t>
+                                                                    <t t-if="property.state == 'available'">
+                                                                        <span id="p_type"
+                                                                              style="text-transform: capitalize;"
+                                                                              class="badge badge-pill bg-info">
+                                                                            <t t-esc="property.state"/>
+                                                                        </span>
+                                                                    </t>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </t>
+                                            </t>
+                                        </t>
+                                    </t>
+                                    <t t-else="">
+                                        <h3 class="m-5">No Property For Sale!</h3>
+                                    </t>
+                                </div>
+                            </div>
+                            <!--    Property rental list   -->
+                            <div class="property_rental_view"
+                                 id="property_rental_view"
+                                 style="display: none;">
+                                <div class="row row-cols-1 row-cols-md-3 g-4">
+                                    <t t-foreach="property_ids" t-as="property">
+                                        <t t-if="property.state == 'available'">
+                                            <t t-if="property.sale_rent == 'for_tenancy'">
+                                                <div class="col o_property_item"
+                                                     t-att-data-property_id="property.id">
+                                                    <div class="card" >
+                                                        <span t-field="property.image"
+                                                              t-options="{'widget': 'image', 'alt-field': 'name', 'zoom': 'image'}"/>
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">
+                                                                <t t-esc="property.name"/>
+                                                                -
+                                                                <t t-esc="property.code"/>
+                                                            </h5>
+                                                            <p class="card-text"
+                                                               style="text-transform: capitalize;">
+                                                                <t t-esc="property.property_type"/>
+                                                                <br/>
+                                                                <t t-if="property.state == 'sold'">
+                                                                    <span id="p_type"
+                                                                          style="text-transform: capitalize;"
+                                                                          class="badge badge-pill bg-danger">
+                                                                        <t t-esc="property.state"/>
+                                                                    </span>
+                                                                </t>
+                                                                <t t-if="property.sale_rent == 'for_sale'">
+                                                                    <span id="p_type"
+                                                                          style="text-transform: capitalize;"
+                                                                          class="badge badge-pill bg-success">
+                                                                        <t t-esc="property.sale_rent"/>
+                                                                    </span>
+                                                                </t>
+                                                                <t t-if="property.sale_rent == 'for_tenancy'">
+                                                                    <span id="p_type"
+                                                                          style="text-transform: capitalize;"
+                                                                          class="badge badge-pill bg-primary">
+                                                                        <t t-esc="property.sale_rent"/>
+                                                                    </span>
+                                                                </t>
+                                                                <t t-if="property.state == 'available'">
+                                                                    <span id="p_type"
+                                                                          style="text-transform: capitalize;"
+                                                                          class="badge badge-pill bg-info">
+                                                                        <t t-esc="property.state"/>
+                                                                    </span>
+                                                                </t>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </t>
+                                    </t>
+                                </div>
+                            </div>
+                            <!--    Property auction list   -->
+                            <div class="property_auction_view"
+                                 id="property_auction_view"
+                                 style="display: none;">
+                                <div class="auction_cards"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <!--    Property View Template  -->
+    <template id="property_view_item" name="property_view_item">
+        <t t-call="website.layout">
+            <t t-set="title">Property-
+                <t t-esc="property_id.name"/>
+            </t>
+            <div class="oe_structure">
+                <br/>
+                <div class="container property_container">
+                    <div class="row" id="property_container">
+                        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"/>
+                        <script src="https://www.npmjs.com/package/@googlemaps/js-api-loader"/>
+                        <div class="property_item" id="property-item"
+                             t-att-data-state="property_id.state">
+                            <script defer="defer"
+                                    t-attf-src="https://maps.googleapis.com/maps/api/js?key={{api}}&amp;v=weekly"/>
+                            <div class="row p-3 requestBtn"/>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <t t-if="property_id.image">
+                                        <img id="property-image"
+                                             t-att-src="image_data_uri(property_id.image)"
+                                             style="width: -webkit-fill-available;"/>
+                                    </t>
+                                </div>
+                                <div class="col-md-8 introduction">
+                                    <div class="row" id="nameAddress">
+                                        <h2 class="my-0"
+                                            style="text-transform: capitalize;">
+                                            <t t-esc="property_id.name"/>-
+                                            <t t-esc="property_id.property_type"/>
+                                        </h2>
+                                        <br/>
+                                        <div class="col-sm-4 m-2">Address:</div>
+                                        <div class="col m-2">
+                                            <t t-esc="property_id.street"/>
+                                            <br/>
+                                            <t t-esc="property_id.street2"/>
+                                            <br/>
+                                            <t t-esc="property_id.city"/>
+                                            <t t-esc="property_id.state_id.name"/>
+                                            <t t-esc="property_id.zip"/>
+                                            <br/>
+                                            <t t-esc="property_id.country_id.name"/>
+                                        </div>
+                                    </div>
+                                    <t t-if="property_id.unit_price">
+                                        <div class="row">
+                                            <div class="col-sm-4 m-2">Price:
+                                            </div>
+                                            <div class="col m-2"><t
+                                                    t-esc="property_id.unit_price"/>
+                                                /-
+                                            </div>
+                                        </div>
+                                    </t>
+                                    <t t-if="property_id.rent_month">
+                                        <div class="row">
+                                            <div class="col-sm-4 m-2">Rent per
+                                                Month:
+                                            </div>
+                                            <div class="col m-2"><t
+                                                    t-esc="property_id.rent_month"/>
+                                                /-
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <t t-if="property_id.total_sq_feet">
+                        <div class="row">
+                            <div class="col-sm-4 p-3"
+                                 style="font-size: 1.3rem;">Total Square Feet:
+                            </div>
+                            <div class="col m-2"
+                                 style="font-size: 1.3rem;text-transform: capitalize;">
+                                <t t-esc="property_id.total_sq_feet"/>
+                            </div>
+                        </div>
+                    </t>
+                    <div class="row">
+                        <div class="col-sm-4 p-3" style="font-size: 1.3rem;">
+                            Facilities:
+                        </div>
+                        <div class="col m-2" style="font-size: 1rem;">
+                            <t t-foreach="property_id.facility_ids"
+                               t-as="facility">
+                                &amp;nbsp;
+                                <span class="badge badge-pill badge-success"
+                                      style="background-color: var(--cyan);">
+                                    <t t-esc="facility.facility"/>
+                                </span>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 p-3" style="font-size: 1.3rem;">
+                            Nearby Connectivity:
+                        </div>
+                        <div class="col" style="font-size: 1rem;">
+                            <div class="row">
+                                <t t-foreach="property_id.nearby_connectivity_ids"
+                                   t-as="connectivity">
+                                    <div class="col-sm-2">
+                                        <div class="card"
+                                             style="width: max-content;">
+                                            <div class="card-body">
+                                                <h5 class="card-title"
+                                                    style="text-transform: capitalize;">
+                                                    <t t-esc="connectivity.name"/>
+                                                </h5>
+                                                <p class="card-text"><t
+                                                        t-esc="connectivity.kilometer"/>
+                                                    Kms
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-3">
+                        <a class="btn btn-primary btn_cta" id="loadMap"
+                           style="width:auto;"
+                           t-att-data-lat="property_id.latitude"
+                           t-att-data-lng="property_id.longitude">Locate
+                        </a>
+                        <div id="map-view"
+                             style="width:70%;height:450px;display:none;"/>
+                    </div>
+                    <div class="row p-3">
+                        <a href="/property"
+                           class="btn btn-primary btn_cta  btnBack"
+                           style="width:auto;">Back
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <!--    Property Auction Template   -->
+    <template id="auction_view" name="Action View">
+        <hr/>
+        Ongoing
+        <hr/>
+        <t t-foreach="started" t-as="property">
+            <div class="card mb-3" style="margin-bottom:4px;"
+                 t-att-data-property_id="property['id']">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <t t-if="property['image']">
+                            <img t-att-src="image_data_uri(property['image'])"
+                                 class="card-img-top"
+                                 alt="..."/>
+                        </t>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <t t-esc="property['code']"/>
+                            </h5>
+                            <h6>
+                                <t t-esc="property['name']"/>
+                            </h6>
+                            <p class="card-text">
+                                <t t-esc="description"/>
+                            </p>
+                            <table class="table">
+                                <tr>
+                                    <td>Start Amount</td>
+                                    <td>Last Bid</td>
+                                    <td>Action</td>
+                                </tr>
+                                <tr>
+                                    <td t-attf-id="bid-start-{{property['id']}}">
+                                        <t t-esc="property['start_price']"/>
+                                    </td>
+                                    <td t-attf-id="last-bid-{{property['id']}}">
+                                        <t t-esc="property['last']"/>
+                                    </td>
+                                    <td>
+                                        <div class="input-group input-group-sm mb-3">
+                                            <input type="number"
+                                                   class="form-control"
+                                                   placeholder="Your Amount"
+                                                   t-attf-id="property-{{property['id']}}"
+                                                   style="height:36px; padding-bottom: 3px;"
+                                            />
+                                            <button class="btn btn-success auction_submit"
+                                                    t-att-data-id="property['id']"
+                                                    style="width:70px;">BID
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+        <hr/>
+        Upcoming
+        <hr/>
+        <t t-foreach="confirmed" t-as="property">
+            <div class="card mb-3 " t-att-data-property_id="property['id']"
+                 style="margin-bottom:4px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <t t-if="property['image']">
+                            <img t-att-src="image_data_uri(property['image'])"
+                                 class="card-img-top"
+                                 alt="..."/>
+                        </t>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <t t-esc="property['code']"/>
+                            </h5>
+                            <h6>
+                                <t t-esc="property['name']"/>
+                            </h6>
+                            <p class="card-text">
+                                <t t-esc="description"/>
+                            </p>
+                            <table class="table">
+                                <tr>
+                                    <td>Start Amount</td>
+                                    <td>Start Date</td>
+                                    <td>End Date</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <t t-esc="property['start_price']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="property['start']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="property['end']"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+        <hr/>
+        Completed
+        <hr/>
+        <t t-foreach="ended" t-as="property">
+            <div class="card mb-3" style="margin-bottom:4px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <t t-if="property['image']">
+                            <img t-att-src="image_data_uri(property['image'])"
+                                 class="card-img-top"
+                                 alt="..."/>
+                        </t>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body" style="padding-top:36px;">
+                            <h5 class="card-title">
+                                <t t-esc="property['code']"/>
+                            </h5>
+                            <h6>
+                                <t t-esc="property['name']"/>
+                            </h6>
+                            <p class="card-text">
+                                <t t-esc="description"/>
+                            </p>
+                            <table class="table">
+                                <tr>
+                                    <th>Start Amount</th>
+                                    <td>
+                                        <t t-esc="property['start_price']"/>
+                                    </td>
+                                    <th>Participants</th>
+                                    <td>
+                                        <t t-esc="property['total_participant']"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Last Bid</th>
+                                    <td>
+                                        <t t-esc="property['last']"/>
+                                    </td>
+                                    <th>Winner</th>
+                                    <td>
+                                        <t t-esc="property['winner']"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Start Time</th>
+                                    <td>
+                                        <t t-esc="property['start']"/>
+                                    </td>
+                                    <th>End Time</th>
+                                    <td>
+                                        <t t-esc="property['end']"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+        <div class="toast position-fixed top-0 end-0 p-3"
+             style="z-index: 9999;">
+            <div class="toast-header">
+                Bid Amount Must be Greater than Last Bid, Start Amount
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="toast"/>
+            </div>
+        </div>
+    </template>
+
+
+    <template id="unit_view" name="unit_view">
+        <t t-call="website.layout">
+            <t t-set="title">Propertie Units</t>
+            <div class="oe_structure">
+                <br/>
+                <div class="container">
+                    <div style="display: flex; gap: 20px;">
+                        <!-- Left Panel (20%) -->
+
+                        <div style="width: 20%;background-color: #fdf8f1;padding:10px;" >
+                            <ul class="list-group mb-3" id="unit_options">
+                                <li class="list-group-item active property_action_buttons"
+                                    data-action="0" aria-current="true">
+                                    Units
+                                </li>
+                            </ul>
+                            <div class="mb-2">
+                                <h6 class="mb-3 mt-5 fs-3"><b>Filters</b></h6>
+                            <form id="unit_filter_form" method="get" action="/units">                                
+                                <!-- Price Filter -->
+                                <div class="mb-3">
+                                    <label for="price_filter" class="form-label"><b>Price</b></label>
+                                    <select id="price_filter" name="price" class="form-select" onchange="this.form.submit()">
+                                        <option value="all" t-att-selected="request.params.get('price') == 'all'">All</option>
+                                        <option value="0-50000" t-att-selected="request.params.get('price') == '0-50000'">0 - 50,000</option>
+                                        <option value="50001-100000" t-att-selected="request.params.get('price') == '50001-100000'">50,001 - 100,000</option>
+                                        <option value="100001-200000" t-att-selected="request.params.get('price') == '100001-200000'">100,001 - 200,000</option>
+                                        <option value="200001" t-att-selected="request.params.get('price') == '200001'">200,001+</option>
+                                    </select>
+                                </div>
+
+                                <!-- Property Filter -->
+                                <div class="mb-3">
+                                    <label for="property_filter" class="form-label"><b>Property</b></label>
+                                    <select id="property_filter" name="property_id" class="form-select" onchange="this.form.submit()">
+                                        <option value="">All</option>
+                                        <t t-foreach="properties" t-as="prop">
+                                            <option t-att-value="prop.id"
+                                                    t-att-selected="str(prop.id) == selected_filters.get('property_id')">
+                                                <t t-esc="prop.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+
+                                <!-- Floor Filter -->
+                                <div class="mb-3">
+                                    <label for="floor_filter" class="form-label"><b>Floor</b></label>
+                                    <select id="floor_filter" class="form-select" name="floor_id" onchange="this.form.submit()">
+                                        <option value="">All</option>
+                                        <t t-foreach="floors" t-as="prop">
+                                            <option t-att-value="prop.id"
+                                                    t-att-selected="str(prop.id) == selected_filters.get('floor_id')">
+                                                <t t-esc="prop.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+
+                                <!-- Type Filter -->
+                                <div class="mb-3">
+                                    <label for="property_type" class="form-label"><b>Type</b></label>
+                                    <select id="property_type" class="form-select" name="property_type" onchange="this.form.submit()">
+                                        <option value="" t-att-selected="not selected_filters or not selected_filters.get('property_type')">All</option>
+                                        <option value="residential" t-att-selected="selected_filters.get('property_type') == 'residential' if selected_filters else False">Residential</option>
+                                        <option value="commercial" t-att-selected="selected_filters.get('property_type') == 'commercial' if selected_filters else False">Commercial</option>
+                                    </select>
+                                </div>
+
+                                <!-- Unit Type Filter -->
+                                <div class="mb-3">
+                                    <label for="unit_type_filter" class="form-label"><b>Unit Type</b></label>
+                                    <select id="unit_type_filter" name="unit_type_filter" onchange="this.form.submit()" class="form-select">
+                                        <option value="">All</option>
+                                        <option value="apartment" t-att-selected="request.params.get('unit_type_filter') == 'apartment'">Apartment</option>
+                                        <option value="villa" t-att-selected="request.params.get('unit_type_filter') == 'villa'">Villa</option>
+                                        <option value="studio" t-att-selected="request.params.get('unit_type_filter') == 'studio'">Studio</option>
+                                        <option value="penthouse" t-att-selected="request.params.get('unit_type_filter') == 'penthouse'">Penthouse</option>
+                                    </select>
+                                </div>
+
+                                <!-- City Filter -->
+                                <div class="mb-3">
+                                    <label for="city_filter" class="form-label"><b>City</b></label>
+                                        <select name="city" id="city_filter" class="form-select" onchange="this.form.submit()">
+                                            <option value="">All</option>
+                                            <t t-foreach="city_names" t-as="city_name">
+                                                <option t-att-value="city_name" t-att-selected="city_name == selected_city">
+                                                    <t t-esc="city_name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                </div>
+
+                                <!-- State Filter -->
+                                <div class="mb-3">
+                                    <label for="state_filter" class="form-label"><b>State</b></label>
+                                    <select name="state_id" id="state_filter" class="form-select" onchange="this.form.submit()">
+                                        <option value="">All</option>
+                                        <t t-foreach="states" t-as="state">
+                                            <option t-att-value="state.id" t-att-selected="state.id == selected_state_id">
+                                                <t t-esc="state.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+
+                                <!-- Country Filter -->
+                                <div class="mb-3">
+                                    <label for="country_filter" class="form-label"><b>Country</b></label>
+                                        <select name="country_id" id="country_filter" class="form-select" onchange="this.form.submit()">
+                                            <option value="">All</option>
+                                            <t t-foreach="countries" t-as="country">
+                                                <option t-att-value="country.id"
+                                                        t-att-selected="country.id == selected_country_id">
+                                                    <t t-esc="country.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+
+
+                        <!-- Right Panel (80%) -->
+                        <div style="width: 80%;" id="property_option_view">
+                            <div class="property_item_view" id="unit_item_view">
+                                <!-- <div class="row row-cols-1 row-cols-md-3 g-4 o_properties"> -->
+                                <div class="row row-cols-1 g-4 o_properties">
+                                    <t t-foreach="units_ids" t-as="unit">
+                                        <div class="col-12 o_property_item">
+
+                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                            <input type="hidden" name="unit_id" t-att-value="unit.id"/>
+
+                                            <div class="card mb-3 shadow-sm border-0" style="border-radius: 12px; overflow: hidden;">
+                                                <div class="row g-0" style="">
+                                                    <!-- Image Left (50%) -->
+                                                    <div class="col-md-5">
+                                                        <t t-if="unit.image_1920">
+                                                            <img t-att-src="image_data_uri(unit.image_1920)"
+                                                                class="card-img-top unit-image"
+                                                                t-att-alt="'Image of %s' % unit.name"/>
+                                                        </t>
+                                                    </div>
+
+                                                    <!-- Content Right (50%) -->
+                                                    <div class="col-md-7">
+                                                        <div class="card-body position-relative h-100 d-flex flex-column justify-content-between">
+                                                            <!-- Status Badge -->
+                                                            <span class="badge bg-info position-absolute top-0 end-0 m-2 text-capitalize">
+                                                                <t t-esc="unit.status"/>
+                                                            </span>
+
+                                                            <div>
+                                                                <h5 class="card-title text-dark mb-2 fw-bold">
+                                                                    <t t-esc="unit.name"/>
+                                                                </h5>
+                                                                <t t-if="unit.city and unit.state_id">
+                                                                    <p class="card-text mb-1">
+                                                                        <b>Location:</b> <t t-esc="unit.city"/>, <t t-esc="unit.state_id.name"/>
+                                                                    </p>
+                                                                </t>
+
+                                                                <t t-if="unit.property_name">
+                                                                    <p class="card-text mb-1">
+                                                                        <b>Property:</b> <t t-esc="unit.property_name.name"/>
+                                                                    </p>
+                                                                </t>
+
+                                                                <t t-if="unit.floor">
+                                                                    <p class="card-text mb-1">
+                                                                        <b>Floor:</b> <t t-esc="unit.floor.name"/>
+                                                                    </p>
+                                                                </t>
+
+                                                                <t t-if="unit.unit_type_id">
+                                                                    <p class="card-text mb-1">
+                                                                        <b>Type:</b> <t t-esc="unit.unit_type_id.name"/>
+                                                                    </p>
+                                                                </t>
+
+                                                                <t t-if="unit.total_unit_price">
+                                                                    <p class="card-text mb-3">
+                                                                        <b>Price:</b> ₹<t t-esc="unit.total_unit_price"/>
+                                                                    </p>
+                                                                </t>
+                                                            </div>
+
+                                                            <div class="d-flex gap-2 mt-3">
+                                                                <!-- <button class="btn btn-outline-secondary btn-sm"
+                                                                        t-att-data-property_id="unit.id" 
+                                                                        t-attf-onclick="openContactModal({{ unit.id }})" 
+                                                                        data-bs-toggle="modal" 
+                                                                        data-bs-target="#exampleModal" 
+                                                                        data-bs-whatever="@mdo"
+                                                                >📄 Brochure</button> -->
+                                                                <button class="btn btn-primary btn-sm"
+                                                                        t-att-data-property_id="unit.id" 
+                                                                        t-attf-onclick="openContactModal({{ unit.id }})" 
+                                                                        data-bs-toggle="modal" 
+                                                                        data-bs-target="#exampleModal" 
+                                                                        data-bs-whatever="@mdo"                            
+                                                                >📞 Contact Us</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- <div class="card mb-3" style="max-width: 540px;">
+                                            <div class="row g-0">
+                                                <div class="col-md-4">
+                                                    <t t-if="unit.image_1920">
+                                                        <img t-att-src="image_data_uri(unit.image_1920)"
+                                                            class="card-img-top"
+                                                            t-att-alt="'Image of %s' % unit.name"/>
+                                                    </t>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title"><t t-esc="unit.name"/></h5>
+                                                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                                        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+
+                                        <!-- <div class="col o_property_item"
+                                             t-att-data-property_id="unit.id" t-attf-onclick="openContactModal({{ unit.id }})" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <input type="hidden" name="unit_id" t-att-value="unit.id"/>
+                                                <div class="card h-100 cursor-pointer" >
+                                                    <t t-if="unit.image_1920">
+                                                        <img t-att-src="image_data_uri(unit.image_1920)"
+                                                            class="card-img-top"
+                                                            t-att-alt="'Image of %s' % unit.name"/>
+                                                    </t>
+                                                    <div class="card-body d-flex flex-column">
+                                                        <h5 class="card-title"><b>Unit:</b> <t t-esc="unit.name"/></h5>
+                                                        <h6 class="card-title"><b>Property:</b> <t t-esc="unit.property_name.name"/></h6>
+                                                        <h6 class="card-title"><b>Floor:</b> <t t-esc="unit.floor.name"/></h6>
+                                                        <h6 class="card-title"><b>Type:</b> <t t-esc="unit.unit_type_id.name"/></h6>
+                                                        <h6 class="card-title"><b>Price:</b> <t t-esc="unit.total_unit_price"/></h6>
+                                                    </div>
+                                                    <span id="unit_status"
+                                                        style="text-transform: capitalize;"
+                                                        class="badge badge-pill bg-info">
+                                                        <t t-esc="unit.status"/>
+                                                    </span>                                                  
+                                                </div>
+                                        </div> -->
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Contact Us Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-md" style='max-width:575px;'>
+                                <form id="contactForm" class="modal-content">
+                                    <div class="modal-header d-flex justify-content-center">
+                                        <h1 class="modal-title fs-5">Contact Us</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="hidden" name="unit_id" id="modal_unit_id"/>
+
+                                        <div class="mb-1">
+                                            <label class="col-form-label">Name:</label>
+                                            <input type="text" name="name" class="form-control" />
+                                        </div>
+                                        <div class="mb-1">
+                                            <label class="col-form-label">Email:</label>
+                                            <input type="email" name="email" class="form-control"/>
+                                        </div>
+                                        <div class="mb-1">
+                                            <label class="col-form-label">Phone:</label>
+                                            <input type="text" name="phone" class="form-control"/>
+                                        </div>
+                                        <div class="mb-1">
+                                            <label class="col-form-label">Message:</label>
+                                            <input name="message" class="form-control"></input>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Send</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                </div>
+            </div>
+            <!-- Bootstrap 5 JS -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+            <script>
+            function openContactModal(unitId) {
+                document.getElementById('modal_unit_id').value = unitId;
+                const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+                modal.show();
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.getElementById('contactForm');
+
+                form.addEventListener('submit', async function (e) {
+                    e.preventDefault();
+
+                    const formData = new FormData(form);
+                    const response = await fetch("/create_crm_lead", {
+                        method: "POST",
+                        body: formData,
+                    });
+
+                    if (response.ok) {
+                        bootstrap.Modal.getInstance(document.getElementById('exampleModal')).hide();
+                        form.reset();
+                        window.location.href = "/thank-you";
+                    } else {
+                        console.error("Error In Submitting Form ")
+                    }
+                });
+            });
+            </script>
+
+        </t>
+    </template>
+
+    <template id="thank_you_template" name="Thank You Page">
+        <t t-call="website.layout">
+            <div class="container mt-5 mb-5 text-center">
+                <h1 class="display-4">Thank You!</h1>
+                <p class="lead">Your interest in the unit has been recorded. Our team will contact you shortly.</p>
+                <a href="/" class="btn btn-primary mt-3">Back to Home</a>
+            </div>
+        </t>
+    </template>
+
+
+</odoo>

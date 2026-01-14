@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+        <!-- Real Estate Handover Category -->
+        <record id="category_real_estate_handover" model="ir.module.category">
+            <field name="name">Real Estate Handover</field>
+            <field name="sequence">9</field>
+        </record>
+
+        <!-- HO Agent Group -->
+        <record id="group_ho_agent" model="res.groups">
+            <field name="name">HO Agent</field>
+            <field name="category_id" ref="category_real_estate_handover"/>
+        </record>
+
+        <!-- Handover Operation Group -->
+        <record id="group_handover_operation_team_queue" model="res.groups">
+            <field name="name">Handover Operation Team Queue</field>
+            <field name="category_id" ref="category_real_estate_handover"/>
+        </record>
+
+        <!-- treasure Team Group -->
+        <record id="group_treasure_team" model="res.groups">
+            <field name="name">Treasure Team</field>
+            <field name="category_id" ref="category_real_estate_handover"/>
+        </record>
+
+        <!-- Government Team Group -->
+        <record id="group_government_team" model="res.groups">
+            <field name="name">Government Relation Team</field>
+            <field name="category_id" ref="category_real_estate_handover"/>
+        </record>
+
+        <!-- CRM User Group -->
+        <record id="group_crm_user" model="res.groups">
+            <field name="name">CRM User</field>
+            <field name="category_id" ref="category_real_estate_handover"/>
+        </record>
+
+        <!-- Finance User Group -->
+        <record id="finance_group" model="res.groups">
+            <field name="name">Finance Group</field>
+            <field name="category_id" ref="category_real_estate_handover"/>
+        </record>
+
+
+
+    </data>
+</odoo>

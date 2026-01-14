@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="problem_code_list_view" model="ir.ui.view">
+        <field name="name">problem.code.list.view</field>
+        <field name="model">problem.code</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="tag_id"/>
+                <field name="incident_location"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_form_problem_code" model="ir.ui.view">
+        <field name="name">problem.code.form</field>
+        <field name="model">problem.code</field>
+        <field name="arch" type="xml">
+            <form string="Problem Code">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="category"/>
+                        <field name="tag_id"/>
+                        <field name="incident_location"/>
+                        <field name="ticket_id" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="new_action_problem_code" model="ir.actions.act_window">
+        <field name="name">Problem Code</field>
+        <field name="res_model">problem.code</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new Problem Code record.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="new_problem_code_id"
+            name="Problem Code"
+            parent="helpdesk.helpdesk_menu_config"
+            action="new_action_problem_code"
+            sequence="25"/>
+</odoo>

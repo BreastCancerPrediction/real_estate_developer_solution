@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="owl.OwlSalesDashboard" owl="1">
+        <div class="vh-100 overflow-auto bg-muted" style="background-color: #D9AFD9;background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);">
+            <div class="row m-3">
+                <div class="col-lg-7">
+                    <div class="row">
+                        <div class="col m-0 p-0">
+                            <div class="shadow-sm border m-2 p-4 bg-white">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h1 class="text-primary fw-bold">Dashboard</h1>
+                                    <div class="d-flex align-items-center gap-5">
+                                        <div class="dropdown border">
+                                            <button
+                                                class="btn btn-secondary dropdown-toggle"
+                                                type="button"
+                                                id="projectDropdownButton"
+                                                data-bs-toggle="dropdown"
+                                                aria-expanded="false"
+                                            >
+                                                Select Project
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="projectDropdownButton">
+                                                <li t-foreach="state.projects" t-as="project" t-key="project.id">
+                                                    <a class="dropdown-item" t-att-data-id="project.id" >
+                                                        <t t-esc="project.name" />
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <select class="form-select" t-model="state.period" t-on-change="onChangePeriod">
+                                                <option value="0">Select Period</option>
+                                                <option value="7">Last 7 Days</option>
+                                                <option value="30">Last 30 Days</option>
+                                                <option value="90">Last 90 Days</option>
+                                                <option value="365">Last 365 Days</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- <KpiCard onClick.bind="viewQuotations" name="'Quotations'" value="state.quotations.value" percentage="state.quotations.percentage"/> -->
+                        <KpiCard onClick.bind="viewOpportunities" name="'Opportunities'" value="state.opportunities.value" percentage="state.opportunities.percentage"/>
+                        <KpiCard onClick.bind="viewOrders" name="'Orders'" value="state.orders.value" percentage="state.orders.percentage"/>
+                        <KpiCard onClick.bind="viewRevenues" name="'Revenues'" value="state.orders.revenue" percentage="state.orders.revenue_percentage"/>
+                        <KpiCard onClick.bind="viewRevenues" name="'Average Amount'" value="state.orders.average" percentage="state.orders.average_percentage"/>
+                    </div>
+                    <div class="row">
+                        <KpiCard onClick.bind="viewVacantUnits" name="'Vacant Units'" value="state.vacant_units.value" percentage="state.vacant_units.percentage"/>
+                        <KpiCard onClick.bind="viewAssignUnits" name="'Assigned Units'" value="state.assign_units.value" percentage="state.assign_units.percentage"/>
+                        <KpiCard onClick.bind="viewBookedUnits" name="'Booked Units'" value="state.booked_units.value" percentage="state.booked_units.percentage"/>
+                        <KpiCard onClick.bind="viewOccupiedUnits" name="'Occupied Units'" value="state.occupied_units.value" percentage="state.occupied_units.percentage"/>
+                    </div>                    
+                    <div class="row">
+                        <div class="col-lg-6 m-0 p-0">
+                            <div class="shadow-sm border m-2 p-4 bg-white" style="height:430px;">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h3 class="text-primary fw-bold">Units</h3>
+                                    <!-- <div class="px-3 py-1 bg-primary cursor-pointer">
+                                        <span class="fa fa-arrow-right text-white"/>
+                                    </div> -->
+                                </div>
+                                <ChartRenderer type="'pie'" title="'Top Properties Report'" data="this.state.all_units"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 m-0 p-0">
+                            <div class="shadow-sm border m-2 p-4 bg-white" style="height:430px;">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h3 class="text-primary fw-bold">Properties</h3>
+                                    <!-- <div class="px-3 py-1 bg-primary cursor-pointer">
+                                        <span class="fa fa-arrow-right text-white"/>
+                                    </div> -->
+                                </div>
+                                <ChartRenderer type="'pie'" title="'Properties'" data="this.state.properties"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="row">
+                        <div class="col m-0 p-0">
+                            <div class="shadow-sm border m-2 p-4 bg-white">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h3 class="text-primary fw-bold">Monthly Sales</h3>
+                                    <!-- <div class="px-3 py-1 bg-primary cursor-pointer">
+                                        <span class="fa fa-arrow-right text-white"/>
+                                    </div> -->
+                                </div>
+                                <ChartRenderer type="'bar'" title="'Monthly Sales Report'" data="this.state.monthlySales"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m-0 p-0">
+                            <div class="shadow-sm border m-2 p-4 bg-white">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h3 class="text-primary fw-bold">Yearly Sales</h3>
+                                    <!-- <div class="px-3 py-1 bg-primary cursor-pointer">
+                                        <span class="fa fa-arrow-right text-white"/>
+                                    </div> -->
+                                </div>
+                                <ChartRenderer type="'bar'" title="'Yearly Sales Report'" data="this.state.yearlySales"/>
+                            </div>
+                        </div>
+                    </div>                    
+                    <!-- <div class="row">
+                        <div class="col m-0 p-0">
+                            <div class="shadow-sm border m-2 p-4 bg-white">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h3 class="text-primary fw-bold">Partner Orders</h3>
+                                    <div class="px-3 py-1 bg-primary cursor-pointer">
+                                        <span class="fa fa-arrow-right text-white"/>
+                                    </div>
+                                </div>
+                                <ChartRenderer type="'line'" title="'Partner Orders Report'" data="this.state.all_units"/>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="row">
+                        <div class="col m-0 p-0">
+                            <div class="shadow-sm border m-2 p-4 bg-white">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h3 class="text-primary fw-bold">Assigned Property Customers</h3>
+                                </div>
+                                <div id="partner-list-container">
+                                    <t t-if="state.partners.length">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Phone</th>
+                                                    <th>Job</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="state.partners" t-as="partner" t-key="partner.id">
+                                                    <tr>
+                                                        <td class="fw-bold"><img t-if="partner.image_128" t-att-src="'data:image/png;base64,' + partner.image_128" alt="Partner Image" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;"/> <t t-esc="partner.name" /></td>
+                                                        <td><t t-esc="partner.email || 'N/A'"/></td>
+                                                        <td><t t-esc="partner.phone || 'N/A'"/></td>
+                                                        <td><t t-esc="partner.function || 'N/A'"/></td>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </t>
+                                    <t t-else="">
+                                        <div>No partners found.</div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>    
+            </div>
+        </div>
+    </t>
+</templates>

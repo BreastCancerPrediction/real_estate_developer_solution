@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <!-- Real Estate Category -->
+        <record id="category_real_estate" model="ir.module.category">
+            <field name="name">Real Estate</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <!-- Tele Sales Agent Group -->
+        <record id="group_tele_sales_agent" model="res.groups">
+            <field name="name">Tele Sales Agent</field>
+            <field name="category_id" ref="category_real_estate"/>
+        </record>
+
+        <!-- Other Agent Group -->
+        <record id="group_other_agent" model="res.groups">
+            <field name="name">Other Agent</field>
+            <field name="category_id" ref="category_real_estate"/>
+        </record>
+
+        <!-- Property Consultant Group -->
+        <record id="group_property_consultant" model="res.groups">
+            <field name="name">Property Consultant</field>
+            <field name="category_id" ref="category_real_estate"/>
+        </record>
+
+         <!-- Real Estate Manager -->
+        <record id="category_real_estate_manager" model="ir.module.category">
+            <field name="name">Real Estate Manager</field>
+            <field name="sequence">11</field>
+        </record>
+
+        <!-- Manager 1 Group -->
+        <record id="group_real_estate_manager_1" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="category_real_estate_manager"/>
+        </record>
+
+        <!-- Senior Manager Group -->
+        <record id="group_real_estate_manager_2" model="res.groups">
+            <field name="name">Senior Manager</field>
+            <field name="category_id" ref="category_real_estate_manager"/>
+        </record>
+
+        <!-- ERP Reservation Group -->
+        <record id="group_real_estate_erp_reservation" model="res.groups">
+            <field name="name">ERP Reservation</field>
+            <field name="category_id" ref="category_real_estate_manager"/>
+        </record>
+
+    </data>
+</odoo>

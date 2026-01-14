@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="handover_root"
+              name="Handover"
+              parent="real_estate_management.property_root_menu"
+              sequence="11"/>
+              <!-- web_icon="real_estate_handover,static/description/icon.png" -->
+
+    <menuitem id="handover_sale_order"
+              name="Orders"
+              parent="real_estate_handover.handover_root"
+              action="sale.action_quotations_with_onboarding"
+              sequence="-1"/>
+
+    <menuitem
+        id="menu_crm_opportunities"
+        name="My Pipeline"
+        parent="real_estate_handover.handover_root"
+        action="crm.action_your_pipeline"
+        sequence="4"/>
+
+    <menuitem id="configuration"
+              name="Configuration"
+              parent="real_estate_handover.handover_root"
+              sequence="7"/>
+
+    <menuitem id="send_bcc_to_customer"
+              name="Send BCC to Customer"
+              parent="real_estate_handover.handover_root"
+              sequence="5"/>
+
+</odoo>

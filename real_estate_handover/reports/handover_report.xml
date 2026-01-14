@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Report action for brochure -->
+    <record id="action_handover_report" model="ir.actions.report">
+        <field name="name">Handover Report</field>
+        <field name="model">handover.process</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">real_estate_handover.handover_process_report</field>
+        <field name="report_file">real_estate_handover.handover_process_report</field>
+        <field name="print_report_name">'Handover Process - %s' %(object.handover_name)</field>
+        <field name="binding_model_id" ref="model_handover_process"/>
+        <field name="binding_type">report</field>
+    </record>
+    <!-- Template for brochure -->
+<template id="handover_process_report">
+    <t t-call="web.html_container">
+        <t t-call="web.external_layout">
+            <div class="page"
+                 style="font-family: 'Inter', sans-serif; color: #343a40; padding: 80px; line-height: 1.8; background: linear-gradient(to bottom right, #f8f9fa, #e9ecef);">
+                <t t-foreach="docs" t-as="data">
+                    <div style="background-color: #ffffff; padding: 60px; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); border: 1px solid #dee2e6;">
+
+                        <div style="text-align:center; margin-bottom: 70px;">
+                            <h1 style="font-size: 42px; color: #00274e; font-weight: 900; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 15px;">
+                                Handover Report
+                            </h1>
+                            <p style="font-size: 18px; color: #6c757d; margin-bottom: 30px;">
+                                Comprehensive Overview of the Handover Process
+                            </p>
+                            <div style="width: 100px; height: 5px; background: linear-gradient(to right, #007bff, #6610f2); margin: 0 auto; border-radius: 3px;"></div>
+                        </div>
+
+                        <div style="margin-bottom: 50px; background-color: #f8f9fa; border-radius: 10px; padding: 35px; border: 1px solid #e2e6ea;">
+                            <h2 style="font-size: 24px; color: #004d7a; margin-bottom: 25px; font-weight: 700; display: flex; align-items: center; justify-content: center; background-color: #e0f2f7; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                <span style="margin-right: 12px; font-size: 28px; color: #007bff;">&#x1F4C4;</span> Overview
+                            </h2>
+                            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                <div style="flex: 1 1 45%; min-width: 280px;">
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">Handover Name:</strong> <t t-esc="data.handover_name"/></p>
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">Customer:</strong> <t t-esc="data.customer_name.name"/></p>
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">Email:</strong> <t t-esc="data.customer_email"/></p>
+                                </div>
+                                <div style="flex: 1 1 45%; min-width: 280px;">
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">Property:</strong> <t t-esc="data.property_name.name"/></p>
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">Unit:</strong> <t t-esc="data.unit.name"/></p>
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">Unit Ready:</strong>
+                                        <span t-attf-style="font-weight: bold; padding: 5px 12px; border-radius: 20px; font-size: 0.9em; text-transform: uppercase; color: #fff; background-color: #{data.unit_ready and '#28a745' or '#dc3545'};">
+                                            <t t-esc="data.unit_ready and 'Yes' or 'No'"/>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div style="width: 100%;">
+                                    <p style="margin-bottom: 0;"><strong style="color: #495057;">Current Status:</strong>
+                                        <span t-attf-style="font-weight: bold; padding: 7px 15px; border-radius: 25px; font-size: 1em; text-transform: uppercase; color: #fff; background-color: #{data.state == 'handover_completed' and '#28a745' or (data.state == 'settlement' and '#ffc107') or (data.state == 'created' and '#6c757d') or '#007bff'};">
+                                            <t t-esc="data.state.replace('_', ' ').title()"/>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 50px; background-color: #f8f9fa; border-radius: 10px; padding: 35px; border: 1px solid #e2e6ea;">
+                            <h2 style="font-size: 24px; color: #004d7a; margin-bottom: 25px; font-weight: 700; display: flex; align-items: center; background-color: #e0f2f7; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                <span style="margin-right: 12px; font-size: 28px; color: #007bff;">&#x1F4B8;</span> Financial Summary
+                            </h2>
+                            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                <div style="flex: 1 1 45%; min-width: 280px;">
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">Purchase Price:</strong> <t t-esc="data.purchase_price"/></p>
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">Mortgage Fee:</strong> <t t-esc="data.mortgage_fee"/></p>
+                                </div>
+                                <div style="flex: 1 1 45%; min-width: 280px;">
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">Collection Before HO:</strong> <t t-esc="data.total_collection_before_ho"/></p>
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">Title Deed Fee:</strong> <t t-esc="data.title_deed_fee"/></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 50px; background-color: #f8f9fa; border-radius: 10px; padding: 35px; border: 1px solid #e2e6ea;">
+                            <h2 style="font-size: 24px; color: #004d7a; margin-bottom: 25px; font-weight: 700; display: flex; align-items: center; background-color: #e0f2f7; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                <span style="margin-right: 10px; font-size: 28px; color: #007bff;">&#x1F4C5;</span>Payment Details
+                            </h2>
+                            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                <div style="flex: 1 1 45%; min-width: 280px;">
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">Payment Type:</strong> <t t-esc="data.payment_type and data.payment_type.title() or 'N/A'"/></p>
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">Bank Name:</strong> <t t-esc="data.bank_name or 'N/A'"/></p>
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">Mortgage Status:</strong>
+                                        <span t-attf-style="font-weight: bold; padding: 5px 12px; border-radius: 20px; font-size: 0.9em; text-transform: uppercase; color: #fff; background-color: #{data.mortgage_status == 'approved' and '#28a745' or (data.mortgage_status == 'pending' and '#ffc107') or '#dc3545'};">
+                                            <t t-esc="data.mortgage_status and data.mortgage_status.title() or 'N/A'"/>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div style="flex: 1 1 45%; min-width: 280px;">
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">Promise to Pay Date:</strong> <t t-esc="data.promise_to_pay_date or 'N/A'"/></p>
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">Home Orientation Invitation:</strong> <t t-esc="data.home_orientation_invitation_date or 'N/A'"/></p>
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">Settlement Follow-up:</strong> <t t-esc="data.settlement_follow_up_date or 'N/A'"/></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background-color: #f8f9fa; border-radius: 10px; padding: 35px; border: 1px solid #e2e6ea;">
+                            <h2 style="font-size: 24px; color: #004d7a; margin-bottom: 25px; font-weight: 700; display: flex; align-items: center; background-color: #e0f2f7; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                <span style="margin-right: 12px; font-size: 28px; color: #007bff;">&#x1F465;</span> Assigned Personnel
+                            </h2>
+                            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                <div style="flex: 1 1 45%; min-width: 280px;">
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">Responsible:</strong> <t t-esc="data.owner.name or 'N/A'"/></p>
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">HO Agent:</strong> <t t-esc="data.ho_agent or 'N/A'"/></p>
+                                </div>
+                                <div style="flex: 1 1 45%; min-width: 280px;">
+                                    <p style="margin-bottom: 10px;"><strong style="color: #495057;">CRM User:</strong> <t t-esc="data.crm_team_assigned_user or 'N/A'"/></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </t>
+</template>
+
+
+
+</odoo>

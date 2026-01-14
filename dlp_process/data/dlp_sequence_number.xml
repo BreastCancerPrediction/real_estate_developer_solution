@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- service Appointment Number Sequence -->
+        <record id="seq_service_appointment" model="ir.sequence">
+            <field name="name">Service Appointment</field>
+            <field name="code">service.appointment</field>
+            <field name="prefix">SA-</field>
+            <field name="padding">4</field>
+            <field name="number_next">1</field>
+        </record>
+
+        <!-- Work Order Number Sequence -->
+        <record id="seq_work_order" model="ir.sequence">
+            <field name="name">Work Order</field>
+            <field name="code">work.order</field>
+            <field name="prefix">WO-</field>
+            <field name="padding">4</field>
+            <field name="number_next">1</field>
+        </record>
+
+
+        <!-- DLP Case Number Sequence -->
+        <record id="seq_dlp_case_number" model="ir.sequence">
+            <field name="name">DLP Case sequence Number</field>
+            <field name="code">dlp.case.seq</field>
+            <field name="padding">4</field>
+            <field name="prefix">CASE-</field>
+            <field name="number_next">1</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="report_service_document_template">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.external_layout">
+                <div class="page">
+
+                    <!-- Title -->
+                    <div class="text-center mb-4">
+                        <h2 style="margin: 0; font-weight: bold; color: #2c3e50;">Appointment - <t t-esc="o.name"/></h2>
+                    </div>
+
+                    <!-- Sequence and Duration Table -->
+                    <div class="mb-4">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 14px; border: 1px solid #ccc; border-radius: 10px;">
+                            <tr style="background-color: #f5f5f5;">
+                                <th style="padding: 10px; text-align: left;">Appointment Number</th>
+                                <th style="padding: 10px; text-align: left;">Duration (hrs)</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px;"><t t-esc="o.sequence_number"/></td>
+                                <td style="padding: 10px;"><t t-esc="o.duration"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br/>
+                    <!-- Appointment Detail Table -->
+                    <h3 style="margin-bottom: 12px; color: #34495e; border-left: 4px solid #2c3e50; padding-left: 10px;">Appointment Details</h3>
+                    <div style="border: 1px solid #ccc; border-radius: 12px; padding: 20px; font-size: 14px;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 10px;"><strong>Customer Name:</strong></td>
+                                <td style="padding: 10px;"><t t-esc="o.customer.name"/></td>
+                                <td style="padding: 10px;"><strong>Work Order:</strong></td>
+                                <td style="padding: 10px;"><t t-esc="o.workorder_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px;"><strong>Responsible:</strong></td>
+                                <td style="padding: 10px;"><t t-esc="o.workorder_id.requester_name.name"/></td>
+                                <td style="padding: 10px;"><strong>Resource:</strong></td>
+                                <td style="padding: 10px;"><t t-esc="o.resource"/></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px;"><strong>Appointment Start:</strong></td>
+                                <td style="padding: 10px;"><t t-esc="o.appointment_start_date"/></td>
+                                <td style="padding: 10px;"><strong>Appointment End:</strong></td>
+                                <td style="padding: 10px;"><t t-esc="o.appointment_end_date"/></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px;"><strong>Customer Availability:</strong></td>
+                                <td style="padding: 10px;"><t t-esc="o.customer_availability"/></td>
+                                <td style="padding: 10px;"><strong>Agent Check-in:</strong></td>
+                                <td style="padding: 10px;"><t t-esc="o.checkin_time"/></td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <t t-if="o.under_scope or o.under_scope_image">
+                        <div style="margin-top: 30px;">
+                            <h3 style="color: #2c3e50; text-align:left; margin: 0 0 10px 0; border-left: 4px solid #2c3e50; padding-left: 10px;">
+                                Underscope Details
+                            </h3>
+                            <div style="border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9; padding: 15px; font-size: 14px; line-height: 1.6;">
+                                <!-- Text with heading -->
+                                <t t-if="o.under_scope">
+                                    <p style="font-weight: bold; margin-bottom: 8px;">Under Scope:</p>
+                                    <p>
+                                        <t t-esc="dict(o.fields_get()['under_scope']['selection'])[o.under_scope]"/>
+                                    </p>
+                                </t>
+
+                                <!-- Image shown below the text -->
+                                <t t-if="o.under_scope_image">
+                                    <div style="margin-top: 15px; text-align: center;">
+                                        <img t-att-src="'data:image/png;base64,%s' % o.under_scope_image.decode('utf-8')"
+                                             style="max-width: 300px; width: 100%; height: auto; border-radius: 6px; border: 1px solid #ccc;"/>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+
+
+                    <!-- Rectification Image shown below under_scope_image -->
+
+                    <t t-if="o.rectification_image">
+                        <div style="margin-top: 30px;">
+                            <h3 style="color: #2c3e50; text-align:left; margin: 0 0 10px 0; border-left: 4px solid #2c3e50; padding-left: 10px;">
+                                Rectification Image:
+                            </h3>
+                            <div style="border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9; padding: 15px; font-size: 14px; line-height: 1.6;">
+                                <!-- Image shown below the text -->
+                                <t t-if="o.rectification_image">
+                                    <div style="margin-top: 15px; text-align: center;">
+                                        <img t-att-src="'data:image/png;base64,%s' % o.rectification_image.decode('utf-8')"
+                                             style="max-width: 300px; width: 100%; height: auto; border-radius: 6px; border: 1px solid #ccc;"/>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+
+    <record id="action_service_appointment_report" model="ir.actions.report">
+        <field name="name">Service Document</field>
+        <field name="model">appointment.type</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">dlp_process.report_service_document_template</field>
+        <field name="report_file">dlp_process.report_service_document_template</field>
+        <field name="binding_model_id" ref="dlp_process.model_appointment_type"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

@@ -1,0 +1,40 @@
+.chart-card {
+    margin: 0 30px 60px 40px; /* increased horizontal margin */
+    width: 430px;
+    height: 400px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); /* darker and more intense */
+    border-radius: 8px;
+    background: white;
+    padding: 16px;
+
+}
+.card1{
+     background-color:white;
+     }
+
+.card2{
+     background-color:white;
+     }
+
+.card3{
+     background-color:white;
+     }
+.card4{
+     background-color:white;
+     }
+
+.chart-card canvas#workOrderStatusChart,
+.chart-card canvas#workorderPieChart {
+    width: 320px !important;
+    height: 320px !important;
+}
+/* If you want to keep the bar chart smaller or default, just don't style it */
+.chart-card canvas#priorityBarChart {
+    height: 320px !important;
+}
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="type_scheduled_activity" model="ir.ui.view">
+        <field name="name">Mail Scheduled Activity</field>
+        <field name="model">mail.activity.schedule</field>
+        <field name="inherit_id" ref="mail.mail_activity_schedule_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='summary']" position="before">
+                 <field name="type"/>
+            </xpath>
+
+            <xpath expr="//field[@name='activity_type_id']" position="attributes">
+                 <attribute name="string">Subject</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

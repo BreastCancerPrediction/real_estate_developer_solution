@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View for the Appointment Action Wizard -->
+    <record id="view_under_scope_form" model="ir.ui.view">
+        <field name="name">under.scope.form</field>
+        <field name="model">under.scope</field>
+        <field name="arch" type="xml">
+            <form string="Under Scope">
+                <sheet>
+                    <group>
+                        <field name="under_scope"/>
+                        <field name="upload_image" widget="image" invisible="show_upload_image_dlp == False"/>
+                        <field name="upload_image_not" widget="image" invisible="show_upload_image_not_dlp == False"/>
+                    </group>
+                    <footer>
+                        <button string="Update" type="object" name="action_under_scope" class="btn-primary"/>
+                        <button string="Cancel" special="cancel" class="btn-secondary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action Window for Under Scope Wizard -->
+    <record id="action_under_scope_window" model="ir.actions.act_window">
+        <field name="name">Under Scope</field>
+        <field name="res_model">under.scope</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

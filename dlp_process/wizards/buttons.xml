@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View for the Appointment Action Wizard -->
+    <record id="view_buttons_action_form" model="ir.ui.view">
+        <field name="name">buttons.action.form</field>
+        <field name="model">buttons.action</field>
+        <field name="arch" type="xml">
+            <form string="Buttons Action">
+                <group>
+                <field name="appointment_type_id" invisible="1"/>
+                </group>
+                <div style="display: flex; justify-content: space-around; align-items: center;">
+                <div style="margin-bottom: 10px;">
+                    <button name="action_open_check_in" string="Check In" type="object" class="btn-outline-info"/>
+                </div>
+
+                <div style="margin-bottom: 10px;">
+                    <button name="action_open_under_scope" string="Under Scope" type="object" class="btn-outline-info"/>
+                </div>
+
+                <div style="margin-bottom: 10px;">
+                    <button name="action_open_schedule_appointment" string="Schedule Appointment" type="object" class="btn-outline-info"/>
+                </div>
+
+                <div style="margin-bottom: 10px;">
+                    <button name="action_open_after_rectification" string="After Rectification" type="object" class="btn-outline-info"/>
+                </div>
+
+                 <div style="margin-bottom: 10px;">
+                    <button name="action_open_customer_feedback" string="Check Out" type="object" class="btn-outline-info"/>
+                </div>
+                </div>
+                <footer>
+                    <div style="margin-bottom: 10px;">
+                        <button name="action_generate_service_document" string="Create Service Document" type="object" class="btn btn-primary me-2"/>
+                        <button string="Cancel" special="cancel" class="btn-secondary"/>
+                    </div>
+                </footer>
+            </form>
+
+
+
+        </field>
+    </record>
+
+    <!-- Action Window for Appointment Action Wizard -->
+    <record id="buttons_action_window" model="ir.actions.act_window">
+        <field name="name">Buttons Action</field>
+        <field name="res_model">buttons.action</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

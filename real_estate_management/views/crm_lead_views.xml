@@ -1,0 +1,223 @@
+<odoo>
+    <data>
+        <!--Crm Lead -->
+        <record id="Crm_form_inherit" model="ir.ui.view">
+            <field name="name">Crm Lead</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <button name="action_view_invoices" type="object" class="oe_stat_button" icon="fa-credit-card">
+                        <div>
+                            <field name="invoice_count" widget="statinfo" string="Invoice"/>
+                        </div>
+                    </button>
+                </xpath>
+                <xpath expr="//button[@name='action_set_won_rainbowman']" position="attributes">
+                    <attribute name="invisible">not active or probability == 100 or type == 'lead' or not senior_manager_button</attribute>
+                </xpath>
+                <xpath expr="//button[@name='%(crm.crm_lead_lost_action)d']" position="attributes">
+                    <attribute name="invisible">type == 'lead' or not active and probability &lt; 100 or not senior_manager_button</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_sale_quotations_new']" position="attributes">
+                    <attribute name="invisible">senior_manager_button == False</attribute>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <field name="cus_state" widget="statusbar" options="{'clickable': True}"
+                           invisible="type != 'lead'"/>
+                </xpath>
+                <xpath expr="//button[@name='%(crm.action_crm_lead2opportunity_partner)d']" position="attributes">
+                    <attribute name="invisible">cus_state != 'closed_converted' or type == 'opportunity' or not active</attribute>
+                </xpath>
+                <xpath expr="//header/field[@name='stage_id']" position="attributes">
+                    <attribute name="options">{'clickable': True}</attribute>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <button name="action_send_msg_to_manager1"
+                            type="object"
+                            string="Sent Approval Request"
+                            class="btn-primary"
+                            groups="real_estate_management.group_property_consultant"
+                            invisible="type == 'lead' or send_msg_to_manager1"/>
+                    <button name="action_manager"
+                            type="object"
+                            string="Manager Approval"
+                            class="btn-primary"
+                            groups="real_estate_management.group_real_estate_manager_1"
+                            invisible="type == 'lead' or manager1_button"/>
+                    <button name="action_senior_manager"
+                            type="object"
+                            string="Senior Manager Approval"
+                            class="btn-primary"
+                            groups="real_estate_management.group_real_estate_manager_2"
+                            invisible="type == 'lead' or senior_manager_button"/>
+                    <!--                    <button name="action_erp_reservation_number"-->
+                    <!--                            type="object"-->
+                    <!--                            string="Proceed To Payment"-->
+                    <!--                            groups="real_estate_management.group_real_estate_erp_reservation"-->
+                    <!--                            class="btn-primary"-->
+                    <!--                            invisible="type == 'lead'"/>-->
+                </xpath>
+                <xpath expr="//sheet" position="before">
+                    <field name="type" invisible="1"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page name="Real State" string="Property Enquiry" invisible="1">
+                        <div class="mb-4">
+                            <h3 class="text-primary ">Property Information</h3>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="property_type"/>
+                                <field name="planned_budget"/>
+                            </group>
+                            <group>
+                                <field name="possession_date"/>
+                                <field name="locality"/>
+                            </group>
+                        </group>
+                        <div class='mt-4'>
+                            <h3 class="text-primary">Property Quotation</h3>
+                        </div>
+                        <field name="property_ids" nolabel="1">
+                            <list editable="bottom" string="Product">
+                                <field name="type" invisible="1"/>
+                                <field name="query"/>
+                                <field name="assigned_unit" domain="[('status', 'in', ('vacant', 'assign'))]"
+                                       column_invisible="parent.type == 'lead'"/>
+                                <field name="property_id" column_invisible="parent.type == 'lead'" readonly="1"
+                                       force_save="1"/>
+                                <field name="floor_id" column_invisible="parent.type == 'lead'" readonly="1"
+                                       force_save="1"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//form/sheet/group/group[4]" position="before">
+                    <group>
+                        <field name="dob"/>
+                        <field name="gender"/>
+                        <field name="nationality"/>
+                        <field name="marital_status"/>
+                        <!--                        <field name="erp_reservation_number" invisible="type == 'lead'"/>-->
+                    </group>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page name="lead" string="Lead Source &amp; Status" invisible="type == 'opportunity'">
+                        <group>
+                            <group>
+                                <field name="lead_source"/>
+                                <field name="lead_type"/>
+                                <field name="lead_priority"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page name="preference" string="Preference">
+                        <group>
+                            <group>
+                                <field name="property" widget="many2one"/>
+                                <field name="budget_from" options="{'currency_field': 'currency_id'}"/>
+                                <field name="client_preferred_contact_time"/>
+                            </group>
+                            <group>
+                                <field name="preferred_language"/>
+                                <field name="budget_to" options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page name="unit_and_project_details" string="Unit and Project Details" invisible="type == 'lead'">
+                        <group>
+                            <group>
+                                <field name="unit_id_readonly" invisible="1"/>
+                                <field name="unit_id" readonly="unit_id_readonly == True" domain="[('property_name', '=', property) ,('unit_price', '&gt;=', budget_from),('unit_price', '&lt;=', budget_to),('status', '=', 'vacant')]"/>
+                                <field name="unit_status" readonly="1" force_save="1"/>
+                                <field name="unit_address" readonly="1" force_save="1"/>
+                                <field name="unit_model" readonly="1" force_save="1"/>
+                            </group>
+                            <group>
+                                <field name="unit_project_name" readonly="1" force_save="1"/>
+                                <field name="unit_building" readonly="1" force_save="1"/>
+                                <field name="unit_floor" readonly="1" force_save="1"/>
+                                <field name="unit_total_area" readonly="1" force_save="1"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page name="financial_information" string="Financial Information" invisible="type == 'lead'">
+                        <group>
+                            <group>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="unit_amount" widget='monetary'
+                                       options="{'currency_field': 'currency_id'}"/>
+                                <field name="vat_amount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <field name="discount"/>
+                                <field name="total_offer" widget='monetary'
+                                       options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                            <group>
+                                <field name="total_charges" widget='monetary'
+                                       options="{'currency_field': 'currency_id'}"/>
+                                <!--                                <field name="paid_amount_receipt"/>-->
+                                <field name="total_unit_price" widget='monetary'
+                                       options="{'currency_field': 'currency_id'}"/>
+                                <field name="selling_price" widget='monetary'
+                                       options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page name="payment_information" string="Payment Information" invisible="type == 'lead'">
+                        <group>
+                            <group>
+                                <field name="payment_plan" readonly="payment_plan_readonly == True"/>
+                                <field name="payment_plan_readonly" invisible="1"/>
+                                <field name="is_first_installment_paid"/>
+                                <!--                                <field name="is_all_charges_paid"/>-->
+                                <field name="is_all_amount_paid"/>
+                            </group>
+                            <group>
+                                <field name="remaining_amount" options="{'currency_field': 'currency_id'}"/>
+                                <!--                                <field name="paid_amount_installments"/>-->
+                                <!--                                <field name="charges_due_remaining_amount"/>-->
+                                <!--                                <field name="amount_due_installments"/>-->
+                                <field name="total_amount_received_installments"
+                                       options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page name="installments" string="Installments" invisible="type == 'lead' or payment_plan == False">
+                        <field name="installment_line_ids" readonly="1" force_save="1">
+                            <list editable="bottom" create="0">
+                                <field name="installment_name"/>
+                                <field name="due_date"/>
+                                <field name="remaining_amount"/>
+                                <field name="paid_amount"/>
+                                <field name="is_paid"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+
+                <xpath expr="//notebook" position="inside">
+                    <page name="Note &amp; Remark" string="Note &amp; Remark">
+                        <group>
+                            <group>
+                                <field name="telesales_comment"/>
+                                <field name="description"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+

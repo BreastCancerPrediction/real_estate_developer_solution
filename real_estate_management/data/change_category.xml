@@ -1,0 +1,7 @@
+<odoo>
+    <data noupdate="1">
+        <record id="base.module_category_services_helpdesk" model="ir.module.category">
+            <field name="name">DLP</field>
+        </record>
+    </data>
+</odoo>

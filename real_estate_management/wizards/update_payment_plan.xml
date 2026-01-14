@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="update_payment_plan_wizard" model="ir.ui.view">
+        <field name="name">update.payment.plan.wizard.view</field>
+        <field name="model">update.payment.plan</field>
+        <field name="arch" type="xml">
+            <form string="Update Payment Plan">
+                <group>
+                    <field name="payment_plan_id"/>
+                </group>
+                <footer>
+                    <button name="action_update" string="Update"
+                            class="btn-primary" type="object"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

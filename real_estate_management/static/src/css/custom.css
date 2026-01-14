@@ -1,0 +1,11 @@
+.unit-image {
+    height: 300px;
+    object-fit: cover;
+    width: 100%;
+}
+
+@media (max-width: 700px) {
+    .unit-image {
+        height: 200px;
+    }
+}

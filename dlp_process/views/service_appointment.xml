@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inheriting the Appointment Type Form View -->
+        <record id="appointment_type_view_form_inherit" model="ir.ui.view">
+            <field name="name">appointment.type.form.inherit</field>
+            <field name="model">appointment.type</field>
+            <field name="inherit_id" ref="appointment.appointment_type_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_open_wizard" string="Actions" type="object" class="btn-outline-primary"/>
+                </xpath>
+                <xpath expr="//page[@name='slots']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='options']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='questions']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//group[@name='left_details']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_share_invite']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_customer_preview']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='image_1920']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='schedule_based_on']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='assign_method']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//group[@name='right_details']" position="before">
+                    <group>
+                        <field name="customer" readonly="1"/>
+                        <field name="workorder_id" readonly="1"/>
+                        <label for="appointment_start_date" string="Appointment Start Date"/>
+                        <div>
+                            <field name="appointment_start_date"/>
+                        </div>
+                        <label for="appointment_end_date" string="Appointment End Date"/>
+                        <div>
+                            <field name="appointment_end_date"/>
+                        </div>
+                        <label for="duration" string="Duration"/>
+                        <div>
+                            <field name="duration" readonly="1" class="oe_inline me-1"/>
+                            <span>Hours</span>
+                        </div>
+                    </group>
+                </xpath>
+
+                <xpath expr="//field[@name='staff_user_ids']" position="attributes">
+                    <attribute name="string">Responsible</attribute>
+                </xpath>
+
+                <xpath expr="//header//button[@name='action_open_wizard']" position="after">
+                    <field name="state" widget="statusbar" options="{'clickable': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='staff_user_ids']" position="after">
+                    <field name="customer_availability" readonly="1" force_save="1"/>
+                    <field name="checkin_time" readonly="1"/>
+                    <field name="customer_not_availability_image" widget="image" readonly="1"
+                           invisible="customer_availability != 'not_available'"/>
+                    <field name="filename" column_invisible="True" invisible="1"/>
+                    <label for="resource" string="Resource"/>
+                    <div>
+                        <field name="resource"/>
+                    </div>
+                </xpath>
+
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="sequence_number"/>
+                </xpath>
+
+                <xpath expr="/form" position="attributes">
+                    <attribute name="create">false</attribute>
+                </xpath>
+
+                <xpath expr="//page[@name='messages']" position="after">
+                    <page string="Customer Feedback" name="feedback">
+                        <group>
+                            <field name="rating" readonly="1"/>
+                            <field name="feedback" readonly="1"/>
+                            <field name="signature" widget="signature" readonly="1"/>
+                        </group>
+                    </page>
+                </xpath>
+
+                <xpath expr="//page[@name='messages']" position="before">
+                    <page string="Images" name="images">
+                        <group>
+                            <group>
+                                <field name="rectification_image" readonly="1" widget="image"/>
+                            </group>
+                            <group>
+                                <field name="under_scope" readonly="1"/>
+                                <field name="under_scope_image" widget="image" readonly="1"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="hide_create_button_appointment_type" model="ir.ui.view">
+            <field name="name">hide.create.button.appointment.type</field>
+            <field name="model">appointment.type</field>
+            <field name="inherit_id" ref="appointment.appointment_type_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//list" position="attributes">
+                    <attribute name="create">false</attribute>
+                </xpath>
+
+                 <xpath expr="//field[@name='location_id']" position="attributes">
+                    <attribute name="column_invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='country_ids']" position="attributes">
+                    <attribute name="column_invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="staff_user_ids" widget="many2many_tags" string="Responsible"/>
+                    <field name="appointment_start_date"/>
+                    <field name="appointment_end_date"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hide_create_button_appointment_type_kanban" model="ir.ui.view">
+            <field name="name">hide.create.button.appointment.type.kanban</field>
+            <field name="model">appointment.type</field>
+            <field name="inherit_id" ref="appointment.appointment_type_view_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="create">false</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!--add filter in search view for  My Appointments-->
+        <record id="custom_search_view_appointment" model="ir.ui.view">
+            <field name="name">custom.search.view.appointment</field>
+            <field name="model">appointment.type</field>
+            <field name="inherit_id" ref="appointment.appointment_type_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='my_appointments']" position="replace">
+                    <filter
+                            name="my_appointments"
+                            string="My Appointments"
+                            domain="[('staff_user_ids', '=', uid)]"
+                    />
+                </xpath>
+
+                  <xpath expr="//filter[@name='my_appointments']" position="after">
+                      <filter name="filter_customer_availability" string="Customer Availability" domain="[('customer_availability', '=', 'available')]"/>
+                </xpath>
+
+                <xpath expr="//search" position="inside">
+                    <field name="appointment_start_date"/>
+                    <field name="appointment_end_date"/>
+                    <field name="duration"/>
+                    <field name="customer"/>
+                </xpath>
+
+                <xpath expr="//search/field[@name='location_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//search/field[@name='resource_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                  <xpath expr="//search/field[@name='category']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//search/field[@name='staff_user_ids']" position="attributes">
+                    <attribute name="string">Responsible</attribute>
+                </xpath>
+
+                <xpath expr="//search/group/filter[@name='group_by_category']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//search/group" position="inside">
+                      <filter name="filter_customer_availability" string="Customer Availability" context="{'group_by': 'customer_availability'}"/>
+                      <filter name="filter_customer" string="Customer" context="{'group_by': 'customer'}"/>
+                      <filter name="filter_staff_user_ids" string="Responsible" context="{'group_by': 'staff_user_ids'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--add context in action of Appointment-->
+        <record id="appointment.appointment_type_action" model="ir.actions.act_window">
+            <field name="name">Service Appointment</field>
+            <field name="context">{'search_default_my_appointments': 1}</field>
+        </record>
+
+    </data>
+</odoo>
+
+

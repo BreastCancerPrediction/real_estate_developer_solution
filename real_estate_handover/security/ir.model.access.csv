@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_handover_process,handover_process,model_handover_process,base.group_user,1,1,1,1
+access_handover_wizard,handover_wizard,model_handover_wizard,base.group_user,1,1,1,1
+access_handover_documents,handover_documents,model_handover_documents,base.group_user,1,1,1,1
+access_documents_attachment,documents_attachment,model_documents_attachment,base.group_user,1,1,1,1
+
+
+
+

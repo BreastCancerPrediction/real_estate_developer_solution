@@ -1,0 +1,85 @@
+<odoo>
+    <template id="report_saleorder_document_inherit" inherit_id="sale.report_saleorder_document">
+
+            <!--change subtotal string to selling price-->
+        <xpath expr="//th[@name='th_subtotal']" position="replace">
+            <th name="selling_price" class="text-end">
+                <span>Selling Price</span>
+            </th>
+        </xpath>
+
+           <!--change value of subtotal to selling price value-->
+        <xpath expr="//td[@name='td_subtotal']" position="replace">
+            <td name="selling_price" class="text-end">
+                <span t-field="line.selling_price"/>
+            </td>
+        </xpath>
+
+        <!-- Hide Taxes header -->
+        <xpath expr="//th[@name='th_taxes']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <!-- Hide Taxes value -->
+        <xpath expr="//td[@name='td_taxes']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+
+        <!-- Hide discount header -->
+        <xpath expr="//th[span[contains(text(), 'Disc.')]]" position="attributes">
+            <attribute name="style">display: none;</attribute>
+        </xpath>
+
+        <!-- Hide discount value -->
+        <xpath expr="//td[span[contains(@t-field, 'discount')]]" position="attributes">
+            <attribute name="style">display: none;</attribute>
+        </xpath>
+
+        <!-- change description string to unit name-->
+        <xpath expr="//th[@name='th_description']" position="replace">
+            <th>
+                <span>Unit Name</span>
+            </th>
+        </xpath>
+
+
+             <!-- add custom untaxed, tax and total value-->
+        <xpath expr="//div[@class='page']" position="inside">
+            <div class="mt-4 text-end" style="color: grey;">
+                <table class="table table-sm o_total_table"
+                       style="width: 300px; margin-left: auto; border-collapse: collapse;">
+                    <tbody>
+                        <tr>
+                            <td style="border: none;">Untaxed Amount:</td>
+                            <td style="border: none;">
+                                <span t-field="doc.custom_untaxed_total"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: none;">Taxes Amount:</td>
+                            <td style="border: none;">
+                                <span t-field="doc.custom_tax_amount"/>
+                            </td>
+                        </tr>
+                        <tr style="border-top: 1px solid grey;">
+                            <td style="border: none; font-weight: bold;">Total:</td>
+                            <td style="border: none; font-weight: bold;">
+                                <span t-field="doc.custom_grand_total"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </xpath>
+
+    </template>
+
+          <!--hide base untaxed, and total value-->
+    <template id="custom_document_tax_totals" inherit_id="sale.document_tax_totals">
+        <xpath expr="//t[@t-set='same_tax_base']" position="replace"/>
+        <xpath expr="//tr[contains(@class, 'o_subtotal')]" position="replace"/>
+        <xpath expr="//tr[contains(@class, 'o_taxes')]" position="replace"/>
+        <xpath expr="//tr[contains(@class, 'o_total')]" position="replace"/>
+    </template>
+
+
+</odoo>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<record id="email_template_service_appointment" model="mail.template">
+    <field name="name">Appointment Confirmation Email</field>
+    <field name="model_id" ref="appointment.model_appointment_type"/>
+    <field name="subject">Appointment Confirmation – {{object.name}}</field>
+    <field name="email_from">{{user.email or 'noreply@example.com'}}</field>
+    <field name="email_to">{{object.customer.email}}</field>
+    <field name="body_html" type="html">
+        <p>Dear <t t-out="object.customer.name"/>,</p>
+
+        <p>Thank you for choosing <t t-out="user.company_id.name"/>. This is to confirm your upcoming service appointment:</p>
+
+        <ul>
+            <li><strong>Service Type:</strong> <t t-out="object.name"/></li>
+            <li><strong>Property Address:</strong> <t t-out="object.customer.unit_ids.street"/>, <t t-out="object.customer.unit_ids.street2"/>, <t t-out="object.customer.unit_ids.city"/>, <t t-out="object.customer.unit_ids.state_id.name"/>, <t t-out="object.customer.unit_ids.country_id.name"/></li>
+            <li><strong>Date &amp; Time:</strong> <t t-out="object.appointment_start_date"/> to <t t-out="object.appointment_end_date"/></li>
+            <li><strong>Technician Assigned:</strong> <t t-out="user.name"/></li>
+        </ul>
+
+        <p>Please ensure access to the property is available. If you need to reschedule or have any questions, contact us at <t t-out="user.company_id.phone"/> or reply to this email.</p>
+        <p>We look forward to serving you.</p>
+
+        <p>Best regards,</p>
+        <p><t t-out="user.name"/><br/>
+            <t t-out="user.company_id.name"/><br/>
+            <t t-out="user.email"/></p>
+    </field>
+</record>
+
+<record id="email_template_customer_not_available" model="mail.template">
+    <field name="name">Customer Not Available Notification</field>
+    <field name="model_id" ref="appointment.model_appointment_type"/>
+    <field name="subject">Service Appointment Update – {{object.name}}</field>
+    <field name="email_from">{{user.email or 'noreply@example.com'}}</field>
+    <field name="email_to">{{object.customer.email}}</field>
+    <field name="body_html" type="html">
+        <p>Dear <t t-out="object.customer.name"/>,</p>
+
+        <p>We attempted to visit your property for the scheduled service appointment but you were not available at the time of arrival.</p>
+
+        <ul>
+            <li><strong>Service Type:</strong> <t t-out="object.name"/></li>
+            <li><strong>Scheduled Address:</strong> <t t-out="object.workorder_id.partner_id.street"/></li>
+            <li><strong>Scheduled Time:</strong> <t t-out="object.appointment_start_date"/> to <t t-out="object.appointment_end_date"/></li>
+            <li><strong>Technician Assigned:</strong> <t t-out="user.name"/></li>
+        </ul>
+
+        <p>As a result, the appointment has been marked as <strong>Completed</strong> with status <strong>Customer Not Available</strong>.</p>
+        <p>If this was an error or you would like to reschedule, please contact us at <t t-out="user.company_id.phone"/> or reply to this email.</p>
+
+        <p>Thank you for your understanding.</p>
+
+        <p>Best regards,</p>
+        <p><t t-out="user.name"/><br/>
+            <t t-out="user.company_id.name"/><br/>
+            <t t-out="user.email"/></p>
+    </field>
+</record>
+</odoo>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--Email for send assign handover to owner-->
+        <record id="email_template_handover_to_owner" model="mail.template">
+            <field name="name">Assign Handover To Owner</field>
+            <field name="model_id" ref="real_estate_handover.model_handover_process"/>
+            <field name="email_from">{{ user.email or 'default@example.com' }}</field>
+            <field name="email_to">{{ object.owner.email }}</field>
+            <field name="subject">Handover {{object.handover_name}} Assigned to You.</field>
+            <field name="body_html">
+                <![CDATA[
+                    <div>
+                        <p>Dear <t t-out="object.owner.name"/>,</p>
+                        <br>
+                        <p>Handover Name: <strong><t t-out="object.handover_name"/></strong>.</p>
+                        <p>Handover Status: <strong><t t-out="object.state"/></strong>.</p>
+                    </div>
+                    ]]>
+            </field>
+        </record>
+
+        <!-- Send Email for Invitation Home Orientation -->
+        <record id="email_template_home_invitation_orientation" model="mail.template">
+            <field name="name">Assign Home Invitation To Owner</field>
+            <field name="model_id" ref="real_estate_handover.model_handover_process"/>
+            <field name="email_from">{{ user.email or 'default@example.com'}}</field>
+            <field name="email_to">{{ object.customer_name.email }}</field>
+            <field name="subject">Invitation to Home Orientation of {{ object.property_name.name }}, Unit {{ object.handover_name }}
+            </field>
+            <field name="body_html">
+                <![CDATA[
+                    <div>
+                        <p>Dear <t t-out="object.owner.name"/>,</p>
+
+                        <p>Greetings from CSL Properties.</p>
+
+                        <p>We are delighted to invite you to your new home orientation at <t t-out="object.property_name.name"/> and
+                        unit inspection for Unit <t t-out="object.handover_name"/>. An Account Manager has been assigned to assist
+                        you throughout the handover process and will contact you soon to schedule your visit. Please refer to the
+                        attached guidelines and the home orientation journey for detailed information.</p>
+
+                        <p><strong>Please find below your Account Manager’s details:</strong></p>
+                        <p>Name: <t t-out="object.owner.name"/></p>
+                        <p>Email: <t t-out="object.owner.email"/></p>
+                        <p>Phone: <t t-out="object.owner.phone"/></p>
+
+                        <p>Once your appointment is scheduled, a confirmation email will be sent.
+                        If you are unable to attend, kindly nominate a representative to attend
+                        on your behalf. If we do not hear back from you within 14 days, we
+                        will proceed with the home orientation on your behalf and share the report
+                        within 24 hours.</p>
+
+                        <p>We look forward to welcoming you to your new home.</p>
+
+                        <p>Best regards,</p>
+                        <p><t t-out="user.company_id.name"/></p>
+                    </div>
+                ]]>
+            </field>
+        </record>
+
+        <!-- Email for Property Home Orientation Report and Payment Reminder-->
+        <record id="email_template_home_invitation_orientation" model="mail.template">
+            <field name="name">Home Invitation Report and Payment Reminder</field>
+            <field name="model_id" ref="real_estate_handover.model_handover_process"/>
+            <field name="email_from">{{ user.email or 'default@example.com'}}</field>
+            <field name="email_to">{{ object.customer_name.email }}</field>
+            <field name="subject">Property Home Invitation Report and Payment Reminder - {{ object.property_name.name }}, Unit {{ object.handover_name }}
+            </field>
+            <field name="body_html">
+                <![CDATA[
+                    <div>
+                        <p>Dear <t t-out="object.owner.name"/>,</p>
+
+                        <p>Greetings from CSL Properties.</p>
+
+                        <p>Thank you for attending the home orientation of your property
+                        <t t-out="object.handover_name"/> in <t t-out="object.property_name.name"/>. We would like
+                        to inform you that any observations you made during your unit inspection will be shared
+                        with the contractor for rectification and our project team will ensure all adjustments are
+                        implemented according to the highest possible standards.</p>
+
+                        <p>Please find attached a copy of your Unit Inspection Report for your records.</p>
+
+                        <p>For any inquiries, please feel free to contact your Account Manager
+                        <t t-out="object.owner.name"/> through N/A
+                         or call <t t-out="object.owner.phone"/> or email us at <t t-out="object.owner.email"/>
+
+                        <p>Keep regards,</p>
+                        <p><t t-out="user.company_id.name"/></p>
+                    </div>
+                ]]>
+            </field>
+        </record>
+
+           <!-- Email for confirmation of Home Orientation -->
+        <record id="email_template_for_confirmation_of_home_orientation" model="mail.template">
+            <field name="name">Confirmation of Home Orientation</field>
+            <field name="model_id" ref="real_estate_handover.model_handover_process"/>
+            <field name="email_from">{{ user.email or 'default@example.com'}}</field>
+            <field name="email_to">{{ object.customer_name.email }}</field>
+            <field name="subject">Confirmation of Home Orientation Appointment - {{ object.property_name.name }}, Unit
+                {{ object.handover_name }}
+            </field>
+            <field name="body_html">
+                <![CDATA[
+                    <div>
+                        <p>Dear <t t-out="object.owner.name"/>,</p>
+
+                        <p>Greetings from CSL Properties.</p>
+
+                       <p>We are pleased to confirm your home orientation appointment with Account
+                        Manager <t t-out="object.owner.name"/> at <t t-out="object.property_name.name"/>,
+                        <t t-out="object.handover_name"/>.</p>
+
+                        <p><strong>Appointment Details:</strong></p>
+                        <ul>
+                            <li><strong>Date:</strong>  <t t-esc="object.activity_ids[0].date_deadline.strftime('%d-%m-%Y') if object.activity_ids else ''"/></li>
+                            <li><strong>Time:</strong> <t t-esc="object.activity_ids[0].date_deadline.strftime('%I:%M %p') if object.activity_ids else ''"/></li>
+                        </ul>
+
+                        <p><strong>Required Documents:</strong> ADDC</p>
+
+                        <p>During the appointment, our team will walk you through the unit,
+                        provide an overview of the community, and answer any questions you may have.
+                        Please ensure you arrive on time with the necessary documents.</p>
+
+                        <p>If you have any concerns or need to reschedule, feel free to reach out
+                        to us in advance.</p>
+
+                        <p>We look forward to welcoming you to your new home!</p>
+
+                        <p>Best regards,</p>
+                        <p><t t-out="user.company_id.name"/></p>
+                    </div>
+                ]]>
+            </field>
+        </record>
+
+
+             <!-- Email for BCC  Announcement Sent -->
+        <record id="email_template_bcc_announcement" model="mail.template">
+            <field name="name">BCC Announcement</field>
+            <field name="model_id" ref="real_estate_handover.model_handover_process"/>
+            <field name="email_from">{{ user.email or 'default@example.com'}}</field>
+            <field name="email_to">{{ object.customer_name.email }}</field>
+            <field name="subject">BCC Announcement sent - , Unit {{ object.handover_name }}
+            </field>
+            <field name="body_html">
+                <![CDATA[
+                    <div>
+                        <p>Dear Valued Customer,</p>
+
+                        <p>We are delighted to announce that the Building Completion
+                        Certificate (BCC) for your unit has been successfully issued.</p>
+
+                        <p>This marks a significant milestone in your home ownership journey,
+                        and we thank you for your continued trust and support.</p>
+
+                        <p>Should you need any further details or assistance,
+                        our team is always here to help.</p>
+
+                        <p>Warm regards,<br/>
+                        Customer Relations Team</p>
+                    </div>
+                ]]>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

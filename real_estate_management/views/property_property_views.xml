@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Property action -->
+    <record id="property_action" model="ir.actions.act_window">
+        <field name="name">Property</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">property.property</field>
+        <field name="view_mode">kanban,list,form,activity</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Your First Property!
+            </p>
+        </field>
+    </record>
+
+    <!-- Property menu items -->
+    <menuitem id="property_root_menu" name="Real Estate Management"
+              groups="real_estate_management.group_property_agent"
+              web_icon="real_estate_management,static/description/icon.png"/>
+
+    <!-- LEADS (MAIN USER MENU) -->
+    <record id="project.open_view_project_all_group_stage" model="ir.actions.act_window">
+        <field name="name">Property Projects</field>
+        <field name="res_model">project.project</field>
+        <field name="context">{'search_default_groupby_stage': 1}</field>
+        <field name="domain">[]</field>
+        <field name="view_mode">list,form,calendar</field>
+        <field name="view_id" ref="project.view_project"/>
+        <field name="search_view_id" ref="project.view_project_project_filter"/>
+        <field name="target">main</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Property projects found. Let's create one!
+            </p>
+            <p>
+                Projects contain tasks on the same topic, and each has its own dashboard.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_property_project"
+            name="Property Projects"
+            parent="property_root_menu"
+            action="project.open_view_project_all_group_stage"
+            sequence="2"/>
+    <menuitem
+            id="crm_menu_leads_property"
+            name="Leads"
+            parent="property_root_menu"
+            action="crm.crm_lead_all_leads"
+            groups="crm.group_use_lead"
+            sequence="2"/>
+    <menuitem
+            id="menu_crm_opportunities_property"
+            name="Opportunity"
+            parent="property_root_menu"
+            action="crm.action_your_pipeline"
+            sequence="2"/>
+<!--     <menuitem
+            id="menu_marketing"
+            name="Marketing"
+            parent="property_root_menu"
+            sequence="2"/>
+    <menuitem name="Email Marketing"
+              id="mass_mailing_menu_root_real_state"
+              sequence="1"
+              parent="menu_marketing"
+              groups="base.group_user"
+    />
+    <menuitem name="Mailings"
+              id="mass_mailing_menu"
+              parent="mass_mailing_menu_root_real_state"
+              sequence="1"
+              action="mass_mailing.mailing_mailing_action_mail"/>
+
+    <menuitem name="Mailing Lists"
+              id="mass_mailing_mailing_list_menu"
+              parent="mass_mailing_menu_root_real_state"
+              sequence="2"/>
+    <menuitem name="Mailing Lists"
+              id="menu_email_mass_mailing_lists"
+              parent="mass_mailing_menu_root_real_state"
+              sequence="1"
+              action="mass_mailing.action_view_mass_mailing_lists"/>
+    <menuitem name="Mailing List Contacts"
+              id="menu_email_mass_mailing_contacts"
+              parent="mass_mailing_menu_root_real_state"
+              sequence="2"
+              action="mass_mailing.action_view_mass_mailing_contacts"/>
+
+    <menuitem name="Campaigns"
+              id="menu_email_campaigns"
+              parent="mass_mailing_menu_root_real_state"
+              sequence="3"
+              action="mass_mailing.action_view_utm_campaigns"
+              groups="mass_mailing.group_mass_mailing_campaign"/>
+
+    <menuitem name="Reporting"
+              id="menu_mass_mailing_report"
+              sequence="90"
+              parent="mass_mailing_menu_root_real_state"
+              action="mass_mailing.mailing_trace_report_action_mail"/>
+
+    <menuitem
+            id="menu_social_global_real_state"
+            name="Social Marketing"
+            parent="menu_marketing"
+            sequence="2"
+            groups="base.group_user"/>
+
+    <menuitem
+            id="menu_social_stream_post_real_state"
+            parent="menu_social_global_real_state"
+            name="Feed"
+            sequence="1"/>
+
+    <menuitem
+            id="menu_social_post_real_state"
+            parent="menu_social_global_real_state"
+            name="Posts"
+            sequence="2"/>
+
+    <record id="menu_social_post_real_state" model="ir.ui.menu">
+        <field name="action" ref="social.action_social_post"/>
+    </record>
+
+    <record id="menu_social_stream_post_real_state" model="ir.ui.menu">
+        <field name="action" ref="social.action_social_stream_post"/>
+    </record> -->
+
+    <menuitem id="property_menu" name="Property" parent="property_root_menu"
+              sequence="3"/>
+    <menuitem id="property_property_menu" name="Properties"
+              parent="property_menu"
+              action="property_action" sequence="4"/>
+    <menuitem id="menu_product_template_units"
+              action="product.product_template_action"
+              parent="property_menu"
+              sequence="5" name="Units"/>
+
+<!--    <menuitem id="new_menu_recurring_plan"-->
+<!--          name="Recurring Plan"-->
+<!--          parent="property_configuration_menu"-->
+<!--          action="sttl_sale_subscription.product_subscription_period_action"-->
+<!--          sequence="10"/>-->
+
+    <!-- Property tree view -->
+    <record id="property_property_view_tree" model="ir.ui.view">
+        <field name="name">property.property.view.tree</field>
+        <field name="model">property.property</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="property_type"/>
+                <field name="project_id"/>
+                <field name="landlord_id"/>
+                <field name="street"/>
+                <field name="city"/>
+            </list>
+        </field>
+    </record>
+    <!-- Property form view -->
+    <record id="property_property_view_form" model="ir.ui.view">
+        <field name="name">property.property.view.form</field>
+        <field name="model">property.property</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,available"/>
+                    <button name="action_available" string="Available"
+                            type="object" class="btn-primary"
+                            invisible="state == 'available'"/>
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="action_get_map" string='Locate'
+                                type="object"
+                                class="oe_stat_button" icon="fa-map-marker"
+                                invisible="latitude == False or longitude == False"
+                        />
+                        <button name="action_property_sale_view" type="object"
+                                class="oe_stat_button"
+                                icon="fa-dollar" string="Sale"
+                                invisible="state != 'sold'"/>
+                        <button name="action_property_rental_view" type="object"
+                                class="oe_stat_button"
+                                icon="fa-dollar" string="Rental"
+                                invisible="state != 'rented'"/>
+
+                        <button name="action_property_units_view" type="object"
+                                class="oe_stat_button"
+                                icon="fa-building" string="Units"
+                        />
+                    </div>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <h3>
+                            <field name="code"/>
+                        </h3>
+                        <br/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="property_type" widget="radio"
+                                   options="{'horizontal': True}" invisible="1"/>
+                            <field name="construct_year"/>
+                            <field name="property_tags"
+                                   widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="license_no"/>
+                            <field name="responsible_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Address Details">
+                            <label for="street" string="Address"/>
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Street..."
+                                       class="o_address_street"/>
+                                <field name="street2" placeholder="Street 2..."
+                                       class="o_address_street"/>
+                                <field name="city" placeholder="City"
+                                       class="o_address_city"/>
+                                <field name="zip" placeholder="ZIP"
+                                       class="o_address_zip"/>
+                                <field name="state_id" class="o_address_state"
+                                       placeholder="State"
+                                       options='{"no_open": True}'/>
+                                <field name="country_id" placeholder="Country"
+                                       class="o_address_country"
+                                       options='{"no_open": True, "no_create": True}'/>
+                            </div>
+                            <field name="latitude"/>
+                            <field name="longitude"/>
+                            <field name="total_floor"/>
+                        </group>
+                        <group string="Price Details" name="price_details">
+                            <field name="sale_rent"/>
+                            <!-- <field name="unit_price"
+                                   attrs="{'invisible': [('sale_rent','!=','for_sale')]}"/>
+                            <field name="rent_month"
+                                   attrs="{'invisible': [('sale_rent','!=','for_tenancy')]}"/>
+                            <field name="landlord_id"/>
+                            <field name="is_installment_payment"
+                                   attrs="{'invisible': [('sale_rent','!=','for_sale')]}"/> -->
+                        </group>
+                    </group>
+                    <!-- <group string="Installment Payment Terms"
+                           attrs="{'invisible': [('is_installment_payment','!=',True)]}">
+                        <group>
+                            <field name="monthly_or_yearly"/>
+                            <field name="no_of_installments"/>
+                        </group>
+                        <group>
+                            <field name="no_of_months" attrs="{'invisible': [('monthly_or_yearly', '!=', 'monthly')]}"/>
+                            <field name="no_of_years" attrs="{'invisible': [('monthly_or_yearly', '!=', 'yearly')]}"/>
+                            <field name="amount_per_installment" attrs="{'invisible': [('unit_price', '=', 0.00)]}"/>
+                        </group>
+                    </group> -->
+                    <group string="Land Details"
+                           invisible="property_type != 'land'">
+                        <group>
+                            <field name="land_name"/>
+                        </group>
+                        <group>
+                            <field name="land_area"/>
+                        </group>
+                    </group>
+                    <group string="Residential Details"
+                           invisible="property_type not in ('residential', 'industry')">
+                        <group>
+                            <!-- <field name="type_residence"/> -->
+                            <!-- <field name="total_floor"/> -->
+                            <field name="furnishing"/>
+                        </group>
+                        <group>
+                            <!-- <field name="bedroom"/>
+                            <field name="bathroom"/>
+                            <field name="parking"/> -->
+                        </group>
+                    </group>
+                    <group string="Commercial Details"
+                           invisible="property_type not in ('commercial', 'industry')">
+                        <group>
+                            <field name="shop_name"/>
+                            <field name="usage"/>
+                        </group>
+                        <!-- <group>
+                            <field name="total_floor"/>
+                        </group> -->
+                    </group>
+                    <!-- <group string="Industrial Details"
+                           attrs="{'invisible': [('property_type','!=','industry')]}">
+                        <group>
+                            <field name="industry_name"/>
+                            <field name="usage"/>
+                        </group>
+                        <group>
+                            <field name="location"/>
+                        </group>
+                    </group> -->
+                    <button icon="fa-check" string="Create Floor" type="object" name="create_floor"/>
+                    <br/>
+
+                    <!-- <button icon="fa-check" string="Link Units" type="object" name="link_unit"/> -->
+
+                    <notebook>
+                        <page name="Details">
+                            <form>
+                                <h2 style="color:grey; text-decoration: underline;">System Information</h2>
+                                <group>
+                                    <group>
+                                        <field name="create_uid"/>
+                                        <field name="create_date"/>
+                                    </group>
+                                </group>
+                            </form>
+                        </page>
+
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                        <!-- 'default_property_name': property_id, 'default_floor': floor,  -->
+                        <page string="Property Floor's Details">
+                            <field name="property_units_ids"
+                                   context="{'default_street': street, 'default_street2': street2, 'default_zip': zip, 'default_city': city, 'default_country_id': country_id, 'default_state_id': state_id, 'default_property_type': property_type, 'default_property_name': id, 'active_status': True, 'square_feet': 'square_feet', 'floor': 'floor'}">
+                                <list editable="bottom">
+                                    <field name="floor" required="1" context="{'default_floor': floor}"/>
+                                    <field name="property_type" required="1"/>
+                                    <field name="square_feet" required="1"/>
+                                    <field name="description"/>
+                                    <!--<field name="number_of_units" required="1"/>
+                                    <field name="unit_id" widget="many2many_tags"/> -->
+                                    <field name="property_id" invisible="0" optional="hide"/>
+                                    <field name="street" invisible="0" optional="hide"/>
+                                    <field name="street2" invisible="0" optional="hide"/>
+                                    <field name="zip" invisible="0" optional="hide"/>
+                                    <field name="city" invisible="0"/>
+                                    <field name="country_id" invisible="0" optional="hide"/>
+                                    <field name="state_id" invisible="0"/>
+                                    <!-- <field name="unit_id_create" domain="[('floor', '=', floor), ('property_name', '=', property_id)]" context="{'default_property_name': property_id, 'default_floor': floor, 'default_street': street, 'default_street2': street2, 'default_zip': zip, 'default_city': city, 'default_country_id': country_id, 'default_state_id': state_id, 'default_property_type': property_type}"/> -->
+                                    <button icon="fa-building" string="Create Units" type="object" name="unit_create"/>
+                                </list>
+                            </field>
+                        </page>
+                        <!--  <page string="Amenities">
+                             <field name="amenities_ids">
+                                 <tree editable="bottom">
+                                     <field name="name" required="1"/>
+                                     <field name="note"/>
+                                 </tree>
+                             </field>
+                         </page> -->
+                        <page string="Images">
+                            <field name="property_image_ids">
+                                <kanban>
+                                    <field name="id"/>
+                                    <field name="name"/>
+                                    <field name="image"/>
+                                    <field name="description"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div t-attf-class="oe_kanban_global_click">
+                                                <div class="o_kanban_image">
+                                                    <field name="image"
+                                                           widget="image"
+                                                           class="oe_avatar"/>
+                                                </div>
+                                                <div class="oe_kanban_details">
+                                                    <t class="o_kanban_record_title">
+                                                        <strong>
+                                                            <field name="name"/>
+                                                        </strong>
+                                                        <br/>
+                                                        <field name="description"/>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="description"/>
+                                            </group>
+                                            <group>
+                                                <field name="image"
+                                                       widget="image"
+                                                       class="oe_avatar"/>
+                                            </group>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Measurement" name="measurement">
+                            <field name="area_measurement_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <!--                                    <field name="length"/>-->
+                                    <field name="width"/>
+                                    <field name="height"/>
+                                    <field name="area"/>
+                                </list>
+                            </field>
+                            <h2 class="oe_subtotal_footer oe_right">
+                                <group>
+                                    <field name="total_sq_feet"/>
+                                </group>
+                            </h2>
+                        </page>
+                        <page string="Amenities">
+                            <field name="facility_ids">
+                                <list>
+                                    <field name="facility"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Nearby Connectivity">
+                            <field name="nearby_connectivity_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="direction"/>
+                                    <field name="kilometer"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                <chatter name="activity_ids"/>
+            </form>
+
+        </field>
+    </record>
+    <!-- Property kanban view -->
+    <record id="property_property_view_kanban" model="ir.ui.view">
+        <field name="name">property.property.view.kanban</field>
+        <field name="model">property.property</field>
+        <field name="arch" type="xml">
+            <kanban class="o_hr_employee_kanban"
+                    sample="1">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="image"/>
+                <field name="property_type"/>
+                <field name="street"/>
+                <field name="city"/>
+                <field name="state_id"/>
+                <field name="country_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_hr_kanban_record">
+                            <field name="image"
+                                   class="o_kanban_image_fill_left d-block"
+                                   preview_image="image"
+                                   widget="image"
+                                   options="{'zoom': true, 'zoom_delay': 1000}"/>
+
+                            <div class="oe_kanban_details">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <h3>
+                                                <field name="name"/>
+                                            </h3>
+                                        </strong>
+                                        <span t-if="record.property_type.raw_value"
+                                              class="o_kanban_record_subtitle">
+                                            <field name="property_type"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div t-if="record.street.raw_value">
+                                    <t t-esc="record.street.value"/>
+                                </div>
+                                <div t-if="record.state_id.raw_value">
+                                    <t t-esc="record.state_id.value"/>
+                                </div>
+                                <div t-if="record.country_id.raw_value">
+                                    <t t-esc="record.country_id.value"/>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_content o_hr_employee_kanban_bottom position-absolute bottom-0 start-0 end-0 me-2 pe-none">
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left"/>
+                                    <div class="oe_kanban_bottom_right float-end pe-auto">
+                                        <div class="hr_activity_container mb-1 me-n1">
+                                            <field name="activity_ids"
+                                                   widget="kanban_activity"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <!-- Property search view -->
+    <record id="property_property_view_search" model="ir.ui.view">
+        <field name="name">property.property.view.search</field>
+        <field name="model">property.property</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Name"/>
+                <field name="street" string="Street"/>
+                <field name="state_id" string="State"/>
+                <group expand="1" string="Group By">
+                    <filter string="Status" context="{'group_by':'state'}"
+                            name="state"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="edit_project_search_inherit" model="ir.ui.view">
+        <field name="name">edit.project.form.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="Properties">
+                    <field name="property_ids">
+                        <list>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="property_type"/>
+                            <field name="project_id"/>
+                            <field name="landlord_id"/>
+                            <field name="street"/>
+                            <field name="city"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="edit_project_search_inherit_header" model="ir.ui.view">
+        <field name="name">edit.project.form.inherit.header</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="before">
+                    <field name="property_image" widget="image" class="oe_avatar"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="edit_project_search_inherit_page" model="ir.ui.view">
+        <field name="name">edit.project.form.inherit.page</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='description']" position="before">
+                <page name="Details">
+                    <form>
+                        <h2 style="color:grey; text-decoration: underline;">Information</h2>
+                        <group>
+                            <group>
+                                <field name="project_number"/>
+                                <field name="email_address"/>
+                                <field name="description"/>
+                            </group>
+                            <group>
+                                <field name="number_of_building"/>
+                                <!--                                <field name="status"/>-->
+                                <field name="rera_number"/>
+                            </group>
+                        </group>
+                        <h2 style="color:grey; text-decoration: underline;">Location Detail</h2>
+                        <group>
+                            <field name="project_address"/>
+                            <field name="office_location"/>
+                            <field name="city"/>
+                            <field name="po_box"/>
+                        </group>
+                        <h2 style="color:grey; text-decoration: underline;">Developer and Contractor Details</h2>
+                        <group>
+                            <field name="contractor"/>
+                            <field name="project_developer_name"/>
+                            <field name="seller_name"/>
+                        </group>
+                        <h2 style="color:grey; text-decoration: underline;">Additional Information</h2>
+                        <group>
+                            <field name="amenties"/>
+                            <field name="Video" clickable="True"/>
+                        </group>
+                    </form>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>
