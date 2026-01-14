@@ -16,9 +16,13 @@
                     <field name="state" widget="statusbar" options="{'clickable': True}"/>
                 </header>
                 <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="handover_name" required="1"/>
+                        </h1>
+                    </div>
                     <group>
                         <group>
-                            <field name="handover_name" required="1"/>
                             <field name="customer_name" required="1"/>
                             <field name="sale_order_id" required="1"/>
                             <field name="unit" required="1"/>
@@ -159,15 +163,7 @@
                                 </group>
                             </group>
                         </page>
-                        <page string="System Information">
-                            <group>
-                                <field name="create_uid"/>
-                                <field name="create_date" string="Created On"/>
-                                <field name="write_uid" string="Last Modified by"/>
-                                <field name="write_date" string="Last Modified On"/>
-                            </group>
-                        </page>
-                        <page string="Documents">
+                          <page string="Documents">
                             <field name="document_id">
                                 <list editable="bottom" create="0">
                                     <field name="handover_document_id" readonly="1" force_save="1"/>
@@ -177,6 +173,14 @@
                                     <field name="image" filename="image_name" widget="download" column_invisible="True"/>
                                 </list>
                             </field>
+                        </page>
+                        <page string="System Information">
+                            <group>
+                                <field name="create_uid"/>
+                                <field name="create_date" string="Created On"/>
+                                <field name="write_uid" string="Last Modified by"/>
+                                <field name="write_date" string="Last Modified On"/>
+                            </group>
                         </page>
                     </notebook>
                 </sheet>
