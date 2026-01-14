@@ -169,12 +169,12 @@
                         </page>
                         <page string="Documents">
                             <field name="document_id">
-                                <list editable="bottom">
+                                <list editable="bottom" create="0">
                                     <field name="handover_document_id" readonly="1" force_save="1"/>
                                     <field name="filename" column_invisible="True"/>
                                     <field name="file" filename="filename" widget="download"/>
                                     <field name="image_name" column_invisible="True"/>
-                                    <field name="image" filename="image_name" widget="download"/>
+                                    <field name="image" filename="image_name" widget="download" column_invisible="True"/>
                                 </list>
                             </field>
                         </page>
