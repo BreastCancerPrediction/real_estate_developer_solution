@@ -209,7 +209,7 @@
                         <group>
                             <field name="project_id"/>
                             <field name="property_type" widget="radio"
-                                   options="{'horizontal': True}" invisible="1"/>
+                                   options="{'horizontal': True}"/>
                             <field name="construct_year"/>
                             <field name="property_tags"
                                    widget="many2many_tags"/>
@@ -574,7 +574,7 @@
                             <group>
                                 <field name="project_number"/>
                                 <field name="email_address"/>
-                                <field name="description"/>
+                                <field name="description" invisible="1"/>
                             </group>
                             <group>
                                 <field name="number_of_building"/>
